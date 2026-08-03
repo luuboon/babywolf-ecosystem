@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920" />
+  <meta name="theme-color" content="#1a1a2e" />
+
+  <!-- Content Security Policy: sólo scripts propios; imágenes y datos
+       únicamente desde los orígenes del caso de estudio. -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: https://images.unsplash.com https://uwzynkvnqcupthvrtkry.supabase.co;
+    media-src 'self' https://images.unsplash.com https://uwzynkvnqcupthvrtkry.supabase.co;
+    connect-src 'self' https://babywolf-blog-production.up.railway.app http://localhost:8090;
+    base-uri 'none';
+    object-src 'none';
+  " />
+
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <title>BabyWolf TV — Noticias retro y consolas</title>
+</head>
+<body>
+  <!-- Recurso multimedia de fondo: cambia con la noticia seleccionada.
+       Si la imagen no carga, queda el color sólido de --fondo. -->
+  <div id="bgImage" class="bg-image" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
+
+  <header class="tv-header">
+    <span class="marca">Baby<span class="marca-acento">Wolf</span></span>
+    <span id="reloj" class="reloj">--:--</span>
+  </header>
+
+  <!-- Noticia enfocada, en grande: es el dato principal de la pantalla. -->
+  <section class="hero" aria-live="polite">
+    <p id="heroMeta" class="hero-meta">CARGANDO</p>
+    <h1 id="heroTitulo" class="hero-titulo">Conectando con BabyWolf…</h1>
+  </section>
+
+  <main id="grid" class="grid" role="main" aria-label="Noticias">
+    <article class="card focused" id="card0" tabindex="0" role="button">
+      <p class="card-cat">--</p>
+      <h2 class="card-titulo">--</h2>
+      <p class="card-fecha">--</p>
+    </article>
+    <article class="card" id="card1" tabindex="-1" role="button">
+      <p class="card-cat">--</p>
+      <h2 class="card-titulo">--</h2>
+      <p class="card-fecha">--</p>
+    </article>
+    <article class="card" id="card2" tabindex="-1" role="button">
+      <p class="card-cat">--</p>
+      <h2 class="card-titulo">--</h2>
+      <p class="card-fecha">--</p>
+    </article>
+    <article class="card" id="card3" tabindex="-1" role="button">
+      <p class="card-cat">--</p>
+      <h2 class="card-titulo">--</h2>
+      <p class="card-fecha">--</p>
+    </article>
+  </main>
+
+  <footer class="tv-footer">
+    <span id="estadoDatos" class="estado">Cargando noticias…</span>
+    <span class="ayuda">← ↑ ↓ → navegar · OK seleccionar</span>
+  </footer>
+
+  <script src="./js/api.js"></script>
+  <script src="./js/sync.js"></script>
+  <script src="./js/navigation.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+/* BabyWolf TV — diseño 10-foot para 1920x1080.
+   Paleta tomada de la guía de estilos del blog. */
+
+:root {
+  /* Safe zone del 5%: nada de contenido toca el borde del televisor. */
+  --safe-v: 54px;   /* 5% de 1080 */
+  --safe-h: 96px;   /* 5% de 1920 */
+
+  --fondo: #1a1a2e;
+  --superficie: #16213e;
+  --neon: #e94560;
+  --oro: #ffd166;   /* foco del D-pad */
+  --texto: rgba(255, 255, 255, 0.94);
+  --tenue: rgba(255, 255, 255, 0.66);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 1920px;
+  height: 1080px;
+  /* Una TV no hace scroll: todo tiene que caber en 1080px. */
+  overflow: hidden;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  position: relative;
+  padding: var(--safe-v) var(--safe-h);
+  display: grid;
+  /* El grid de noticias absorbe el espacio sobrante (1fr): así nunca
+     desborda, sin importar cuánto midan el hero o el header. */
+  grid-template-rows: auto auto 1fr auto;
+  gap: 26px;
+}
+
+/* ── Fondo multimedia ─────────────────────────────────────────── */
+.bg-image {
+  position: fixed;
+  inset: 0;
+  background-color: var(--fondo);   /* fallback si la imagen no carga */
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.4s ease;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  /* Oscurece la portada para que el texto conserve contraste AA encima,
+     dejándola visible del lado derecho: así se nota que cambia al seleccionar. */
+  background: linear-gradient(
+    100deg,
+    rgba(26, 26, 46, 0.96) 0%,
+    rgba(26, 26, 46, 0.86) 50%,
+    rgba(26, 26, 46, 0.55) 100%
+  );
+  z-index: -1;
+}
+
+/* ── Header ───────────────────────────────────────────────────── */
+.tv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.marca {
+  font-size: 2.5rem;      /* 40px */
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.marca-acento { color: var(--neon); }
+
+.reloj {
+  font-size: 2rem;        /* 32px */
+  font-weight: 600;
+  color: var(--tenue);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Hero: la noticia seleccionada ────────────────────────────── */
+.hero { min-height: 0; }
+
+.hero-meta {
+  margin: 0 0 10px;
+  font-size: 2rem;        /* 32px — etiqueta secundaria */
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--neon);
+}
+
+.hero-titulo {
+  margin: 0;
+  font-size: 5rem;        /* 80px — dato principal, legible a 3 metros */
+  font-weight: 800;
+  line-height: 1.08;
+  /* Dos líneas como máximo: más que eso se comería el grid. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Grid 2x2 de noticias ─────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
+  min-height: 0;
+}
+
+.card {
+  /* Semi-transparente con blur (el "glassmorphism" de la guía de estilos):
+     deja intuir la portada de fondo sin restarle contraste al texto. */
+  background: rgba(22, 33, 62, 0.88);
+  backdrop-filter: blur(8px);
+  border: 4px solid transparent;
+  border-radius: 14px;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+/* Foco del D-pad: borde y glow dorados, imposibles de confundir. */
+.card.focused {
+  border-color: var(--oro);
+  box-shadow: 0 0 0 6px rgba(255, 209, 102, 0.28),
+              0 0 42px rgba(255, 209, 102, 0.45);
+  transform: scale(1.015);
+}
+
+.card:focus { outline: none; }  /* el estilo .focused ya lo señala */
+
+.card-cat {
+  margin: 0;
+  font-size: 2rem;        /* 32px */
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: var(--neon);
+}
+
+.card-titulo {
+  margin: 0;
+  font-size: 2.5rem;      /* 40px */
+  font-weight: 700;
+  line-height: 1.15;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-fecha {
+  margin: 0;
+  font-size: 1.5rem;      /* 24px — detalle */
+  color: var(--tenue);
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+.tv-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;      /* 24px */
+  color: var(--tenue);
+}
+
+.estado.error { color: var(--neon); font-weight: 700; }

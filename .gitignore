@@ -1,0 +1,27 @@
+# Secretos — requisito crítico de la rúbrica: nada de esto entra al repo
+.env
+.env.*
+*.jks
+*.keystore
+key.properties
+google-services.json
+
+# Flutter / Dart
+build/
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/release/
+*.iml
+
+# IDE / SO
+.idea/
+.vscode/
+.DS_Store
