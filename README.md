@@ -85,11 +85,30 @@ el panel con las métricas que llegan del wearable.
 
 ### APK firmado
 
-El keystore vive **fuera del repositorio** (`~/.android/babywolf-release.jks`) y
-`android/key.properties` está en `.gitignore`. Para generarlo:
+El keystore vive **fuera del repositorio** y `android/key.properties` está en
+`.gitignore`: ninguna contraseña llega al historial de Git.
 
 ```bash
+# 1. Crear el keystore (una sola vez; pide contraseña de forma interactiva)
+keytool -genkey -v -keystore ~/.android/babywolf-release.jks \
+  -keyalg RSA -keysize 2048 -validity 10000 -alias babywolf
+
+# 2. Rellenar las credenciales a partir de la plantilla
+cp phone_app/android/key.properties.example phone_app/android/key.properties
+#    y editar storeFile, storePassword, keyAlias y keyPassword
+
+# 3. Compilar
 cd phone_app && flutter build apk --release
+```
+
+Sin `key.properties` el build no falla: cae al keystore de debug para que
+`flutter run --release` siga funcionando en otra máquina.
+
+Para comprobar que quedó firmado con el certificado correcto:
+
+```bash
+~/Library/Android/sdk/build-tools/*/apksigner verify --print-certs \
+  phone_app/build/app/outputs/flutter-apk/app-release.apk
 ```
 
 ## Documentación

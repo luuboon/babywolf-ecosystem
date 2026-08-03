@@ -11,7 +11,7 @@ en [`evidencias/`](evidencias/).
 
 | Total | Pasan | Fallan |
 |---|---|---|
-| 15 | 15 | 0 |
+| 16 | 16 | 0 |
 
 ---
 
@@ -105,6 +105,26 @@ En los 8 bordes el foco **no se pierde ni salta**: permanece en la tarjeta actua
 
 Verificado además de extremo a extremo: al tocar "Esta es una prueba" en el teléfono, el hub pasó de `renacer-8-bits` a `esta-es-una-prueba` y la TV cambió su titular a esa noticia.
 
+### CP-16 · El APK de release está firmado y es instalable
+**Pasos:** `flutter build apk --release`, verificar con `apksigner` e instalar en el emulador.
+**Esperado:** firmado con el certificado propio (no el de debug), instalable y funcional.
+**Resultado:** ✅ APK de 46.5 MB.
+
+```console
+$ apksigner verify --print-certs app-release.apk
+V2 Signer: certificate DN: CN=Abraham Duran, OU=Uteq, O=Uteq, L=Queretaro, ST=Qro, C=MX
+V2 Signer: certificate SHA-256 digest: 1d2bd136438f7e6fc13d5e4f99db12e709bb60b029b81f4333c2f1b29a8c6665
+
+$ apksigner verify app-release.apk ; echo $?
+0
+```
+
+Confirmación adicional de que **no** usa la firma de debug: al intentar instalarlo
+sobre el APK de debug, Android lo rechazó con
+`INSTALL_FAILED_UPDATE_INCOMPATIBLE: signatures do not match`. Tras desinstalar el
+debug, la instalación fue `Success` y la app arrancó cargando noticias reales
+(`pid 3748`). Ver `09-telefono-apk-release-firmado.png`.
+
 ---
 
 ## Pruebas de validación de entrada
@@ -131,6 +151,7 @@ Además de los 15 casos, se comprobó que el hub descarta lo que no cumple el co
 | `06-telefono-wearable-desconectado.png` | Estado desconectado sin cierre inesperado |
 | `07-tv-grid-1920x1080.png` | Smart TV con el grid 2×2 a resolución real |
 | `08-telefono-error-de-red.png` | Manejo del error de red |
+| `09-telefono-apk-release-firmado.png` | APK de release firmado, instalado y funcionando |
 
 ---
 

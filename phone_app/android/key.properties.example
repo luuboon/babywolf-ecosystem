@@ -1,0 +1,17 @@
+# Plantilla de credenciales de firma.
+#
+# Copiar a `key.properties` (mismo directorio) y rellenar con los datos reales.
+# `key.properties` está en .gitignore y NUNCA debe versionarse: contiene las
+# contraseñas del keystore.
+#
+#   cp android/key.properties.example android/key.properties
+#
+# El keystore vive fuera del repositorio. Para crearlo:
+#
+#   keytool -genkey -v -keystore ~/.android/babywolf-release.jks \
+#     -keyalg RSA -keysize 2048 -validity 10000 -alias babywolf
+
+storeFile=/Users/TU_USUARIO/.android/babywolf-release.jks
+storePassword=LA_CONTRASEÑA_DEL_KEYSTORE
+keyAlias=babywolf
+keyPassword=LA_CONTRASEÑA_DE_LA_CLAVE
