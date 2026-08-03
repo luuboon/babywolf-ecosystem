@@ -155,4 +155,6 @@ igual que una trama corrupta en una radio real.
 
 ---
 
-**Firma del alumno:** _______________________  **Fecha:** ______________
+**Alumno:** Luis Abraham Camacho Durán    **Fecha:** 03 de agosto de 2026
+
+**Firma:** ___________________________________

@@ -155,4 +155,6 @@ Además de los 15 casos, se comprobó que el hub descarta lo que no cumple el co
 
 ---
 
-**Firma del alumno:** _______________________  **Fecha:** ______________
+**Alumno:** Luis Abraham Camacho Durán    **Fecha:** 03 de agosto de 2026
+
+**Firma:** ___________________________________
