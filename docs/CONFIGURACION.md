@@ -202,8 +202,26 @@ adb devices
 adb -s emulator-5556 emu avd name     # imprime el AVD que corre ahí
 ```
 
-Las capturas de cada emulador funcionando están en
-[`evidencias/`](evidencias/).
+### 2.5 Evidencia: cada emulador corriendo
+
+**Emulador Wear OS** (`Wear_OS_Large_Round`, 454×454, redondo, API 36) con la app
+generando datos. El punto verde indica que el enlace GATT está establecido:
+
+![Emulador Wear OS corriendo](evidencias/02-wearable-generando.png)
+
+**Emulador de teléfono** (`Pixel_9`, API 37, 2048 MB) mostrando el feed con datos
+reales de la API:
+
+![Emulador de teléfono corriendo](evidencias/03-telefono-feed.png)
+
+**Emulación de Smart TV** en Chrome a 1920×1080, con el grid 2×2 y el foco del
+D-pad sobre la primera tarjeta:
+
+![Emulación de Smart TV a 1920x1080](evidencias/07-tv-grid-1920x1080.png)
+
+El resto de capturas —alerta de umbral, desconexión del wearable, error de red,
+APK firmado— están en [`evidencias/`](evidencias/) y se referencian desde
+[PLAN_PRUEBAS.md](PLAN_PRUEBAS.md).
 
 ---
 

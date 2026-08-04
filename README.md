@@ -115,9 +115,12 @@ Para comprobar que quedó firmado con el certificado correcto:
 
 | Documento | Contenido |
 |---|---|
+| [docs/LISTA_COTEJO.md](docs/LISTA_COTEJO.md) | **Empieza por aquí**: cada elemento de la rúbrica y dónde está su evidencia |
 | [docs/SEGURIDAD.md](docs/SEGURIDAD.md) | Validación de origen, LFPDPPP, aviso de privacidad, retención de datos |
 | [docs/PLAN_PRUEBAS.md](docs/PLAN_PRUEBAS.md) | Plan y reporte de pruebas, con resultados medidos |
 | [docs/CONFIGURACION.md](docs/CONFIGURACION.md) | Herramientas, emuladores y troubleshooting |
+
+Los tres documentos firmados están en [`docs/pdf/`](docs/pdf/).
 
 ## Sobre los secretos
 

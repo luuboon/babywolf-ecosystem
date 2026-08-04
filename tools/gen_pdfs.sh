@@ -57,6 +57,17 @@ pre {
 }
 pre code { background: none; padding: 0; }
 blockquote { border-left: 3px solid #ccc; margin-left: 0; padding-left: 12px; color: #555; }
+
+/* Capturas de evidencia. Las del teléfono son 1080x2424: sin un tope de altura
+   cada una se come una página entera y deja medio folio en blanco. */
+figure { margin: 12px 0; break-inside: avoid; text-align: center; }
+figure img { max-width: 100%; max-height: 128mm; }
+figcaption {
+  font-size: 8.5pt;
+  color: #555;
+  font-style: italic;
+  margin-top: 5px;
+}
 hr { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
 a { color: #16213e; }
 
@@ -79,8 +90,11 @@ EOF
 
 for md in SEGURIDAD PLAN_PRUEBAS CONFIGURACION; do
   html="$(mktemp -t "$md").html"
+  # --resource-path: sin esto pandoc no resuelve las rutas relativas de las
+  # imágenes (evidencias/*.png) y las omite en silencio salvo por un warning.
   pandoc "$RAIZ/docs/$md.md" \
     --standalone --embed-resources \
+    --resource-path="$RAIZ/docs" \
     --metadata title="" \
     --css "$CSS" \
     -o "$html"

@@ -264,7 +264,7 @@ class _PostCard extends StatelessWidget {
                       Text(
                         post.category.toUpperCase(),
                         style: const TextStyle(
-                          color: kNeon,
+                          color: kNeonTexto,
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.2,

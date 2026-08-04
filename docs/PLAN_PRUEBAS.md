@@ -11,7 +11,7 @@ en [`evidencias/`](evidencias/).
 
 | Total | Pasan | Fallan |
 |---|---|---|
-| 16 | 16 | 0 |
+| 17 | 17 | 0 |
 
 ---
 
@@ -124,6 +124,32 @@ sobre el APK de debug, Android lo rechazó con
 `INSTALL_FAILED_UPDATE_INCOMPATIBLE: signatures do not match`. Tras desinstalar el
 debug, la instalación fue `Success` y la app arrancó cargando noticias reales
 (`pid 3748`). Ver `09-telefono-apk-release-firmado.png`.
+
+### CP-17 · Contraste WCAG AA en la pantalla de TV
+**Motivo:** a tres metros de distancia, un texto con poco contraste deja de leerse.
+**Método:** cálculo del ratio de contraste según la fórmula de luminancia relativa
+de WCAG 2.1, tomando el **peor caso**: una portada completamente blanca detrás
+del degradado y de las tarjetas translúcidas.
+**Esperado:** todos los textos ≥ 4.5:1.
+**Resultado:** ✅ tras corregir el color de texto.
+
+| Elemento | Tamaño | Contraste | AA (4.5:1) |
+|---|---|---|---|
+| Titular de la noticia | 80 px | 13.75:1 | ✅ |
+| Título de tarjeta | 40 px | 12.21:1 | ✅ |
+| Foco dorado sobre tarjeta | — | 9.47:1 | ✅ |
+| Footer | 24 px | 7.46:1 | ✅ |
+| Fecha de tarjeta | 24 px | 6.87:1 | ✅ |
+| Etiqueta del hero | 32 px | 5.60:1 | ✅ |
+| Categoría de tarjeta | 32 px | 4.97:1 | ✅ |
+
+**Corrección aplicada.** El `#e94560` de la guía de estilos daba **3.57:1** sobre
+las tarjetas. Cumple el mínimo de WCAG para texto grande (3:1), que es el que
+técnicamente le corresponde a un texto de 32 px, pero no el 4.5:1 general. Se
+introdujo `--neon-texto: #f2748a`, una derivación más clara del mismo tono, que
+se usa **sólo en texto**; el `#e94560` original se conserva en bordes, glows y
+botones, donde no hay requisito de legibilidad. La misma corrección se aplicó al
+chip de categoría del teléfono, que a 11 px sí está sujeto al 4.5:1 estricto.
 
 ---
 

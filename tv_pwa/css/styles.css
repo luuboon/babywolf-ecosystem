@@ -8,7 +8,11 @@
 
   --fondo: #1a1a2e;
   --superficie: #16213e;
-  --neon: #e94560;
+  --neon: #e94560;        /* Action Red del blog: bordes, glows, acentos */
+  /* Derivación más clara del mismo tono, sólo para TEXTO. El #e94560 sobre las
+     tarjetas se queda en 3.57:1 y no alcanza el 4.5:1 que exige WCAG AA; este
+     llega a 4.97:1 incluso con una portada blanca detrás. */
+  --neon-texto: #f2748a;
   --oro: #ffd166;   /* foco del D-pad */
   --texto: rgba(255, 255, 255, 0.94);
   --tenue: rgba(255, 255, 255, 0.66);
@@ -76,7 +80,7 @@ body {
   letter-spacing: -1px;
 }
 
-.marca-acento { color: var(--neon); }
+.marca-acento { color: var(--neon-texto); }
 
 .reloj {
   font-size: 2rem;        /* 32px */
@@ -93,7 +97,7 @@ body {
   font-size: 2rem;        /* 32px — etiqueta secundaria */
   font-weight: 800;
   letter-spacing: 3px;
-  color: var(--neon);
+  color: var(--neon-texto);
 }
 
 .hero-titulo {
@@ -149,7 +153,7 @@ body {
   font-size: 2rem;        /* 32px */
   font-weight: 800;
   letter-spacing: 2.5px;
-  color: var(--neon);
+  color: var(--neon-texto);
 }
 
 .card-titulo {
@@ -178,4 +182,4 @@ body {
   color: var(--tenue);
 }
 
-.estado.error { color: var(--neon); font-weight: 700; }
+.estado.error { color: var(--neon-texto); font-weight: 700; }

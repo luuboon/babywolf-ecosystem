@@ -19,7 +19,7 @@ class DetailScreen extends StatelessWidget {
         title: Text(
           post.category.toUpperCase(),
           style: const TextStyle(
-            color: kNeon,
+            color: kNeonTexto,
             fontSize: 13,
             fontWeight: FontWeight.w800,
             letterSpacing: 2,
