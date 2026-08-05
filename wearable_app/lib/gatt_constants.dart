@@ -18,9 +18,13 @@ const String kCharNoticiasSinLeer = '0000bab2-0000-1000-8000-00805f9b34fb';
 const String kCharMinutosLectura = '0000bab3-0000-1000-8000-00805f9b34fb';
 
 /// Por encima de este backlog el teléfono levanta alerta visible.
-const int kUmbralNoticiasSinLeer = 10;
+/// El blog ronda las 6 noticias publicadas, así que el umbral se fija en 4:
+/// alto para que no salte por cualquier cosa, bajo para que se pueda apagar
+/// leyendo un par de noticias durante la demo.
+const int kUmbralNoticiasSinLeer = 4;
 
-/// Temas del blog BabyWolf. Coinciden con la columna `category` de la API.
+/// Temas conocidos del blog. Sólo se usan como respaldo: los temas reales los
+/// trae `consultarBlog()` desde la columna `category` de la API.
 const List<String> kTemas = ['retro', 'gaming', 'tech', 'opinion'];
 
 /// Dónde vive el hub que hace de medio físico (ver hub/hub.dart).

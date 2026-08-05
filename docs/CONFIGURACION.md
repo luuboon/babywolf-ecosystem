@@ -80,6 +80,7 @@ herramienta, no porque haya video en la entrega.
 
 | Paquete | Versión | Para qué |
 |---|---|---|
+| `http` | ^1.6.0 | Consultar los temas y el conteo real de noticias del blog |
 | `flutter_lints` | ^6.0.0 | Análisis estático |
 | `flutter_launcher_icons` | ^0.14.4 | Ícono propio (lobo pixel) |
 

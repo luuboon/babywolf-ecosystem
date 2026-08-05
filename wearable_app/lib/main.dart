@@ -1,13 +1,17 @@
 // BabyWolf Wear — widget de temas del blog para Wear OS.
 //
-// Muestra el tema que se está leyendo con su icono de consola retro y simula
-// la actividad de lectura, publicándola por GATT hacia el teléfono.
+// Muestra el tema que se está leyendo con su icono de consola retro y publica
+// la actividad por GATT hacia el teléfono.
+//
+// Los temas y el número de noticias son REALES: salen de la misma API que
+// alimenta al teléfono y a la Smart TV. Lo único simulado es el acto de leer
+// —eso es actividad del usuario y ningún emulador tiene un sensor que lo mida.
 
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'blog_api.dart';
 import 'gatt_codec.dart';
 import 'gatt_constants.dart';
 import 'gatt_peripheral.dart';
@@ -54,19 +58,36 @@ class PantallaTemas extends StatefulWidget {
   State<PantallaTemas> createState() => _PantallaTemasState();
 }
 
+/// Cada cuánto "lee" una noticia. A este ritmo las ~6 del blog se leen en unos
+/// tres minutos: alcanza para ver la alerta encenderse y apagarse en la demo.
+const _cadaCuantoLee = Duration(seconds: 30);
+
+/// Cada cuánto se vuelve a preguntar al blog. Si publicas una noticia durante
+/// la demo, el contador del reloj sube dentro de este plazo.
+const _cadaCuantoRefresca = Duration(seconds: 60);
+
 class _PantallaTemasState extends State<PantallaTemas> {
   final _gatt = GattPeripheral();
-  final _rand = Random();
   Timer? _anuncio;
   Timer? _generador;
+  Timer? _refresco;
   StreamSubscription<bool>? _subEnlace;
 
   bool _generando = false;
   bool _conectado = false;
   int _temaIdx = 0;
-  int _sinLeer = 0;
   double _minutos = 0;
   int _tick = 0;
+
+  /// Lo que dice el blog ahora mismo.
+  ResumenBlog _blog = ResumenBlog.vacio;
+  bool _apiOk = false;
+
+  /// Noticias que el usuario ya leyó. Es lo único que se simula.
+  int _leidas = 0;
+
+  List<String> get _temas => _blog.temas;
+  int get _sinLeer => (_blog.total - _leidas).clamp(0, 9999);
 
   @override
   void initState() {
@@ -82,12 +103,32 @@ class _PantallaTemasState extends State<PantallaTemas> {
     _anuncio = Timer.periodic(const Duration(seconds: 2), (_) {
       _gatt.notify(kServiceUuid, GattCodec.encodeString('BabyWolf Wear'));
     });
+
+    _cargarBlog();
+    _refresco = Timer.periodic(_cadaCuantoRefresca, (_) => _cargarBlog());
+  }
+
+  /// Trae los temas y el conteo reales. Si falla, el reloj sigue en pie con el
+  /// último dato bueno: una demo no se cae por un corte de red.
+  Future<void> _cargarBlog() async {
+    try {
+      final resumen = await consultarBlog();
+      if (!mounted) return;
+      setState(() {
+        _blog = resumen;
+        _apiOk = true;
+        if (_temaIdx >= _temas.length) _temaIdx = 0;
+      });
+    } catch (_) {
+      if (mounted) setState(() => _apiOk = false);
+    }
   }
 
   @override
   void dispose() {
     _anuncio?.cancel();
     _generador?.cancel();
+    _refresco?.cancel();
     _subEnlace?.cancel();
     _gatt.detener();
     super.dispose();
@@ -102,25 +143,30 @@ class _PantallaTemasState extends State<PantallaTemas> {
     }
   }
 
-  /// Simulador de sensores: una lectura por segundo, como pide la rúbrica.
+  /// Una lectura por segundo, como pide la rúbrica.
+  ///
+  /// El tema y el contador salen del blog real; sólo se simula que el usuario
+  /// va leyendo, que es justo lo que un emulador no puede medir.
   void _generar() {
+    if (_temas.isEmpty) return;
+
     setState(() {
       _tick++;
       // El tema cambia cada 5 s, como si el usuario navegara entre secciones.
-      if (_tick % 5 == 0) _temaIdx = (_temaIdx + 1) % kTemas.length;
-      // El backlog crece casi siempre y baja cuando alcanza a leer algo.
-      _sinLeer = (_sinLeer + _rand.nextInt(4) - 1).clamp(0, 40);
-      _minutos += 1 / 60;
+      if (_tick % 5 == 0) _temaIdx = (_temaIdx + 1) % _temas.length;
+      // Va leyendo: lo único simulado de los tres valores.
+      if (_tick % _cadaCuantoLee.inSeconds == 0 && _sinLeer > 0) _leidas++;
+      _minutos += 1 / 60; // cronómetro real de la sesión
     });
 
-    _gatt.notify(kCharTemaActivo, GattCodec.encodeString(kTemas[_temaIdx]));
+    _gatt.notify(kCharTemaActivo, GattCodec.encodeString(_temas[_temaIdx]));
     _gatt.notify(kCharNoticiasSinLeer, GattCodec.encodeUint16(_sinLeer));
     _gatt.notify(kCharMinutosLectura, GattCodec.encodeFloat32(_minutos));
   }
 
   @override
   Widget build(BuildContext context) {
-    final tema = kTemas[_temaIdx];
+    final tema = _temas.isEmpty ? '—' : _temas[_temaIdx];
     final critico = _sinLeer > kUmbralNoticiasSinLeer;
 
     return Scaffold(
@@ -148,15 +194,28 @@ class _PantallaTemasState extends State<PantallaTemas> {
     );
   }
 
+  /// Dos indicadores: el enlace con el teléfono y el origen de los datos.
+  /// Así, durante la demo, se ve de un vistazo que los números vienen del blog.
   Widget _enlaceGatt() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(width: 6, height: 6, color: _conectado ? _verde : _tenue),
-        const SizedBox(width: 5),
+        _punto(_conectado ? _verde : _tenue, _conectado ? 'GATT' : 'SIN ENLACE'),
+        const SizedBox(width: 10),
+        _punto(_apiOk ? _verde : _tenue, 'API'),
+      ],
+    );
+  }
+
+  Widget _punto(Color color, String etiqueta) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(width: 6, height: 6, color: color),
+        const SizedBox(width: 4),
         Text(
-          _conectado ? 'GATT' : 'SIN ENLACE',
-          style: const TextStyle(color: _tenue, fontSize: 9, letterSpacing: 1.5),
+          etiqueta,
+          style: const TextStyle(color: _tenue, fontSize: 9, letterSpacing: 1.2),
         ),
       ],
     );
@@ -194,15 +253,17 @@ class _PantallaTemasState extends State<PantallaTemas> {
     );
   }
 
+  /// Un icono por tema REAL del blog: si publicas una categoría nueva,
+  /// aparece aquí sola tras el siguiente refresco.
   Widget _tiraTemas() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        for (var i = 0; i < kTemas.length; i++)
+        for (var i = 0; i < _temas.length; i++)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Icon(
-              _consolas[kTemas[i]],
+              _consolas[_temas[i]] ?? Icons.article_outlined,
               size: 15,
               color: i == _temaIdx ? _neon : _tenue,
             ),
@@ -225,7 +286,8 @@ class _PantallaTemasState extends State<PantallaTemas> {
           ),
         ),
         Text(
-          'sin leer · ${_minutos.toStringAsFixed(1)} min',
+          // "de N" es el total publicado en el blog: dato real, no inventado.
+          'sin leer de ${_blog.total} · ${_minutos.toStringAsFixed(1)} min',
           style: const TextStyle(color: _tenue, fontSize: 10.5),
         ),
       ],

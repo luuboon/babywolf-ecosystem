@@ -65,13 +65,16 @@ Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
 |---|---|---|---|
 | Noticias del blog (título, contenido, portada, categoría) | No | Contenido editorial público | API pública |
 | `author_id` de cada noticia | Sí, identificador | Art. 8 — consentimiento del autor al publicar | Base de datos del blog |
-| Tema activo, noticias sin leer, minutos de lectura | **No en esta entrega** | — | Sólo en memoria |
+| Temas y número de noticias del wearable | No | Contenido editorial público | Se consultan a la API, se guardan en memoria |
+| Noticias leídas y minutos de sesión | **No en esta entrega** | — | Sólo en memoria |
 | Noticia seleccionada (`slug`) | No | — | Memoria del hub |
 
-**Declaración honesta del alcance.** Las métricas del wearable son generadas por
-un simulador, no por sensores reales: no corresponden a ninguna persona. No hay
-cuentas, ni login, ni sensores biométricos en ninguno de los tres dispositivos.
-Por eso hoy el ecosistema **no trata datos personales de usuarios finales**.
+**Declaración honesta del alcance.** El wearable muestra datos reales del blog
+—qué temas existen y cuántas noticias tiene cada uno—, que son contenido
+editorial público, no datos de ninguna persona. Lo único que simula es el acto
+de leer, y ese contador vive en memoria y muere al cerrar la app. No hay cuentas,
+ni login, ni sensores biométricos en ninguno de los tres dispositivos. Por eso el
+ecosistema **no trata datos personales de usuarios finales**.
 
 Si el simulador se sustituyera por sensores reales (ritmo cardiaco, pasos), esos
 datos pasarían a ser **datos personales sensibles** (Art. 3, fracc. VI) y harían
@@ -112,7 +115,8 @@ del repositorio.
 
 | Dato | Dónde | Cuánto dura | Cómo se elimina |
 |---|---|---|---|
-| Métricas del wearable | Memoria de la app | Mientras la app está abierta | Se pierden al cerrarla; nada se persiste |
+| Temas y conteo del blog | Memoria del wearable | Hasta el siguiente refresco (60 s) | Se sobrescriben; nada se persiste |
+| Noticias leídas y minutos | Memoria del wearable | Mientras la app está abierta | Se pierden al cerrarla |
 | Noticia seleccionada | Memoria del hub | Hasta la siguiente selección | Se sobrescribe; el hub no guarda historial |
 | Noticias de la API | Cache del service worker | Hasta el siguiente `fetch` con red | `caches.delete()` al cambiar la versión del SW |
 | Estáticos de la PWA | Cache del service worker | Hasta cambiar la versión | El evento `activate` borra las caches viejas |

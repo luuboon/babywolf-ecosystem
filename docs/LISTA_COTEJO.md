@@ -14,7 +14,7 @@ rellenados.
 |---|---|---|
 | 1 | Proyecto Wear OS separado que compila | `wearable_app/` — compila, instala y arranca en `Wear_OS_Large_Round` |
 | 2 | Ícono propio, no el default **(Formato: PNG)** | Lobo pixel generado por `tools/gen_icons.py`; aplicado con `flutter_launcher_icons` |
-| 3 | Simulador genera datos cada segundo **(Datos: tema activo, noticias sin leer, minutos de lectura)** | `wearable_app/lib/main.dart` → `_generar()`, `Timer.periodic(1 s)` |
+| 3 | Genera datos cada segundo **(Datos: tema activo, noticias sin leer, minutos de lectura)** | `wearable_app/lib/main.dart` → `_generar()`, `Timer.periodic(1 s)`. Temas y conteo **reales de la API** (CP-06b); sólo se simula el acto de leer |
 | 4 | Al menos 3 tipos de datos | Tres características GATT: `string`, `uint16`, `float32` |
 | 5 | Pantalla muestra los datos en tiempo real | Evidencia `02-wearable-generando.png` |
 | 6 | Botón Iniciar/Detener | `_alternar()` — evidencias `01` (detenido) y `02` (generando) |
@@ -30,7 +30,7 @@ rellenados.
 | 3 | Bytes parseados según su tipo | `gatt_codec.dart` — CP-03, 5/5 pruebas automáticas |
 | 4 | `ActivityProvider` acumula y notifica a la UI | `phone_app/lib/providers/activity_provider.dart` |
 | 5 | Mínimo 3 métricas en tiempo real | Evidencia `04` — tema, sin leer, minutos + contador de notificaciones |
-| 6 | Alerta al superar umbral **(Umbral: más de 10 noticias sin leer)** | `kUmbralNoticiasSinLeer = 10`. Con 15 → banner rojo + alerta en el panel |
+| 6 | Alerta al superar umbral **(Umbral: más de 4 noticias sin leer)** | `kUmbralNoticiasSinLeer = 4`. Con las 6 reales → banner rojo + alerta en el panel; se apaga sola al bajar de 4 |
 | 7 | Estado de conexión BLE visible | Los cuatro estados: buscando / conectado / error / desconectado |
 | 8 | Al desconectar no crashea | CP-09 — `pid 7587` vivo, evidencia `06` |
 
@@ -97,8 +97,8 @@ rellenados.
 
 | # | Elemento | Dónde está |
 |---|---|---|
-| 1 | Al menos 10 casos | `PLAN_PRUEBAS.md` — **17 casos, 17 pasan** |
-| 2 | Prueba de API y error de red (P2.5) | CP-04 y CP-05 |
+| 1 | Al menos 10 casos | `PLAN_PRUEBAS.md` — **18 casos, 18 pasan** |
+| 2 | Prueba de API y error de red (P2.5) | CP-04, CP-05 y CP-06b |
 | 3 | Prueba de BLE NOTIFY (P2.6) | CP-07 |
 | 4 | Prueba de D-pad | CP-11 y CP-12 |
 | 5 | Prueba de modo offline | CP-14 |
@@ -113,7 +113,7 @@ rellenados.
 | 1 | Flutter y Dart SDK | `CONFIGURACION.md` §1.2 — Flutter 3.44.0, Dart 3.12.0 |
 | 2 | Android Studio y plugins | §1.3 — 2025.3, plugins Flutter y Dart |
 | 3 | Herramientas de la Unidad 3 | §1.4 — Chrome 150, DevTools, VS Code, ffmpeg 8.0.1 |
-| 4 | Dependencias con versión | §1.5 — `http`, `provider`, `flutter_launcher_icons` |
+| 4 | Dependencias con versión | §1.5 — `http` (teléfono y wearable), `provider`, `flutter_launcher_icons` |
 | 5 | Pasos reproducibles | §1.6 — desde una máquina limpia |
 
 ## SA.6.B — Configuración de emuladores · 5/5

@@ -11,7 +11,7 @@ en [`evidencias/`](evidencias/).
 
 | Total | Pasan | Fallan |
 |---|---|---|
-| 17 | 17 | 0 |
+| 18 | 18 | 0 |
 
 ---
 
@@ -48,17 +48,43 @@ en [`evidencias/`](evidencias/).
 ### CP-06 · El wearable genera datos cada segundo
 **Pasos:** abrir la app en `Wear_OS_Large_Round` y pulsar **Iniciar**.
 **Esperado:** los tres valores cambian una vez por segundo y el tema rota.
-**Resultado:** ✅ Tras 12 s: tema `TECH`, 4 sin leer, 0.2 min. El botón cambia a **Detener** y el icono de consola toma el glow. Ver `02-wearable-generando.png`.
+**Resultado:** ✅ El botón pasa a **Detener**, el icono de consola toma el glow y los contadores avanzan cada segundo. Ver `02-wearable-generando.png`.
+
+### CP-06b · Los temas y el contador del wearable salen de la API, no de un `Random`
+**Motivo:** un dato inventado no demuestra nada. Los temas del reloj tienen que
+ser las categorías reales del blog y el contador, el número real de noticias.
+**Pasos:** comparar lo que muestra el reloj con `GET /api/posts`.
+**Esperado:** coincidencia exacta en total, categorías y orden.
+
+| | La API dice | El reloj muestra |
+|---|---|---|
+| Total de noticias | 6 | `sin leer de 6` |
+| Categorías | retro 2, tech 2, opinion 1, gaming 1 | 4 iconos de consola |
+| Orden por volumen | retro → tech → opinion → gaming | mismo orden en la tira |
+
+**Resultado:** ✅ Coincidencia exacta. El indicador **API** del reloj se pone verde
+cuando la consulta responde. La app vuelve a preguntar cada 60 s: si se publica
+una noticia durante la demo, el contador sube solo.
+
+**Lo único simulado** es el acto de leer —una noticia cada 30 s—, porque es
+actividad del usuario y ningún emulador tiene un sensor que la mida. El
+cronómetro de minutos sí es real. Si la API no responde, el reloj sigue
+funcionando con el último dato bueno y el indicador API se apaga.
 
 ### CP-07 · Los datos del wearable llegan al teléfono por NOTIFY (P2.6)
 **Pasos:** con ambos emuladores activos, abrir el panel del wearable en el teléfono.
 **Esperado:** las tres métricas se actualizan en vivo.
-**Resultado:** ✅ `Tema activo: TECH` (string), `Noticias sin leer: 15` (uint16), `Minutos de lectura: 0.5` (float32), **96 notificaciones GATT recibidas**. Los tres tipos se decodifican correctamente. Ver `04-telefono-wearable-conectado-alerta.png`.
+**Resultado:** ✅ `Tema activo: OPINION` (string), `Noticias sin leer: 6` (uint16), `Minutos de lectura: 0.2` (float32), **273 notificaciones GATT recibidas**. Los tres tipos se decodifican correctamente. Ver `04-telefono-wearable-conectado-alerta.png`.
 
 ### CP-08 · El umbral crítico dispara una alerta visible
-**Umbral:** `noticias sin leer > 10`.
-**Esperado:** aviso visible sin abrir ningún menú.
-**Resultado:** ✅ Con 15 sin leer aparecen **dos** avisos: banner rojo sobre el feed ("Backlog crítico: 15 noticias sin leer en tech") y bloque de alerta en el panel. El indicador del reloj en la barra superior pasa a rojo.
+**Umbral:** `noticias sin leer > 4`. Se fija en 4 porque el blog ronda las 6
+noticias publicadas: alto para que no salte por cualquier cosa, bajo para que se
+pueda apagar leyendo un par durante la demo.
+**Esperado:** aviso visible sin abrir ningún menú, y que se apague solo al bajar del umbral.
+**Resultado:** ✅ Con las 6 noticias sin leer aparecen **dos** avisos: banner rojo sobre el feed ("Backlog crítico: 6 noticias sin leer en opinion") y bloque de alerta en el panel. El indicador del reloj en la barra superior pasa a rojo.
+
+Se comprobó también el ciclo completo: conforme el reloj va leyendo, el contador baja
+(6 → 3 → 1) y **la alerta se apaga sola** al cruzar el umbral, sin recargar nada.
 
 ### CP-09 · Desconectar el wearable no rompe el teléfono
 **Pasos:** `adb shell am force-stop com.babywolf.wearable_app`, esperar el timeout.
