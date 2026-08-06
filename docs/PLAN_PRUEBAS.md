@@ -89,7 +89,7 @@ Se comprobó también el ciclo completo: conforme el reloj va leyendo, el contad
 ### CP-09 · Desconectar el wearable no rompe el teléfono
 **Pasos:** `adb shell am force-stop com.babywolf.wearable_app`, esperar el timeout.
 **Esperado:** estado "desconectado", sin cierre inesperado.
-**Resultado:** ✅ El panel muestra **"Wearable desconectado"** con indicador gris y conserva los últimos valores (32, RETRO, 1.7 min, 306 notificaciones). Proceso vivo (`pid 7587`). Ver `06-telefono-wearable-desconectado.png`.
+**Resultado:** ✅ El panel muestra **"Wearable desconectado"** con indicador gris y conserva los últimos valores recibidos: `OPINION`, 5 sin leer, 0.9 min y 156 notificaciones GATT. La alerta de umbral sigue visible porque el último dato la superaba. Proceso vivo (`pid 3169`). Ver `06-telefono-wearable-desconectado.png`.
 
 ### CP-10 · La PWA cabe en 1080 px sin scroll
 **Esperado:** `scrollWidth` y `scrollHeight` exactamente 1920×1080.
@@ -201,7 +201,7 @@ cada caso es la función concreta que dependía de la pieza apagada.
 
 ## Pruebas de validación de entrada
 
-Además de los 15 casos, se comprobó que el hub descarta lo que no cumple el contrato:
+Además de los 19 casos, se comprobó que el hub descarta lo que no cumple el contrato:
 
 | Entrada | Respuesta |
 |---|---|
