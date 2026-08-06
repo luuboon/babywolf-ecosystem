@@ -97,7 +97,7 @@ rellenados.
 
 | # | Elemento | Dónde está |
 |---|---|---|
-| 1 | Al menos 10 casos | `PLAN_PRUEBAS.md` — **18 casos, 18 pasan** |
+| 1 | Al menos 10 casos | `PLAN_PRUEBAS.md` — **19 casos, 19 pasan** |
 | 2 | Prueba de API y error de red (P2.5) | CP-04, CP-05 y CP-06b |
 | 3 | Prueba de BLE NOTIFY (P2.6) | CP-07 |
 | 4 | Prueba de D-pad | CP-11 y CP-12 |

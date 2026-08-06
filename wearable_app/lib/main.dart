@@ -200,7 +200,10 @@ class _PantallaTemasState extends State<PantallaTemas> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _punto(_conectado ? _verde : _tenue, _conectado ? 'GATT' : 'SIN ENLACE'),
+        // Etiqueta siempre corta: en una pantalla redonda, un "SIN ENLACE"
+        // empuja el indicador de al lado fuera del área visible. El color ya
+        // dice el estado.
+        _punto(_conectado ? _verde : _tenue, 'GATT'),
         const SizedBox(width: 10),
         _punto(_apiOk ? _verde : _tenue, 'API'),
       ],

@@ -11,7 +11,7 @@ en [`evidencias/`](evidencias/).
 
 | Total | Pasan | Fallan |
 |---|---|---|
-| 18 | 18 | 0 |
+| 19 | 19 | 0 |
 
 ---
 
@@ -176,6 +176,26 @@ introdujo `--neon-texto: #f2748a`, una derivación más clara del mismo tono, qu
 se usa **sólo en texto**; el `#e94560` original se conserva en bordes, glows y
 botones, donde no hay requisito de legibilidad. La misma corrección se aplicó al
 chip de categoría del teléfono, que a 11 px sí está sujeto al 4.5:1 estricto.
+
+### CP-18 · Cada dispositivo funciona por su cuenta
+**Motivo:** en una demo en vivo algo puede fallar. Conviene saber qué se cae con
+qué, y que ninguna pieza arrastre a las demás.
+**Pasos:** apagar componentes de uno en uno y observar el resto.
+
+| Se apaga | El wearable | El teléfono | La Smart TV |
+|---|---|---|---|
+| **App del teléfono** | ✅ Sigue igual: GATT y API en verde, generando | — | ✅ Sigue mostrando noticias; deja de recibir selecciones nuevas |
+| **Hub** | ✅ Sigue generando y consultando la API; marca `GATT` en gris | ⚠️ "Sin enlace: ¿está corriendo el hub?"; el feed de noticias sigue | ✅ Sigue mostrando noticias; se pierde la sincronía |
+| **Red / API** | ✅ Sigue con el último dato bueno; apaga el indicador `API` | ⚠️ Pantalla de error con Reintentar (CP-05) | ✅ Modo offline desde el service worker (CP-14) |
+| **App del wearable** | — | ✅ "Wearable desconectado", conserva los últimos valores (CP-09) | ✅ Sin efecto |
+
+**Resultado:** ✅ Verificado apagando cada pieza. **El wearable es completamente
+independiente**: no necesita al teléfono para nada, porque consulta la API por su
+cuenta y sólo usa el hub para publicar. Con el teléfono muerto (`pid` confirmado
+como inexistente) el reloj siguió generando durante 40 s sin inmutarse.
+
+Ninguna caída provoca el cierre inesperado de otra app. Lo único que se pierde en
+cada caso es la función concreta que dependía de la pieza apagada.
 
 ---
 
