@@ -15,6 +15,31 @@ wearable y Smart TV. Los tres consumen el mismo caso de estudio, el blog
 | `tv_pwa/` | Smart TV (PWA, 1920×1080) | Las 4 noticias más recientes en un grid 2×2, navegable con D-pad. |
 | `hub/` | Proceso en la laptop | El "aire" entre dispositivos: GATT emulado y estado compartido. |
 
+## Prácticas de laboratorio (cuatrimestre septiembre–diciembre 2026)
+
+La app del teléfono se extendió con las prácticas del curso. No son apps
+nuevas: se abren desde el feed con el botón 🧪 **Prácticas de laboratorio**.
+
+| Práctica | Módulo |
+|---|---|
+| 1 y 2 · ESP32, sensor IR y botón | `phone_app/lib/laboratorio/p1_iot` + `firmware/` |
+| 3 · ConsultaWeb (URL preasignada) | `p3_consulta` |
+| 4 · Usuarios en SQLite | `p4_usuarios` |
+| 5 · AccesoSeguro | `p5_acceso` |
+| 6 · MobileConnect | `p6_connect` |
+| 7 · Mesa de ayuda (4 dispositivos, roles) | `p7_soporte` |
+| 8 · Pruebas de caja negra | `docs/practicas/practica8_caja_negra.md` |
+
+Detalle, justificaciones y evidencias: [`docs/practicas/`](docs/practicas/README.md).
+
+Antes de usar la mesa de ayuda (práctica 7), ejecutar una vez
+`backend/sql/005_soporte.sql` del repo `babywolf-blog` en el SQL Editor de
+Supabase.
+
+```bash
+cd phone_app && flutter pub get && flutter analyze && flutter test
+```
+
 ## Arquitectura
 
 ```
