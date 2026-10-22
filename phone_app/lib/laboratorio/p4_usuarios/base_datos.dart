@@ -12,7 +12,7 @@ class BaseDatos {
 
   /// Versión del esquema. Cada cambio de estructura sube este número y
   /// agrega su paso en [_migrar].
-  static const version = 1;
+  static const version = 2; // v2: Caso 4, columna correo
 
   static Database? _db;
 
@@ -39,12 +39,18 @@ class BaseDatos {
         id        INTEGER PRIMARY KEY AUTOINCREMENT,
         nombre    TEXT    NOT NULL,
         edad      INTEGER NOT NULL,
-        profesion TEXT    NOT NULL
+        profesion TEXT    NOT NULL,
+        correo    TEXT    NOT NULL DEFAULT ''
       )
     ''');
   }
 
+  /// Un teléfono que ya tenía la versión 1 no pasa por onCreate: la tabla
+  /// existe sin la columna nueva. Sin este paso, insertar con correo
+  /// fallaría con "table usuarios has no column named correo".
   static Future<void> _migrar(Database db, int anterior, int nueva) async {
-    // Sin migraciones todavía: el esquema está en su versión 1.
+    if (anterior < 2) {
+      await db.execute("ALTER TABLE usuarios ADD COLUMN correo TEXT NOT NULL DEFAULT ''");
+    }
   }
 }

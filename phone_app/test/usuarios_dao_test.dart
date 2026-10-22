@@ -1,4 +1,6 @@
-// Práctica 4: casos 1 a 3 sobre SQLite real (en memoria, con sqflite_common_ffi).
+// Práctica 4: casos 1 a 4 sobre SQLite real (en memoria, con sqflite_common_ffi).
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_app/laboratorio/p4_usuarios/base_datos.dart';
 import 'package:phone_app/laboratorio/p4_usuarios/usuario.dart';
@@ -51,5 +53,48 @@ void main() {
     expect(ValidadorUsuario.edad('10'), isNotNull);
     expect(ValidadorUsuario.edad('21'), isNull);
     expect(ValidadorUsuario.profesion(''), isNotNull);
+  });
+
+  group('Caso 4 — nuevo campo correo', () {
+    test('se inserta, se consulta y se actualiza', () async {
+      final id = await dao.insertar(
+          const Usuario(nombre: 'Ana', edad: 21, profesion: 'IDGS', correo: 'ana@uteq.edu.mx'));
+      final u = (await dao.obtenerPorId(id))!;
+      expect(u.correo, 'ana@uteq.edu.mx');
+      await dao.actualizar(u.copiar(correo: 'ana.r@uteq.edu.mx'));
+      expect((await dao.obtenerTodos()).single.correo, 'ana.r@uteq.edu.mx');
+    });
+
+    test('validación del correo', () {
+      expect(ValidadorUsuario.correo(''), isNotNull);
+      expect(ValidadorUsuario.correo('ana@'), isNotNull);
+      expect(ValidadorUsuario.correo('ana@uteq.edu.mx'), isNull);
+    });
+
+    test('una base de la versión 1 migra sin perder datos', () async {
+      final dir = Directory.systemTemp.createTempSync('bw_p4_');
+      final ruta = '${dir.path}/v1.db';
+      // Base "vieja": la estructura que tenía la app antes del Caso 4.
+      final v1 = await databaseFactoryFfi.openDatabase(ruta,
+          options: OpenDatabaseOptions(
+            version: 1,
+            onCreate: (db, _) async {
+              await db.execute('CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, '
+                  'nombre TEXT NOT NULL, edad INTEGER NOT NULL, profesion TEXT NOT NULL)');
+              await db.insert('usuarios', {'nombre': 'Previo', 'edad': 20, 'profesion': 'Redes'});
+            },
+          ));
+      await v1.close();
+
+      final v2 = await BaseDatos.abrir(factory: databaseFactoryFfi, ruta: ruta);
+      final dao2 = UsuarioDao(v2);
+      final previo = (await dao2.obtenerTodos()).single;
+      expect(previo.nombre, 'Previo');
+      expect(previo.correo, ''); // la columna nueva llega vacía
+      await dao2.insertar(const Usuario(nombre: 'Nuevo', edad: 22, profesion: 'IDGS', correo: 'n@uteq.edu.mx'));
+      expect((await dao2.obtenerTodos()).length, 2);
+      await v2.close();
+      dir.deleteSync(recursive: true);
+    });
   });
 }

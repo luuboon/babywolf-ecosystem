@@ -24,6 +24,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
   final _nombre = TextEditingController();
   final _edad = TextEditingController();
   final _profesion = TextEditingController();
+  final _correo = TextEditingController(); // Caso 4
 
   UsuarioDao? _dao;
   Usuario? _editando;
@@ -46,6 +47,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     _nombre.dispose();
     _edad.dispose();
     _profesion.dispose();
+    _correo.dispose();
     super.dispose();
   }
 
@@ -54,6 +56,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     _nombre.clear();
     _edad.clear();
     _profesion.clear();
+    _correo.clear();
     setState(() => _editando = null);
   }
 
@@ -67,6 +70,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
         nombre: _nombre.text.trim(),
         edad: int.parse(_edad.text.trim()),
         profesion: _profesion.text.trim(),
+        correo: _correo.text.trim(),
       );
       if (_editando == null) {
         final id = await dao.insertar(datos); // Caso 1
@@ -97,6 +101,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     _nombre.text = u.nombre;
     _edad.text = '${u.edad}';
     _profesion.text = u.profesion;
+    _correo.text = u.correo;
   }
 
   Future<void> _eliminar(Usuario u) async {
@@ -164,6 +169,16 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                           decoration: campo('Profesión (carrera)'),
                           validator: ValidadorUsuario.profesion,
                         ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          key: const Key('campo_correo'),
+                          controller: _correo,
+                          style: const TextStyle(color: kTexto),
+                          decoration: campo('Correo'),
+                          keyboardType: TextInputType.emailAddress,
+                          autocorrect: false,
+                          validator: ValidadorUsuario.correo,
+                        ),
                         const SizedBox(height: 14),
                         Row(
                           children: [
@@ -223,7 +238,11 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                 child: Text('${u.id}', style: const TextStyle(color: kNeonTexto, fontWeight: FontWeight.w800)),
               ),
               title: Text(u.nombre, style: const TextStyle(color: kTexto, fontWeight: FontWeight.w700)),
-              subtitle: Text('${u.edad} años · ${u.profesion}', style: const TextStyle(color: kTenue)),
+              subtitle: Text(
+                '${u.edad} años · ${u.profesion}\n${u.correo.isEmpty ? 'sin correo (registro de la versión 1)' : u.correo}',
+                style: const TextStyle(color: kTenue),
+              ),
+              isThreeLine: true,
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
