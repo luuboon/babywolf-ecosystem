@@ -1,6 +1,21 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- API del blog (HTTPS) y hub del GATT emulado en el host (HTTP local). -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Práctica 1: Bluetooth clásico (SPP) con el ESP32.
+         Hasta Android 11 bastan BLUETOOTH/BLUETOOTH_ADMIN; desde Android 12
+         conectar pide BLUETOOTH_CONNECT en tiempo de ejecución. La app no
+         busca dispositivos (usa los ya emparejados), por eso SCAN lleva
+         neverForLocation: no se usa para ubicar al usuario. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
 
     <application
         android:label="BabyWolf"

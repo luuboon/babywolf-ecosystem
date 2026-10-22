@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../ble_client.dart';
+import '../laboratorio/laboratorio_screen.dart';
 import '../models/post.dart';
 import '../providers/activity_provider.dart';
 import '../services/blog_api.dart';
@@ -29,7 +30,12 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   Future<void> _recargar() async {
-    setState(() => _futuro = _api.posts());
+    // setState no debe devolver un Future: con la flecha devolvía el de la
+    // asignación y Flutter lanzaba "setState() callback argument returned a
+    // Future", así que "Reintentar" nunca refrescaba la pantalla.
+    setState(() {
+      _futuro = _api.posts();
+    });
     await _futuro.catchError((_) => <Post>[]);
   }
 
@@ -55,7 +61,17 @@ class _FeedScreenState extends State<FeedScreen> {
             letterSpacing: -0.5,
           ),
         ),
-        actions: [_botonWearable(), const SizedBox(width: 8)],
+        actions: [
+          IconButton(
+            tooltip: 'Prácticas de laboratorio',
+            icon: const Icon(Icons.science_outlined, color: kTexto),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const LaboratorioScreen()),
+            ),
+          ),
+          _botonWearable(),
+          const SizedBox(width: 8),
+        ],
       ),
       body: Column(
         children: [

@@ -11,11 +11,17 @@ dependencies:
     sdk: flutter
   http: ^1.6.0
   provider: ^6.1.5+1
+  # Prácticas de laboratorio (Desarrollo móvil)
+  sqflite: ^2.4.1 # P4 y P7: SQLite local
+  path: ^1.9.0 # ruta del archivo .db
+  crypto: ^3.0.6 # P5: hash SHA-256 de la contraseña de prueba
+  image_picker: ^1.1.2 # P7: adjuntar imágenes
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  sqflite_common_ffi: ^2.3.4 # SQLite en las pruebas (sin emulador)
   flutter_launcher_icons: ^0.14.4
 
 flutter:
