@@ -15,6 +15,7 @@ base de datos Supabase y el tema visual del blog.
 | 6 | Interacción entre dispositivos | Implementada (MobileConnect) | `p6_connect`, backend `/api/connect/*` | [práctica 6](practica6_mobile_connect.md) |
 | 7 | Roles masivos e interacción | Implementada con Supabase en vez de Firestore | `p7_soporte`, backend `/api/soporte/*`, `005_soporte.sql` | [práctica 7](practica7_mesa_ayuda.md) |
 | 8 | Pruebas de caja negra | Matriz de requisitos y casos | — | [práctica 8](practica8_caja_negra.md) |
+| 10 | Seguridad y control de acceso | Implementada con Supabase Auth + RLS en vez de Firebase | `p10_incidencias`, `006_incidencias_rls.sql` (repo blog) | [práctica 10](practica10_seguridad_rls.md) |
 
 ## Lo que no se implementó al pie de la letra, y por qué
 
@@ -25,6 +26,7 @@ base de datos Supabase y el tema visual del blog.
 | P5: Kotlin y Android Studio | Dart/Flutter, probada en el emulador de Android Studio | Mismo motivo. Las 7 medidas de seguridad son independientes del lenguaje y todas se implementaron. Android Studio sigue siendo el IDE y el emulador. |
 | P1: prueba con hardware | Código Bluetooth real + modo simulado | La práctica con el ESP32 ya se hizo en clase, pero ahorita el circuito no está armado y el teléfono físico no está a la mano. El emulador no tiene radio Bluetooth. La evidencia con hardware queda pendiente y el modo simulado permite mostrar la pantalla. |
 | P2: interfaz en la app | Ninguna obligatoria | La práctica 2 es sólo de firmware (monitor serial). Como extensión, `firmware/iot_combinado` manda el botón por Bluetooth y la app lo muestra. |
+| P10: Firebase Authentication + reglas de Firestore | Supabase Auth + Row Level Security de Postgres | Mismo motivo que la P7. RLS es el equivalente directo de las reglas de Firestore: la base rechaza lo no autorizado aunque la app se modifique. |
 | P7: Firestore | Postgres de Supabase a través del backend Go | BabyWolf ya usa Supabase y el backend en Railway. Agregar Firebase metería un segundo proveedor sólo para una práctica. Los casos TC01–TC08 se cumplen igual, y TC08 se verifica sobre Postgres. |
 | P7: "seleccionar el dispositivo emisor (administrador)" | Cada dispositivo envía como sí mismo; el admin elige **destinatario** | Que un dispositivo pueda mandar mensajes a nombre de otro sería suplantación, contrario a la práctica 5. El emisor lo fija el token de sesión en el servidor. |
 | P7: "mostrar los nombres de los dos dispositivos conectados" | Se muestran los 4 (admin, agente, 2 usuarios) | La misma práctica pide 4 dispositivos; se listan todos con su estado. |

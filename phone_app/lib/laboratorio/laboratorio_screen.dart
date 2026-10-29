@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
+import 'p10_incidencias/incidencias_screen.dart';
 import 'p1_iot/iot_screen.dart';
 import 'p3_consulta/consulta_web_screen.dart';
 import 'p4_usuarios/usuarios_screen.dart';
@@ -37,6 +38,8 @@ final _practicas = <_Practica>[
       Icons.support_agent, () => const SoporteInicioScreen()),
   const _Practica('8', 'Pruebas de caja negra', 'Matriz de requisitos y evidencias en docs/practicas/practica8.',
       Icons.fact_check_outlined, null),
+  _Practica('10', 'Incidencias seguras', 'Inicio de sesión, UID y reglas de acceso por usuario en la base (RLS).',
+      Icons.admin_panel_settings_outlined, () => const IncidenciasScreen()),
 ];
 
 class LaboratorioScreen extends StatelessWidget {

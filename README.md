@@ -29,6 +29,7 @@ nuevas: se abren desde el feed con el botón 🧪 **Prácticas de laboratorio**.
 | 6 · MobileConnect | `p6_connect` |
 | 7 · Mesa de ayuda (4 dispositivos, roles) | `p7_soporte` |
 | 8 · Pruebas de caja negra | `docs/practicas/practica8_caja_negra.md` |
+| 10 · Incidencias seguras (Auth + RLS) | `p10_incidencias` |
 
 Detalle, justificaciones y evidencias: [`docs/practicas/`](docs/practicas/README.md).
 
