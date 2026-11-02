@@ -84,7 +84,7 @@ Cubre lo que pide la práctica:
 **Fuente de cada resultado:**
 - **[GO]:** `go test` del backend.
 - **[E2E]:** escenario contra el backend real + Postgres local (`backend/pruebas/escenario_soporte.py`), 37/37 y TC08 1/1.
-- **[FT]:** prueba en `phone_app/test` (ejecutar con `flutter test`).
+- **[FT]:** prueba en `phone_app/test`. Ejecutada el 02/11/2026 en la Mac del alumno: `flutter analyze` sin observaciones y `flutter test` **40/40**.
 - **[DISP]:** requiere ejecución manual en dispositivo; queda **Pendiente**.
 
 | Caso | Req. | Técnica | Entrada | Esperado | Resultado |
@@ -127,14 +127,14 @@ Cubre lo que pide la práctica:
 | Pregunta de la práctica | Respuesta con la evidencia actual |
 |---|---|
 | ¿Las funciones corresponden a los requisitos? | Sí. Cada requisito de las prácticas 1–7 tiene implementación (ver el README de esta carpeta). Las desviaciones están justificadas: Room → SQLite, Kotlin → Dart, Firestore → Supabase |
-| ¿Las operaciones principales dan resultados correctos? | En el backend sí: 37/37 [E2E] y todos los [GO]. En la app, pendiente de `flutter test` en el equipo del alumno y de las capturas |
+| ¿Las operaciones principales dan resultados correctos? | En el backend sí: 37/37 [E2E] y todos los [GO]. En la app: `flutter test` 40/40 y `flutter analyze` sin observaciones (02/11/2026); faltan las capturas en dispositivo |
 | ¿Se rechazan entradas inválidas? | Sí, en dos capas (app y backend): CP03–CP06, CP10–CP17, CP24 |
 | ¿Hay defectos en navegación, formularios o mensajes? | Se encontró y corrigió uno (CP01). No se conocen otros abiertos; falta la revisión visual en dispositivo |
 | ¿Los datos conservan su consistencia? | Sí: no se sobrescriben IDs (TC03), baja lógica (TC05), persistencia tras reiniciar (TC08), migración sin pérdida (CP09) e invitación de un solo uso con UPDATE atómico |
 | ¿Los permisos se aplican bien? | Sí, y se verifican en el servidor, no sólo en la interfaz: CP19, CP20, CP22, CP23, CP25, CP28, CP31 |
 | ¿Responde bien a errores e interrupciones? | Backend: mensajes genéricos sin detalles técnicos y 404/409/422 coherentes. App: pantallas de error y cola de pendientes; CP29 está pendiente |
 | ¿Hay defectos que impidan la liberación? | **Riesgo operativo:** si Supabase se pausa, el backend no arranca (502 observado el 08/10/2026). En código no se conocen bloqueantes |
-| ¿Las evidencias bastan para aceptar o rechazar? | **Todavía no para la app.** Para el backend sí: la evidencia es reproducible. Para aceptar la entrega faltan los casos [DISP] (CP01, CP29, RQ08 entre teléfonos, RQ16–RQ20 en 4 dispositivos), las capturas y la salida de `flutter analyze` y `flutter test` |
+| ¿Las evidencias bastan para aceptar o rechazar? | **Todavía no para la app.** Para el backend sí: la evidencia es reproducible. Para aceptar la entrega faltan los casos [DISP] (CP01, CP29, RQ08 entre teléfonos, RQ16–RQ20 en 4 dispositivos) y las capturas. `flutter analyze` y `flutter test` (40/40) ya pasan |
 
 **Veredicto provisional:** backend **aceptado**. App **aceptación
 condicionada** a ejecutar los casos [DISP] y registrar sus capturas en esta
