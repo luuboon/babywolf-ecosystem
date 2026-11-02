@@ -7,7 +7,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -788,8 +787,8 @@ class _SoportePanelScreenState extends State<SoportePanelScreen> {
     final datos = <String, dynamic>{
       'texto': texto,
       'para_id': _para,
-      if (archivoPath != null) 'archivo_path': archivoPath,
-      if (archivoNombre != null) 'archivo_nombre': archivoNombre,
+      'archivo_path': ?archivoPath,
+      'archivo_nombre': ?archivoNombre,
     };
     setState(() => _enviando = true);
     try {
@@ -905,7 +904,7 @@ class _SoportePanelScreenState extends State<SoportePanelScreen> {
         ],
       ),
     );
-    if (ok != true) return;
+    if (ok != true || !mounted) return;
     if (enServidor) {
       await _intentar(() async {
         await _api.limpiarMensajes();

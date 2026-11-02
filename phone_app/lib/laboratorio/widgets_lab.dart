@@ -61,7 +61,7 @@ class Seccion extends StatelessWidget {
                   ),
                 ),
               ),
-              if (accion != null) accion!,
+              ?accion,
             ],
           ),
           const SizedBox(height: 10),

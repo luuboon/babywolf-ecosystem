@@ -58,7 +58,7 @@ class SoporteApi {
 
   Map<String, String> get _headers => {
         'Content-Type': 'application/json',
-        if (token != null) 'X-Soporte-Token': token!,
+        'X-Soporte-Token': ?token,
       };
 
   Future<dynamic> _pedir(String metodo, String ruta, {Object? cuerpo, Uri? url, Map<String, String>? extra}) async {
