@@ -35,9 +35,14 @@ class EntrarScreen extends StatelessWidget {
 }
 
 class EntrarFormulario extends StatefulWidget {
-  const EntrarFormulario({super.key, this.alEntrar});
+  const EntrarFormulario({super.key, this.alEntrar, this.incrustado = false});
 
   final VoidCallback? alEntrar;
+
+  /// true cuando va dentro de otra lista con scroll (pestaña Cuenta): se
+  /// ajusta a su contenido en vez de pedir altura infinita, que dejaba la
+  /// pantalla en blanco.
+  final bool incrustado;
 
   @override
   State<EntrarFormulario> createState() => _EntrarFormularioState();
@@ -120,6 +125,8 @@ class _EntrarFormularioState extends State<EntrarFormulario> {
     return Form(
       key: _form,
       child: ListView(
+        shrinkWrap: widget.incrustado,
+        physics: widget.incrustado ? const NeverScrollableScrollPhysics() : null,
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
         children: [
           Text(

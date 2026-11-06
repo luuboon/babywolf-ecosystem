@@ -37,7 +37,7 @@ class CuentaScreen extends StatelessWidget {
           : cuenta == null
               ? ListView(
                   children: [
-                    const EntrarFormulario(),
+                    const EntrarFormulario(incrustado: true),
                     const _Opciones(cuenta: null),
                   ],
                 )
