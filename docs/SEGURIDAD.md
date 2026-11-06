@@ -2,6 +2,17 @@
 
 Materia: Desarrollo para Dispositivos Inteligentes · Evaluación 2 · Mayo–Agosto 2026
 
+> **Actualización del 06/11/2026.** Este documento describe la entrega de
+> agosto: PWA de TV, wearable y hub, **sin cuentas ni login**. Desde las
+> prácticas del cuatrimestre septiembre–diciembre, la app del teléfono **sí
+> tiene cuentas** (la misma del blog, con Supabase Auth) y guarda en la base
+> reportes y comentarios. Con eso las secciones 2 (datos personales), 3 (aviso
+> de privacidad) y 4 (retención) ya no cubren a la app del teléfono: correo,
+> usuario, comentarios y reportes son datos personales. Las reglas de acceso, lo
+> que se corrigió y lo pendiente están en
+> [`SEGURIDAD_CUENTAS.md`](SEGURIDAD_CUENTAS.md). Actualizar el aviso de
+> privacidad queda pendiente.
+
 ---
 
 ## 1. Validación de origen en BroadcastChannel

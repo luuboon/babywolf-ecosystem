@@ -124,6 +124,9 @@ todos los reportes por diseño, así que SEG-05 no aplicaría.
   (SEG-10) devuelve error **42501**.
 ### Reglas que agrega `008_permisos_usuarios.sql` (tabla `users` y bitácora)
 
+**Estado: aplicado en Supabase el 06/11/2026.** Resumen vivo del tema, con
+lo pendiente y las reglas para cambios futuros: [`../SEGURIDAD_CUENTAS.md`](../SEGURIDAD_CUENTAS.md).
+
 Al revisar el proyecto real de Supabase (06/11/2026) se encontró que la
 seguridad de los reportes dependía de una tabla mal protegida: `es_admin()`
 lee el rol de `public.users`, y **cualquier usuario podía ponerse

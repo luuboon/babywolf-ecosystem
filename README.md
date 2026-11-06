@@ -28,7 +28,7 @@ esencial y se convirtió en una función real de la app del teléfono.
 | 6 · Interacción entre dispositivos | Comentarios en cada noticia (`lib/comentarios`) |
 | 7 · Roles e interacción | Mesa de ayuda del equipo (`lib/soporte`) |
 | 9 · Base compartida | Reportes de noticias sincronizados entre lector y admin (`lib/reportes`) |
-| 10 · Seguridad y control de acceso | Reglas RLS de reportes y comentarios (`007_app_lectores.sql`, repo blog) |
+| 10 · Seguridad y control de acceso | Reglas RLS de reportes, comentarios y permisos de cuentas (`007` y `008`, repo blog) |
 | 8 · Caja negra | Evaluación de todo lo anterior |
 | 1 y 2 · ESP32 | Fuera de la app (justificado); firmware en `firmware/` |
 
@@ -36,7 +36,9 @@ Detalle, justificaciones y evidencias: [`docs/practicas/`](docs/practicas/README
 
 Antes de usar la app con cuenta, ejecutar una vez en el SQL Editor de
 Supabase, en este orden, los scripts del repo `babywolf-blog`:
-`005_soporte.sql`, `006_incidencias_rls.sql` y `007_app_lectores.sql`.
+`005_soporte.sql`, `006_incidencias_rls.sql`, `007_app_lectores.sql` y
+`008_permisos_usuarios.sql`. Qué protege cada uno, qué falta y las reglas
+para cambios futuros: [`docs/SEGURIDAD_CUENTAS.md`](docs/SEGURIDAD_CUENTAS.md).
 
 ```bash
 cd phone_app && flutter pub get && flutter analyze && flutter test
@@ -143,7 +145,8 @@ Para comprobar que quedó firmado con el certificado correcto:
 | Documento | Contenido |
 |---|---|
 | [docs/LISTA_COTEJO.md](docs/LISTA_COTEJO.md) | **Empieza por aquí**: cada elemento de la rúbrica y dónde está su evidencia |
-| [docs/SEGURIDAD.md](docs/SEGURIDAD.md) | Validación de origen, LFPDPPP, aviso de privacidad, retención de datos |
+| [docs/SEGURIDAD.md](docs/SEGURIDAD.md) | Validación de origen, LFPDPPP, aviso de privacidad, retención de datos (entrega de agosto) |
+| [docs/SEGURIDAD_CUENTAS.md](docs/SEGURIDAD_CUENTAS.md) | Cuentas, reglas de la base, qué se corrigió el 06/11/2026 y qué falta |
 | [docs/PLAN_PRUEBAS.md](docs/PLAN_PRUEBAS.md) | Plan y reporte de pruebas, con resultados medidos |
 | [docs/CONFIGURACION.md](docs/CONFIGURACION.md) | Herramientas, emuladores y troubleshooting |
 
