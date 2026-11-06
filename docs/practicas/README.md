@@ -32,7 +32,8 @@ como admin (7).
 ## Cómo se navega
 
 ```
-Noticias ─┬─ Resumen del blog (P3) → filtra el feed por tema
+Noticias ─┬─ Lupa: buscar noticias por texto (se combina con el tema)
+          ├─ Resumen del blog (P3) → filtra el feed por tema
           └─ Noticia ─┬─ Marcador: guardar para leer sin internet (P4)
                       ├─ Bandera: reportar un problema (P9)
                       └─ Comentarios (P6)
@@ -66,6 +67,9 @@ Cuenta ───┬─ Entrar / crear cuenta (P5)
   Probado en Postgres 16 con los roles de Supabase:
   `pruebas/app_lectores.sh` **20/20**, y `pruebas/rls_incidencias.sh` sigue
   en **9/9**.
+- `babywolf-blog/backend/sql/008_permisos_usuarios.sql`: cierra la escalada a
+  admin por la tabla `users` y protege la bitácora y el bloqueo por intentos
+  (práctica 10). `pruebas/usuarios_permisos.sh` **25/25**.
 - Los endpoints `/api/consulta/*` (P3) y `/api/soporte/*` (P7) se usan sin
   cambios. `/api/connect/*` (canal efímero de la versión anterior de la P6)
   queda sin uso en la app.

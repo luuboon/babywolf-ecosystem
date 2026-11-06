@@ -122,6 +122,28 @@ todos los reportes por diseño, así que SEG-05 no aplicaría.
 **Cómo contesta la base:**
 - Escribir una fila que viola una regla (SEG-04, SEG-09) o actuar sin sesión
   (SEG-10) devuelve error **42501**.
+### Reglas que agrega `008_permisos_usuarios.sql` (tabla `users` y bitácora)
+
+Al revisar el proyecto real de Supabase (06/11/2026) se encontró que la
+seguridad de los reportes dependía de una tabla mal protegida: `es_admin()`
+lee el rol de `public.users`, y **cualquier usuario podía ponerse
+`role = 'admin'` editando su propia fila** (la regla "Users can update own
+profile" no limitaba columnas y `authenticated` tenía UPDATE sobre todas).
+
+| Pieza | Qué hace | Casos ([BD] `usuarios_permisos.sh`) |
+|---|---|---|
+| Permiso por columna: `UPDATE (username, avatar_url)` | El usuario sólo cambia su nombre y avatar (lo único que edita la web) | U-01…U-06 |
+| Trigger `users_proteger_columnas` | Segunda barrera: aunque se vuelva a dar permiso de más, un cliente no cambia rol, estado, correo ni bloqueos | U-25 |
+| `anon` sólo lee `id, username, email, avatar_url` | Sin sesión ya no se ven rol, estado ni intentos fallidos | U-08, U-09 |
+| `record_successful_login`, `record_logout`, `record_password_change` exigen `auth.uid() = p_user_id` | Antes, sin sesión y con el id de otra cuenta, se reiniciaba su contador de intentos (anulaba el bloqueo por fuerza bruta) | U-14…U-19 |
+| `audit_log` sin INSERT para clientes; `record_admin_action` sin EXECUTE | Nadie escribe registros falsos en la bitácora | U-20, U-21 |
+| `search_path` fijo en todas las funciones SECURITY DEFINER | Evita que se suplante una tabla con otra del mismo nombre | — |
+
+El backend (Railway) entra como `postgres`, dueño de las tablas, y no se ve
+afectado: el admin sigue creando usuarios y cambiando roles (U-07). El
+registro de cuentas sigue funcionando (U-24, probado también con un rol sin
+privilegios como el que usa Supabase Auth).
+
 - Leer, cambiar o borrar algo ajeno (SEG-05, SEG-06, SEG-07) devuelve **0
   filas**: para RLS esas filas no existen para ese usuario. La app lo registra
   como rechazo.
@@ -164,6 +186,20 @@ Casos de 007 [BD] (06/11/2026, `app_lectores.sh` 20/20), los de seguridad:
 | COM-04 | Comentar a nombre de otro | Rechazado por RLS | **Pasa** |
 | COM-07 | Borrar el comentario de otro | 0 filas | **Pasa** |
 
+Casos de 008 [BD] (06/11/2026, `usuarios_permisos.sh`: antes del arreglo
+10/23, con el arreglo **25/25**; `app_lectores.sh` sigue 20/20 y
+`rls_incidencias.sh` 9/9):
+
+| ID | Acción | Antes de 008 | Con 008 |
+|---|---|---|---|
+| U-01 | Un lector se pone `role = 'admin'` | **Lo logró** | Rechazado: *permission denied* |
+| U-04 | Un lector edita su nombre y avatar | Permitido | Permitido |
+| U-08 | Sin sesión: leer rol y bloqueos | **Los leía** | Rechazado |
+| U-14 | Sin sesión: desbloquear la cuenta de otro | **Lo logró** | Rechazado |
+| U-20 | Sin sesión: escribir en la bitácora | **Lo logró** | Rechazado |
+| U-22 | Un lector lee la bitácora | **La leía** (tras hacerse admin) | 0 filas |
+| U-25 | Con permiso de más por error, hacerse admin | — | Rechazado por el trigger |
+
 ---
 
 ## Reporte técnico
@@ -195,6 +231,16 @@ y que la base de datos lo garantice aunque la app sea alterada.
    0 filas se registra como **rechazado**, no como éxito.
 4. Se repitieron las pruebas fallidas: **9/9** con las reglas aplicadas.
 
+**Defecto encontrado después, en el proyecto real (008)**
+
+5. **Escalada a admin.** La tabla `users` del blog dejaba que cada usuario
+   editara cualquier columna de su fila, incluido `role`. Como las reglas
+   de admin (007) y la web leen ese rol, un lector podía hacerse admin con
+   una sola petición. También se podía reiniciar el contador de intentos de
+   otra cuenta y escribir en la bitácora sin sesión. Se corrigió con
+   permisos por columna, un trigger de respaldo y funciones que exigen que
+   el `auth.uid()` sea el de la cuenta (ver la tabla de 008).
+
 **Riesgos pendientes**
 
 - La llave `anon` va dentro de la app y es pública por diseño. La seguridad no
@@ -206,13 +252,20 @@ y que la base de datos lo garantice aunque la app sea alterada.
 - ~~El JWT dura 1 hora y la app no lo renueva.~~ **Corregido:** la sesión de
   la app renueva el token antes de que venza y guarda sólo el refresh token,
   cifrado (práctica 5).
-- **Tabla `users` legible por todos:** `supabase_setup_and_seed.sql` crea la
-  regla "Public users are viewable by everyone" (`USING (true)`). Si sigue así
-  en el proyecto, cualquiera con la llave pública puede leer correos y roles
-  de todas las cuentas. No se cambió en esta práctica porque la web podría
-  depender de ella; se recomienda limitarla a `username` mediante una vista y
-  dejar el resto sólo al propio usuario. No se ha verificado el estado actual
-  de esa regla en Supabase.
+- **Correos visibles:** con 008, sin sesión ya no se leen rol ni bloqueos,
+  pero sí el **correo** de los autores, y con sesión cualquier lector sigue
+  leyendo todas las columnas de todas las cuentas. La web pide
+  `users(email, username)` en las noticias y muestra el correo si el autor
+  no tiene nombre, y el panel de admin y el perfil leen `select *`. Cerrarlo
+  requiere primero cambiar esas consultas de la web; si se cierra antes, el
+  blog deja de mostrar noticias.
+- `record_failed_login` sigue abierta sin sesión (la usa la web antes de
+  entrar). Con ella cualquiera puede bloquear 15 minutos una cuenta ajena si
+  conoce su correo. Es el costo del bloqueo por correo; se mitigaría
+  bloqueando por correo + IP.
+- Los scripts `seed.js` / `seed.mjs` de la web hacían admin a un usuario con
+  la llave pública (justo el hueco cerrado). Ya no funcionan: los admins se
+  crean desde el panel (backend).
 - La app entra sólo con contraseña. Si la cuenta tiene segundo factor en la
   web, la app no lo pide.
 - Supabase en plan gratuito se pausa por inactividad (ya ocurrió dos veces). Es
