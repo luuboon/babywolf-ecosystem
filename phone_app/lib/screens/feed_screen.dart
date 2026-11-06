@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../ble_client.dart';
-import '../laboratorio/laboratorio_screen.dart';
 import '../models/post.dart';
 import '../providers/activity_provider.dart';
+import '../resumen/resumen_api.dart';
+import '../resumen/resumen_tarjeta.dart';
 import '../services/blog_api.dart';
 import '../theme.dart';
 import '../widgets/wearable_sheet.dart';
@@ -21,7 +22,12 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   final _api = BlogApi();
+  final _resumen = ResumenServicio();
   late Future<List<Post>> _futuro;
+
+  /// Tema elegido en la tarjeta de resumen (null = todas las noticias).
+  String? _categoria;
+  int _recargas = 0;
 
   @override
   void initState() {
@@ -35,6 +41,7 @@ class _FeedScreenState extends State<FeedScreen> {
     // Future", así que "Reintentar" nunca refrescaba la pantalla.
     setState(() {
       _futuro = _api.posts();
+      _recargas++;
     });
     await _futuro.catchError((_) => <Post>[]);
   }
@@ -62,13 +69,6 @@ class _FeedScreenState extends State<FeedScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            tooltip: 'Prácticas de laboratorio',
-            icon: const Icon(Icons.science_outlined, color: kTexto),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const LaboratorioScreen()),
-            ),
-          ),
           _botonWearable(),
           const SizedBox(width: 8),
         ],
@@ -90,16 +90,32 @@ class _FeedScreenState extends State<FeedScreen> {
                   if (snap.hasError) {
                     return _error(snap.error!);
                   }
-                  final posts = snap.data ?? const <Post>[];
-                  if (posts.isEmpty) {
+                  final todos = snap.data ?? const <Post>[];
+                  if (todos.isEmpty) {
                     return _vacio();
                   }
+                  final posts = _categoria == null
+                      ? todos
+                      : todos.where((p) => p.category == _categoria).toList();
                   return ListView.separated(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
-                    itemCount: posts.length,
-                    separatorBuilder: (_, _) => const SizedBox(height: 16),
-                    itemBuilder: (_, i) =>
-                        _PostCard(post: posts[i], onTap: () => _abrir(posts[i])),
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 28),
+                    itemCount: posts.length + 1,
+                    separatorBuilder: (_, i) => SizedBox(height: i == 0 ? 0 : 16),
+                    itemBuilder: (_, i) {
+                      if (i == 0) {
+                        return ResumenTarjeta(
+                          servicio: _resumen,
+                          categoria: _categoria,
+                          recarga: _recargas,
+                          alElegir: (c) => setState(() => _categoria = c),
+                        );
+                      }
+                      final post = posts[i - 1];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: _PostCard(post: post, onTap: () => _abrir(post)),
+                      );
+                    },
                   );
                 },
               ),

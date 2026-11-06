@@ -1,32 +1,71 @@
 # Prácticas de laboratorio aplicadas a BabyWolf
 
-Todas las prácticas se implementaron **sobre la app existente** (`phone_app/`),
-no como apps nuevas. Se abren desde el feed de noticias con el botón 🧪
-**Prácticas de laboratorio**. Reutilizan el backend Go del blog (Railway), la
-base de datos Supabase y el tema visual del blog.
+BabyWolf es la app del teléfono del blog **BabyWolf** (noticias de videojuegos
+retro y consolas). Lo que hace el blog en la web —leer noticias, tener una
+cuenta, el equipo que administra el sitio— es lo que la app debe hacer en el
+teléfono.
 
-| # | Práctica | Estado | Dónde está | Documento |
-|---|---|---|---|---|
-| 1 | IoT: ESP32 + sensor IR + móvil | Implementada (Bluetooth real + modo simulado) | `phone_app/lib/laboratorio/p1_iot`, `SppBridge.kt`, `firmware/` | [práctica 1](practica1_iot_esp32.md) |
-| 2 | Firmware: Controlador LED | Firmware en el repo; la app muestra el botón con el firmware combinado | `firmware/` | [práctica 2](practica2_firmware.md) |
-| 3 | ConsultaWeb: URL preasignada | Implementada como módulo de BabyWolf | `p3_consulta`, backend `/api/consulta/*` | [práctica 3](practica3_consulta_web.md) |
-| 4 | Almacenamiento estructurado | Implementada con SQLite (sqflite) en vez de Room | `p4_usuarios` | [práctica 4](practica4_usuarios_sqlite.md) |
-| 5 | Código seguro: AccesoSeguro | Implementada en Flutter/Dart en vez de Kotlin | `p5_acceso` | [práctica 5](practica5_acceso_seguro.md) |
-| 6 | Interacción entre dispositivos | Implementada (MobileConnect) | `p6_connect`, backend `/api/connect/*` | [práctica 6](practica6_mobile_connect.md) |
-| 7 | Roles masivos e interacción | Implementada con Supabase en vez de Firestore | `p7_soporte`, backend `/api/soporte/*`, `005_soporte.sql` | [práctica 7](practica7_mesa_ayuda.md) |
-| 8 | Pruebas de caja negra | Matriz de requisitos y casos | — | [práctica 8](practica8_caja_negra.md) |
-| 10 | Seguridad y control de acceso | Implementada con Supabase Auth + RLS en vez de Firebase | `p10_incidencias`, `006_incidencias_rls.sql` (repo blog) | [práctica 10](practica10_seguridad_rls.md) |
+Por eso las prácticas **no son pantallas de demostración aparte**. De cada una
+se tomó lo esencial y se implementó como una función real de la app, donde
+tiene sentido para un lector o para el equipo del blog. Las que no tienen uso
+en una app de noticias quedan fuera, con su justificación.
+
+## Dónde quedó cada práctica
+
+| # | Práctica | Función de BabyWolf | Dónde se ve en la app | Código | Documento |
+|---|---|---|---|---|---|
+| 1 | IoT: ESP32 + sensor IR | **No se integra** | — | `firmware/` (anexo) | [práctica 1](practica1_iot_esp32.md) |
+| 2 | Firmware: controlador LED | **No se integra** | — | `firmware/` (anexo) | [práctica 2](practica2_firmware.md) |
+| 3 | ConsultaWeb: URL preasignada | Resumen del blog arriba del feed, que además filtra por tema | Noticias → tarjeta de resumen | `lib/resumen/` | [práctica 3](practica3_consulta_web.md) |
+| 4 | Almacenamiento estructurado | **Noticias guardadas** para leer sin internet, con nota personal | Pestaña Guardadas · marcador en cada noticia | `lib/guardadas/` | [práctica 4](practica4_guardadas_sqlite.md) |
+| 5 | Código seguro: AccesoSeguro | **Iniciar sesión con la cuenta de BabyWolf** (la misma de la web) | Pestaña Cuenta | `lib/core/sesion.dart`, `lib/cuenta/` | [práctica 5](practica5_acceso_seguro.md) |
+| 6 | Interacción entre dispositivos | **Comentarios** en cada noticia, entre lectores de distintos teléfonos | Final de cada noticia | `lib/comentarios/` | [práctica 6](practica6_comentarios.md) |
+| 7 | Roles e interacción (4 dispositivos) | **Mesa de ayuda del equipo** del blog: admin, agente y usuarios invitados | Cuenta → Mesa de ayuda del equipo | `lib/soporte/` + backend | [práctica 7](practica7_mesa_ayuda.md) |
+| 8 | Pruebas de caja negra | Evaluación de todo lo anterior | — | `test/`, `backend/pruebas/` | [práctica 8](practica8_caja_negra.md) |
+| 9 | Base compartida entre dispositivos | **Reportes de noticias**: el lector reporta, el admin atiende y ambos ven los cambios | Bandera en cada noticia · Cuenta → Mis reportes | `lib/reportes/` | [práctica 9](practica9_base_compartida.md) |
+| 10 | Seguridad y control de acceso | Reglas de quién ve y cambia qué reporte y comentario, aplicadas por la base | Cuenta (UID y rol) · Mis reportes | `007_app_lectores.sql` (repo blog) | [práctica 10](practica10_seguridad_rls.md) |
+
+Las prácticas se apoyan unas en otras, como en una app real: la cuenta (5 y
+10) es la que permite comentar (6), reportar (9) y abrir la mesa de ayuda
+como admin (7).
+
+## Cómo se navega
+
+```
+Noticias ─┬─ Resumen del blog (P3) → filtra el feed por tema
+          └─ Noticia ─┬─ Marcador: guardar para leer sin internet (P4)
+                      ├─ Bandera: reportar un problema (P9)
+                      └─ Comentarios (P6)
+Guardadas ── lista local con nota personal (P4)
+Cuenta ───┬─ Entrar / crear cuenta (P5)
+          ├─ Correo, UID y rol (P10)
+          ├─ Mis reportes · Reportes de lectores si eres admin (P9, P10)
+          ├─ Mesa de ayuda del equipo (P7)
+          └─ Actividad reciente sin datos sensibles (P5)
+```
 
 ## Lo que no se implementó al pie de la letra, y por qué
 
 | Requisito del enunciado | Qué se hizo | Justificación |
 |---|---|---|
-| P3 y P6: "crear una aplicación denominada ConsultaWeb / MobileConnect" | Son pantallas dentro de BabyWolf | El enunciado de la P3 permite usar el propio proyecto como base, y el proyecto del curso es extender BabyWolf. Una app aparte duplicaría tema, red y configuración sin aportar nada a lo que se evalúa (la petición HTTP y el intercambio de mensajes). |
-| P4: Room | SQLite con `sqflite` | Room es una biblioteca de Kotlin para Android. BabyWolf está escrita en Flutter (Dart), y en Flutter Room no se puede usar directo. `sqflite` usa el **mismo motor SQLite** del teléfono y tiene las mismas piezas: entidad, DAO, base de datos versionada y migración (ver la equivalencia en el documento de la P4). |
-| P5: Kotlin y Android Studio | Dart/Flutter, probada en el emulador de Android Studio | Mismo motivo. Las 7 medidas de seguridad son independientes del lenguaje y todas se implementaron. Android Studio sigue siendo el IDE y el emulador. |
-| P1: prueba con hardware | Código Bluetooth real + modo simulado | La práctica con el ESP32 ya se hizo en clase, pero ahorita el circuito no está armado y el teléfono físico no está a la mano. El emulador no tiene radio Bluetooth. La evidencia con hardware queda pendiente y el modo simulado permite mostrar la pantalla. |
-| P2: interfaz en la app | Ninguna obligatoria | La práctica 2 es sólo de firmware (monitor serial). Como extensión, `firmware/iot_combinado` manda el botón por Bluetooth y la app lo muestra. |
-| P10: Firebase Authentication + reglas de Firestore | Supabase Auth + Row Level Security de Postgres | Mismo motivo que la P7. RLS es el equivalente directo de las reglas de Firestore: la base rechaza lo no autorizado aunque la app se modifique. |
-| P7: Firestore | Postgres de Supabase a través del backend Go | BabyWolf ya usa Supabase y el backend en Railway. Agregar Firebase metería un segundo proveedor sólo para una práctica. Los casos TC01–TC08 se cumplen igual, y TC08 se verifica sobre Postgres. |
-| P7: "seleccionar el dispositivo emisor (administrador)" | Cada dispositivo envía como sí mismo; el admin elige **destinatario** | Que un dispositivo pueda mandar mensajes a nombre de otro sería suplantación, contrario a la práctica 5. El emisor lo fija el token de sesión en el servidor. |
-| P7: "mostrar los nombres de los dos dispositivos conectados" | Se muestran los 4 (admin, agente, 2 usuarios) | La misma práctica pide 4 dispositivos; se listan todos con su estado. |
+| P1 y P2: ESP32, sensor IR, LED y botón | Fuera de la app; firmware en `firmware/` como anexo | Un blog de noticias no tiene ningún caso de uso para un sensor de proximidad ni para un LED. Meterlo sería una pantalla ajena al producto. Además el emulador no tiene radio Bluetooth. Las prácticas se hicieron en clase con el circuito. |
+| P3 y P6: "crear una aplicación ConsultaWeb / MobileConnect" | Funciones dentro de BabyWolf | El proyecto del curso es extender BabyWolf. Lo que se evalúa (petición a URL firmada, mensajes entre dispositivos) está intacto. |
+| P3: pantalla con botón CONSULTAR | La consulta ocurre al abrir el feed y al deslizar para recargar | En una app real el resumen se muestra solo. Los estados que pide la práctica (consultando, datos, error y reintento) siguen en la tarjeta. |
+| P4: Room y entidad "usuario" (nombre, edad, profesión, correo) | SQLite con `sqflite`; entidad "noticia guardada" | Room es de Kotlin y BabyWolf es Flutter: `sqflite` usa el mismo motor SQLite, con entidad, DAO y base versionada. Las cuentas de usuario ya existen en Supabase (son las de la web); copiarlas al teléfono no tendría uso. Lo que un lector sí guarda en su teléfono son noticias para leer sin internet. El CRUD es el mismo. |
+| P5: Kotlin, usuario y contraseña de prueba | Dart; inicio de sesión real con Supabase Auth | Mismo motivo de lenguaje. En vez de un acceso simulado, se aplican las medidas a la cuenta real del blog, que es más exigente: además se guarda la sesión cifrada y se renueva el token. |
+| P6: Dispositivo A / B y selector de emisor | Cada teléfono comenta con su cuenta | Elegir "soy A" o "soy B" permitiría escribir a nombre de otro (contrario a la P5). El emisor lo fija la sesión y la base lo comprueba. |
+| P7, P9 y P10: Firebase (Firestore, Auth, reglas) | Supabase: Postgres, Auth y Row Level Security | BabyWolf ya usa Supabase (la web y el backend). Agregar Firebase metería un segundo proveedor sólo para las prácticas. RLS es el equivalente directo de las reglas de Firestore. |
+| P9: colección "incidencias" de empleados | Reportes que hacen los lectores sobre una noticia | Es el caso real de BabyWolf. Se conservan las pruebas: dos dispositivos, la misma base, cambios cruzados, conflictos y pérdida de conexión. |
+| P9: actualización en tiempo real | Consulta automática cada 5 s | Supabase Realtime necesitaría otra dependencia y canales WebSocket. Con 5 s se ve el cambio del otro dispositivo sin tocar nada, y el tiempo queda medido en la matriz. |
+| P10: el lector intenta a propósito tocar datos ajenos | Pantalla de verificación sólo en depuración | La interfaz normal no ofrece esas acciones, y no debe. Para la evidencia, Cuenta muestra en modo depuración una pantalla que hace los intentos SEG-04…SEG-10. |
+
+## Qué cambió en el backend y la base
+
+- `babywolf-blog/backend/sql/007_app_lectores.sql`: reportes con noticia,
+  prioridad y versión; el admin ve y atiende todos; reglas de comentarios.
+  Probado en Postgres 16 con los roles de Supabase:
+  `pruebas/app_lectores.sh` **20/20**, y `pruebas/rls_incidencias.sh` sigue
+  en **9/9**.
+- Los endpoints `/api/consulta/*` (P3) y `/api/soporte/*` (P7) se usan sin
+  cambios. `/api/connect/*` (canal efímero de la versión anterior de la P6)
+  queda sin uso en la app.

@@ -17,25 +17,26 @@ wearable y Smart TV. Los tres consumen el mismo caso de estudio, el blog
 
 ## Prácticas de laboratorio (cuatrimestre septiembre–diciembre 2026)
 
-La app del teléfono se extendió con las prácticas del curso. No son apps
-nuevas: se abren desde el feed con el botón 🧪 **Prácticas de laboratorio**.
+Las prácticas del curso no son pantallas aparte: de cada una se tomó lo
+esencial y se convirtió en una función real de la app del teléfono.
 
-| Práctica | Módulo |
+| Práctica | Función en `phone_app` |
 |---|---|
-| 1 y 2 · ESP32, sensor IR y botón | `phone_app/lib/laboratorio/p1_iot` + `firmware/` |
-| 3 · ConsultaWeb (URL preasignada) | `p3_consulta` |
-| 4 · Usuarios en SQLite | `p4_usuarios` |
-| 5 · AccesoSeguro | `p5_acceso` |
-| 6 · MobileConnect | `p6_connect` |
-| 7 · Mesa de ayuda (4 dispositivos, roles) | `p7_soporte` |
-| 8 · Pruebas de caja negra | `docs/practicas/practica8_caja_negra.md` |
-| 10 · Incidencias seguras (Auth + RLS) | `p10_incidencias` |
+| 3 · ConsultaWeb (URL preasignada) | Resumen del blog arriba del feed, con filtro por tema (`lib/resumen`) |
+| 4 · Almacenamiento estructurado | Noticias guardadas en SQLite para leer sin internet (`lib/guardadas`) |
+| 5 · Código seguro | Iniciar sesión con la cuenta de BabyWolf (`lib/core/sesion.dart`, `lib/cuenta`) |
+| 6 · Interacción entre dispositivos | Comentarios en cada noticia (`lib/comentarios`) |
+| 7 · Roles e interacción | Mesa de ayuda del equipo (`lib/soporte`) |
+| 9 · Base compartida | Reportes de noticias sincronizados entre lector y admin (`lib/reportes`) |
+| 10 · Seguridad y control de acceso | Reglas RLS de reportes y comentarios (`007_app_lectores.sql`, repo blog) |
+| 8 · Caja negra | Evaluación de todo lo anterior |
+| 1 y 2 · ESP32 | Fuera de la app (justificado); firmware en `firmware/` |
 
 Detalle, justificaciones y evidencias: [`docs/practicas/`](docs/practicas/README.md).
 
-Antes de usar la mesa de ayuda (práctica 7), ejecutar una vez
-`backend/sql/005_soporte.sql` del repo `babywolf-blog` en el SQL Editor de
-Supabase.
+Antes de usar la app con cuenta, ejecutar una vez en el SQL Editor de
+Supabase, en este orden, los scripts del repo `babywolf-blog`:
+`005_soporte.sql`, `006_incidencias_rls.sql` y `007_app_lectores.sql`.
 
 ```bash
 cd phone_app && flutter pub get && flutter analyze && flutter test

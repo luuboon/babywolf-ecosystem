@@ -1,8 +1,20 @@
 # Práctica 10 — Seguridad, autenticación y control de acceso a una base compartida
 
-App → 🧪 → *Práctica 10 · Incidencias seguras*
-(`phone_app/lib/laboratorio/p10_incidencias/`). Las reglas están en el repo
-`babywolf-blog`, en `backend/sql/006_incidencias_rls.sql`.
+**En BabyWolf:** las reglas que deciden **qué reportes y comentarios puede
+ver o cambiar cada cuenta**. Se ven en el uso normal de la app:
+- Cuenta muestra el correo, el **UID** y el rol (Lector / Admin).
+- *Mis reportes* de un lector sólo trae los suyos; el admin ve *Reportes de
+  lectores* con todos (práctica 9).
+- Nadie comenta a nombre de otro ni borra comentarios ajenos (práctica 6).
+
+Las reglas están en el repo `babywolf-blog`: `backend/sql/006_incidencias_rls.sql`
+(dueño de cada reporte) y `007_app_lectores.sql` (admin, versión y comentarios).
+
+La interfaz normal no ofrece acciones prohibidas, como leer el reporte de
+otro por su ID. Para la evidencia hace falta intentarlas a propósito, así que
+en compilaciones de **depuración** Cuenta muestra *Verificación de reglas
+(depuración)* (`lib/verificacion/`), que hace los intentos SEG-04…SEG-10. En
+una compilación release esa opción no existe.
 
 ## Firebase → Supabase
 
@@ -26,16 +38,19 @@ está permitida, Postgres la rechaza aunque alguien modifique la app.
 
 - El proveedor *Email* de Supabase Auth ya está activo (el blog lo usa para
   iniciar sesión).
-- Cuentas de prueba: se crean en Supabase → Authentication → Users → *Add
-  user* (por ejemplo `usuario.a@…` y `usuario.b@…`).
-- Al iniciar sesión, la app muestra el **correo y el UID**, con botón para
-  copiarlo. El UID se toma de la respuesta de Supabase Auth y coincide con el
-  `sub` del JWT.
+- Cuentas de prueba: desde la app (Cuenta → *¿No tienes cuenta? Crear una*)
+  o en Supabase → Authentication → Users → *Add user*.
+- Al iniciar sesión, Cuenta muestra el **correo, el UID y el rol**, con botón
+  para copiar el UID. El UID viene de Supabase Auth (claim `sub` del JWT) y el
+  rol de la tabla `users` del blog, la misma que usa la web.
+- La sesión (práctica 5) guarda sólo el refresh token, cifrado.
 
 ## Fase 2 — Registros con propietario
 
-- "Registrar" envía `creado_por = UID` de forma explícita.
-- Si no se envía, la columna toma `auth.uid()` por defecto.
+- Al reportar una noticia, la app **no manda** `creado_por`: la columna toma
+  `auth.uid()` del token. Así la app no puede, ni por error, crear un reporte
+  a nombre de otro.
+- La pantalla de verificación sí lo manda explícito, para probar SEG-04.
 - Para verificar los propietarios, en el SQL Editor de Supabase (como
   administrador, que no está sujeto a RLS):
 
@@ -72,17 +87,37 @@ CREATE POLICY incidencias_borrar_propias ON public.incidencias FOR DELETE TO aut
 | `WITH CHECK` en UPDATE | La fila *después* del cambio también debe ser del usuario: no se puede regalar una incidencia | SEG-08, SEG-09 |
 | `(select auth.uid())` | Se calcula una vez por consulta y no por fila (recomendación de rendimiento de Supabase) | — |
 
+### Reglas que agrega `007_app_lectores.sql`
+
+Las de 006 se quedan igual. Las nuevas se **suman** (en Postgres, las
+políticas permisivas se combinan con OR):
+
+| Pieza | Qué hace | Casos ([BD] `app_lectores.sh`) |
+|---|---|---|
+| `es_admin()` (SECURITY DEFINER, `search_path` fijo) | Dice si el UID del token tiene rol `admin` en la tabla `users` del blog | — |
+| `incidencias_admin_leer` / `incidencias_admin_atender` | El admin lee y actualiza todos los reportes | ADM-01, DB-03, DB-06 |
+| Trigger `incidencias_versionar` | Sube la versión, anota quién cambió y **impide que el admin cambie el dueño** de un reporte | DB-07, ADM-02 |
+| Sin regla de DELETE para el admin | El admin cierra reportes; no borra los de los lectores | ADM-03 |
+| `comments`: leer público, crear con `author_id = auth.uid()`, editar el propio, borrar el propio o el admin | Comentarios de la práctica 6 | COM-01…COM-08 |
+| `CHECK` de longitud y de prioridad | La base rechaza comentarios vacíos o > 280 y prioridades fuera del catálogo | COM-05, COM-06, DB-RN |
+
 ## Fase 4 — Pruebas con dos dispositivos
 
+Para esta fase, A y B deben ser **cuentas de lector**: una cuenta admin ve
+todos los reportes por diseño, así que SEG-05 no aplicaría.
+
 1. Dispositivo A inicia sesión con el usuario A; dispositivo B con el usuario B.
-2. A registra dos incidencias y B registra una.
-3. En B, copiar su **UID** y el **ID** de su incidencia (botones de copiar).
+2. A reporta dos noticias y B reporta una (bandera en el detalle). Las tres
+   deben verse sólo en *Mis reportes* de su dueño.
+3. Abrir en ambos Cuenta → *Verificación de reglas (depuración)* (aparece al
+   ejecutar desde Android Studio en modo debug).
+4. En B, copiar su **UID** y el **ID** de su incidencia (botones de copiar).
    Pegarlos en A, en "Fase 4 · Intentos no autorizados". Entre emuladores, el
    portapapeles se comparte con la Mac.
-4. En A, pulsar cada botón SEG-04 a SEG-10. Cada intento queda en la bitácora
+5. En A, pulsar cada botón SEG-04 a SEG-10. Cada intento queda en la bitácora
    con el resultado esperado, el obtenido y si **PASA**.
-5. Cerrar sesión y pulsar "Intentar sin sesión" (SEG-10).
-6. "Copiar bitácora" deja la matriz lista para pegar en el reporte.
+6. Cerrar sesión y pulsar "Intentar sin sesión" (SEG-10).
+7. "Copiar bitácora" deja la matriz lista para pegar en el reporte.
 
 **Cómo contesta la base:**
 - Escribir una fila que viola una regla (SEG-04, SEG-09) o actuar sin sesión
@@ -97,7 +132,8 @@ CREATE POLICY incidencias_borrar_propias ON public.incidencias FOR DELETE TO aut
 - **[BD]:** `backend/pruebas/rls_incidencias.sh` ejecuta cada operación con los
   roles de Supabase (`authenticated` con el JWT del usuario, y `anon`) sobre
   las mismas reglas, en Postgres 16. Se corrió el 29/10/2026 con resultado
-  **9/9**.
+  **9/9**, y otra vez el 06/11/2026 con `007_app_lectores.sql` aplicado
+  encima: sigue **9/9** (las reglas nuevas no abren ningún hueco).
 - **[APP]:** falta ejecutarlo en los dos dispositivos con capturas.
 
 | ID | Acción | Esperado | Resultado | Evidencia |
@@ -114,6 +150,19 @@ CREATE POLICY incidencias_borrar_propias ON public.incidencias FOR DELETE TO aut
 | SEG-10 | Sin sesión: leer y escribir | Rechazado | **Pasa** [BD]: `permission denied for table incidencias` (las dos) | Bitácora sin sesión |
 
 Caso extra [BD]: B consulta todas las incidencias y sólo recibe la suya (1 de 3).
+
+Casos de 007 [BD] (06/11/2026, `app_lectores.sh` 20/20), los de seguridad:
+
+| ID | Acción | Esperado | Resultado |
+|---|---|---|---|
+| SEG-05b | Un lector consulta todos los reportes | Sólo los suyos | **Pasa** |
+| SEG-06b | Un lector cambia el reporte de otro | 0 filas | **Pasa** |
+| ADM-01 | El admin consulta todos los reportes | Ve los de todos | **Pasa** |
+| ADM-02 | El admin cambia el dueño de un reporte | Rechazado | **Pasa**: "El dueño de un reporte no se puede cambiar" |
+| ADM-03 | El admin borra un reporte ajeno | 0 filas | **Pasa** |
+| COM-03 | Comentar sin sesión | Rechazado | **Pasa** |
+| COM-04 | Comentar a nombre de otro | Rechazado por RLS | **Pasa** |
+| COM-07 | Borrar el comentario de otro | 0 filas | **Pasa** |
 
 ---
 
@@ -154,8 +203,16 @@ y que la base de datos lo garantice aunque la app sea alterada.
   nada.
 - Las cuentas de prueba deben borrarse o tener contraseñas fuertes al terminar
   la práctica.
-- El JWT dura 1 hora y la app no lo renueva: pasado ese tiempo hay que volver
-  a iniciar sesión. Es incómodo, pero no inseguro.
+- ~~El JWT dura 1 hora y la app no lo renueva.~~ **Corregido:** la sesión de
+  la app renueva el token antes de que venza y guarda sólo el refresh token,
+  cifrado (práctica 5).
+- **Tabla `users` legible por todos:** `supabase_setup_and_seed.sql` crea la
+  regla "Public users are viewable by everyone" (`USING (true)`). Si sigue así
+  en el proyecto, cualquiera con la llave pública puede leer correos y roles
+  de todas las cuentas. No se cambió en esta práctica porque la web podría
+  depender de ella; se recomienda limitarla a `username` mediante una vista y
+  dejar el resto sólo al propio usuario. No se ha verificado el estado actual
+  de esa regla en Supabase.
 - La app entra sólo con contraseña. Si la cuenta tiene segundo factor en la
   web, la app no lo pide.
 - Supabase en plan gratuito se pausa por inactividad (ya ocurrió dos veces). Es

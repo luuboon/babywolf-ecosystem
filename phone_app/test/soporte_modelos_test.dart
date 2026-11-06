@@ -1,7 +1,7 @@
 // Práctica 7: validaciones y reglas de rol del lado de la app.
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phone_app/laboratorio/p7_soporte/modelos.dart';
-import 'package:phone_app/laboratorio/p7_soporte/soporte_api.dart';
+import 'package:phone_app/soporte/modelos.dart';
+import 'package:phone_app/soporte/soporte_api.dart';
 
 void main() {
   test('TC02 — equipo y descripción obligatorios', () {

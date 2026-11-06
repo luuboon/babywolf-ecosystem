@@ -1,51 +1,49 @@
 # Práctica 1 — Comunicación IoT: ESP32, sensor infrarrojo y móvil
 
-**Objetivo:** detectar un objeto con un sensor IR, procesarlo en el ESP32 y
-ver el estado en el teléfono por Bluetooth.
+**Decisión: no se integra en la app BabyWolf.**
 
-## Arquitectura IoT
+## Por qué no
 
-| Capa | Componente en esta práctica |
+BabyWolf es la app de un blog de noticias de videojuegos. Lo que hace un
+lector es leer, guardar, comentar y reportar noticias. Un sensor infrarrojo
+que detecta si hay un objeto frente a él, o un LED que se enciende, no
+corresponde a ninguna de esas tareas, ni a las del equipo que administra el
+blog.
+
+Agregarlo sólo sería una pantalla ajena al producto, que es justo lo que se
+quiso evitar: cada práctica que entró en la app lo hizo como una función real
+(ver el [índice](README.md)).
+
+Hay además dos razones técnicas:
+
+- **Bluetooth clásico (SPP):** el firmware de la práctica usa
+  `BluetoothSerial`. Flutter no lo soporta y los plugins de SPP están
+  abandonados, así que habría que mantener un puente nativo en Kotlin sólo
+  para esto.
+- **Pruebas:** el emulador de Android no tiene radio Bluetooth. Probarlo exige
+  el circuito armado y un teléfono físico.
+
+## Qué se conserva
+
+- La práctica se realizó en clase con el ESP32 y el sensor.
+- El firmware queda en el repo como anexo: `firmware/practica1_sensor_ir/`
+  (script del docente) y `firmware/iot_combinado/` (prácticas 1 y 2 juntas).
+- La arquitectura IoT del ejercicio:
+
+| Capa | Componente |
 |---|---|
 | Percepción | Sensor infrarrojo en GPIO 27 (LOW = objeto) |
 | Procesamiento | ESP32: decide si hay objeto y enciende el LED (GPIO 2) |
-| Red | Bluetooth **clásico**, perfil SPP (puerto serie), nombre `ESP32_SENSOR_IR` |
-| Aplicación | App BabyWolf → Prácticas → *Sensor IR · ESP32* |
+| Red | Bluetooth clásico, perfil SPP, nombre `ESP32_SENSOR_IR` |
+| Aplicación | Monitor serial / terminal Bluetooth del teléfono |
 
-## Implementación
+## Relación con el ecosistema
 
-- **Firmware:** `firmware/practica1_sensor_ir/` (script del docente sin cambios).
-- **Puente Bluetooth:** `phone_app/android/.../SppBridge.kt`. `BluetoothSerial`
-  es Bluetooth clásico (SPP), no BLE. Flutter no lo soporta de fábrica y los
-  plugins de SPP están abandonados, así que la app abre directo un socket
-  RFCOMM con el UUID estándar de SPP (`00001101-0000-1000-8000-00805F9B34FB`)
-  y pasa cada línea a Flutter por un `EventChannel`.
-- **Pantalla:** `lib/laboratorio/p1_iot/iot_screen.dart`. Muestra un indicador
-  grande (OBJETO DETECTADO / SIN OBJETO), el estado del LED, la arquitectura y
-  el historial con hora.
-- **Interpretación:** `lectura_iot.dart`, cubierta por `test/lectura_iot_test.dart`.
-- **Permisos:** `BLUETOOTH_CONNECT` en tiempo de ejecución desde Android 12.
-  La app sólo usa dispositivos ya emparejados y no pide ubicación.
+El ecosistema BabyWolf sí tiene un dispositivo conectado: el **wearable**,
+que manda métricas de lectura al teléfono con el mismo modelo de
+servicio/característica que BLE (`gatt_constants.dart`). Esa es la parte IoT
+que tiene sentido para el producto, y ya existía antes de las prácticas.
 
-## Cómo probar
-
-1. Cargar el firmware y emparejar `ESP32_SENSOR_IR` en los ajustes del teléfono.
-2. App → 🧪 → *Práctica 1 y 2* → **Buscar emparejados** → tocar el ESP32.
-3. Acercar y alejar la mano del sensor: el indicador y el LED cambian cada 0.5 s.
-
-**Sin hardware (emulador):** activar **Modo simulado**. Genera las mismas
-líneas que el firmware (3 s con objeto, 3 s sin objeto).
-
-## Pruebas del docente
-
-| Prueba | Resultado | Evidencia |
-|---|---|---|
-| Objeto frente al sensor → "OBJETO DETECTADO" y LED encendido | Pendiente de registrar con el circuito armado | Captura de la app + foto del LED |
-| Sin objeto → "SIN OBJETO" y LED apagado | Pendiente | |
-| Se corta la conexión (apagar el ESP32) | Pendiente | La app avisa "Se perdió la conexión con el ESP32" |
-| Modo simulado en el emulador | Pendiente de captura | |
-
-> Justificación: la práctica con el ESP32 ya se realizó en clase, pero al
-> momento de integrarla el circuito no está armado y el teléfono físico no
-> está disponible. El emulador de Android no tiene radio Bluetooth. Las filas
-> pendientes se llenan cuando se arme el circuito.
+La versión anterior de la app sí tenía una pantalla para esta práctica
+(puente `SppBridge.kt`, modo simulado). Se retiró al integrar las prácticas
+en funciones reales; sigue en el historial de git (commit `e53abb3`).

@@ -1,6 +1,11 @@
 # Práctica 7 — Asignación de roles e interacción: Mesa de ayuda BabyWolf
 
-App → 🧪 → *Mesa de ayuda*. Código en `phone_app/lib/laboratorio/p7_soporte/`.
+**En BabyWolf:** la **mesa de ayuda del equipo** del blog: Cuenta → *Mesa de
+ayuda del equipo*. Es donde el admin, un agente y usuarios invitados
+coordinan la atención de fallas del sitio (por ejemplo, los reportes que
+hacen los lectores, práctica 9) entre varios dispositivos y con roles.
+
+Código en `phone_app/lib/soporte/`.
 El backend vive en el repo `babywolf-blog`:
 - `controllers/soporte_controller.go`
 - `application/soporte/reglas.go`
@@ -10,7 +15,7 @@ El backend vive en el repo `babywolf-blog`:
 
 | Rol | Cómo entra | Qué puede hacer |
 |---|---|---|
-| Administrador | Con su cuenta del blog BabyWolf (Supabase). El backend comprueba en la BD que su rol sea `admin` | Todo: invitar, asignar, cambiar prioridad y estado, eliminar, expulsar, borrar el historial, ver todos los mensajes |
+| Administrador | Con la sesión que ya tiene abierta en la app (su cuenta del blog, práctica 5). La mesa no pide un segundo inicio de sesión: usa el mismo token, y el backend comprueba en la BD que su rol sea `admin`. Una cuenta de lector ve el aviso de que necesita invitación | Todo: invitar, asignar, cambiar prioridad y estado, eliminar, expulsar, borrar el historial, ver todos los mensajes |
 | Agente de atención | Con una **URL preasignada** que genera el admin | Ver y atender los reportes asignados a él o sin asignar; cambiar su prioridad y estado |
 | Usuario (×2) | Con una URL preasignada | Crear reportes y ver sólo los suyos; mandar mensajes |
 

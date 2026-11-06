@@ -1,141 +1,140 @@
 # Práctica 8 — Evaluación de calidad con pruebas de caja negra
 
-**Producto evaluado:** BabyWolf. Es el blog (backend Go en Railway + Supabase)
-más la app móvil (`phone_app`), con los módulos de las prácticas 3 a 7.
+**Producto evaluado:** la app BabyWolf (`phone_app`) con las funciones que
+salieron de las prácticas 3–7, 9 y 10, junto con el backend Go (Railway) y la
+base Supabase del blog.
 
 **Técnicas:**
 - Partición de equivalencia (entradas válidas / inválidas).
-- Valores límite (longitudes, edades, tiempos).
-- Tabla de decisión (permisos por rol).
-- Transición de estados (conexión, sesión, reporte).
+- Valores límite (longitudes, tiempos de bloqueo y de vigencia).
+- Tabla de decisión (permisos por rol y por dueño).
+- Transición de estados (sesión, conexión, versión de un reporte).
 
 **Enfoque de caja negra:** cada caso se define sólo por entrada → salida
 esperada, sin mirar el código.
 
-Cubre lo que pide la práctica:
-
-| Se recomienda evaluar… | Módulo de BabyWolf |
+| Se recomienda evaluar… | En BabyWolf |
 |---|---|
-| Autenticación o control de acceso | AccesoSeguro (P5), sesión del admin y URLs de rol (P7) |
-| Formularios de registro | Usuarios (P4), reportes (P7) |
-| Consulta, búsqueda o filtrado | VER usuarios, buscar/filtrar reportes, consulta por ID |
-| Modificación y eliminación | Usuarios, reportes |
-| Reglas de negocio verificables | ID REPnnn sin sobrescritura, acceso perdido directo al admin, cambio de roles |
-| Pantallas, módulos o roles | Admin, agente y usuario |
-| Persistencia | SQLite local, Postgres (Supabase) |
-| Confirmaciones y manejo de errores | SnackBars, mensajes genéricos, cola de pendientes |
+| Autenticación o control de acceso | Cuenta (P5), reglas por dueño y por rol (P10), mesa de ayuda (P7) |
+| Formularios de registro | Crear cuenta, reportar una noticia, comentar |
+| Consulta, búsqueda o filtrado | Resumen y filtro por tema, Guardadas, filtro de reportes por estado |
+| Modificación y eliminación | Nota de una guardada, reportes, comentarios |
+| Reglas de negocio verificables | Sin duplicados en Guardadas, versión de reportes, sólo el admin cambia el estado |
+| Pantallas, módulos o roles | Lector, admin; admin/agente/usuario en la mesa |
+| Persistencia | SQLite local (Guardadas), Supabase (reportes, comentarios), sesión cifrada |
+| Confirmaciones y manejo de errores | Mensajes genéricos, sin éxito falso sin red, avisos de conflicto |
 
 ---
 
 ## 1. Inventario de funcionalidades
 
-| ID | Funcionalidad | Módulo |
+| ID | Funcionalidad | Práctica |
 |---|---|---|
-| F01 | Feed de noticias del blog | Feed |
-| F02 | Consulta por URL preasignada | P3 ConsultaWeb |
-| F03 | Alta, consulta, modificación y baja de usuarios | P4 |
-| F04 | Inicio de sesión simulado seguro | P5 |
-| F05 | Intercambio de mensajes A ↔ B | P6 |
-| F06 | Entrada a la mesa de ayuda (admin / invitación) | P7 |
-| F07 | Gestión de reportes | P7 |
-| F08 | Mensajes y archivos entre roles | P7 |
-| F09 | Roles, conexión e intercambio de roles | P7 |
-| F10 | Lectura del sensor IR del ESP32 | P1 |
+| F01 | Feed de noticias | — |
+| F02 | Resumen del blog por URL firmada y filtro por tema | P3 |
+| F03 | Guardar noticias, leerlas sin internet y anotar | P4 |
+| F04 | Entrar, crear cuenta, sesión persistente y cerrar sesión | P5 |
+| F05 | Comentarios entre lectores | P6 |
+| F06 | Mesa de ayuda del equipo (roles, mensajes, archivos) | P7 |
+| F07 | Reportar una noticia y seguir el reporte entre dispositivos | P9 |
+| F08 | Reglas de acceso por dueño y por rol | P10 |
 
 ## 2–7. Requisitos: entradas, restricciones, salidas, errores y criterio de aceptación
 
 | Req. | Func. | Entrada | Restricción | Salida / cambio de estado esperado | Error a manejar | Criterio de aceptación medible |
 |---|---|---|---|---|---|---|
-| RQ01 | F01 | Abrir la app | — | Lista de noticias publicadas | Sin red / backend caído | Con red: ≥ 1 noticia en ≤ 15 s. Sin red: mensaje + botón "Reintentar" que **sí** recarga |
-| RQ02 | F02 | Botón CONSULTAR | URL firmada, vigencia 5 min | "Consultando..." y luego el resumen | Sin red, URL alterada, URL expirada | Los 3 casos muestran "No fue posible obtener la información." con su causa; la URL alterada da 403 |
-| RQ03 | F03 | nombre, edad, profesión, correo | nombre 1–60; edad 15–99; carrera 1–60; correo con formato | Registro con id; aparece en VER usuarios | Campo vacío o fuera de rango | 100 % de los inválidos se rechazan antes de guardar; 3 altas → 3 filas |
-| RQ04 | F03 | Modificar o eliminar un usuario | Usuario existente | El cambio se ve al volver a consultar | id inexistente | `actualizar` devuelve 1; tras eliminar, `obtenerPorId` = null |
-| RQ05 | F03 | Actualizar desde una base v1 | — | La migración agrega `correo` sin perder registros | — | Los registros previos siguen y su correo queda vacío |
-| RQ06 | F04 | usuario, contraseña | usuario 1–30 sin sólo espacios, `[a-zA-Z0-9._-]`; contraseña 8–64 | Acceso simulado sólo con los datos de prueba | Vacíos, largos, espacios, inyección, credencial errónea | Un solo mensaje genérico para credencial errónea; la contraseña nunca aparece en el log |
-| RQ07 | F04 | 5 credenciales erróneas seguidas | — | Bloqueo de 30 s | Fuerza bruta | El botón queda deshabilitado 30 s |
-| RQ08 | F05 | sala, emisor, texto | sala 3–24 `[A-Z0-9-]`; texto 1–280 | Mensaje con emisor y hora en ambos dispositivos | Vacío, largo, sala inválida | El otro dispositivo lo ve en ≤ 2 s; el vacío se rechaza (422) |
-| RQ09 | F05 | Limpiar historial | — | Sala sin mensajes y contadores en 0 | — | Ambos dispositivos ven la lista vacía en ≤ 2 s |
-| RQ10 | F06 | Cuenta del blog | Rol `admin` en la BD | Token de mesa | Cuenta sin rol admin | No admin → 403 |
-| RQ11 | F06 | URL de invitación | Firmada, ≤ 30 min, un solo uso | Participante con el rol de la URL | Alterada, expirada, reutilizada | 403 / 410 / 409 respectivamente |
-| RQ12 | F07 | ID?, equipo, descripción, tipo, prioridad | Equipo 1–80, descripción 1–500; ID `REP` + 3–6 dígitos | Reporte REPnnn activo | Vacíos, ID repetido, ID inexistente | TC01–TC06 de la P7 |
-| RQ13 | F07 | Cambio de prioridad o estado | Admin o agente asignado | Se conserva al consultar | Rol sin permiso | Usuario → 403 |
-| RQ14 | F07 | Eliminar | Sólo admin real | Baja lógica | Agente o admin temporal | 403 |
-| RQ15 | F08 | texto, destinatario, adjunto | Texto ≤ 500; adjunto png/jpg/pdf/txt/log ≤ 5 MB | Mensaje visible según destinatario | Vacío, `.exe`, archivo ajeno | 422 en los tres |
-| RQ16 | F09 | Latido cada 10 s | 30 s sin latido = desconectado | Estado de los 4 dispositivos | Pérdida de red | Admin desconectado → agente "cubre al admin"; vuelve a agente al regresar el admin |
-| RQ17 | F09 | Monitor en tiempo real | Sólo admin y agente | Recarga automática | Usuario lo intenta | Usuario → 403 |
-| RQ18 | F07 | Escritura sin red | — | Operación pendiente + aviso | Pérdida de red | Al volver la red se envía sola y desaparece de pendientes |
-| RQ19 | F07 | Cerrar y abrir la app | Sesión ≤ 12 h | Entra directo y ve sus reportes | Token vencido | Token vencido → regresa a la pantalla de entrada |
-| RQ20 | F10 | Líneas del ESP32 por SPP | — | Indicador OBJETO / SIN OBJETO | Conexión cortada | Cambio visible ≤ 1 s; aviso al perder la conexión |
+| RQ01 | F01 | Abrir la app | — | Lista de noticias | Sin red / backend caído | Con red: ≥ 1 noticia en ≤ 15 s. Sin red: mensaje + "Reintentar" que recarga |
+| RQ02 | F02 | Abrir o recargar el feed | URL firmada, vigencia 5 min | "Consultando…" y luego total + temas | Sin red, URL alterada (403), vencida (410) | Vencida: pide otra sola; alterada: 403; sin red: mensaje + Reintentar |
+| RQ03 | F02 | Tocar un tema | — | El feed muestra sólo ese tema; "Todas" lo quita | — | Todas las tarjetas visibles son del tema elegido |
+| RQ04 | F03 | Marcador en una noticia | Una noticia se guarda una sola vez | Aparece en Guardadas con su contenido | Guardar dos veces | 1 fila por noticia; se lee en modo avión |
+| RQ05 | F03 | Nota personal | ≤ 500 caracteres | La nota se ve en el detalle y en la lista | 501 caracteres | Se rechaza con mensaje |
+| RQ06 | F03 | Quitar (marcador o deslizar) | Confirmación al deslizar | Desaparece de la lista | — | 0 filas para esa noticia |
+| RQ07 | F03 | Cerrar y abrir la app | — | Las guardadas siguen | — | Mismo número de guardadas |
+| RQ08 | F04 | correo, contraseña | correo ≤ 120 con formato; contraseña ≤ 72 | Sesión con correo, UID y rol | Vacíos, formato, credencial errónea | Lo inválido no llega al servidor; credencial errónea → un solo mensaje genérico |
+| RQ09 | F04 | 5 credenciales erróneas | — | Bloqueo de 30 s | Fuerza bruta | Botón deshabilitado con cuenta regresiva; sin peticiones durante el bloqueo |
+| RQ10 | F04 | Crear cuenta | nombre 3–20 `[a-zA-Z0-9._-]`; contraseña ≥ 8 con letras y números; confirmación igual | Sesión iniciada, o aviso de confirmar correo | Contraseña débil, distinta, correo o nombre repetido | Mensaje que no revela qué dato chocó |
+| RQ11 | F04 | Cerrar y abrir la app | Sesión guardada | Entra directo | Token vencido / revocado | Revocado → queda sin sesión, sin error |
+| RQ12 | F04 | Usar la app más de 1 hora | Token de 1 h | Sigue funcionando | — | Comentar a los 65 min funciona sin volver a entrar |
+| RQ13 | F04 | Cualquier intento | — | "Actividad reciente" sin datos sensibles | — | Correo enmascarado; nunca la contraseña |
+| RQ14 | F05 | Comentario | 1–280 caracteres; con sesión | Aparece con autor y hora en ambos teléfonos | Vacío, largo, sin sesión | El otro teléfono lo ve en ≤ 5 s; vacío y largo se rechazan |
+| RQ15 | F05 | Borrar comentario | Propio, o cualquiera si eres admin | Desaparece | Ajeno | Ajeno → "no es tu comentario" |
+| RQ16 | F07 | Motivo, detalles, prioridad | Motivo obligatorio; detalles ≤ 500 | Reporte "Pendiente" ligado a la noticia | Sin motivo, sin red | Sin red: no se confirma y lo escrito se conserva |
+| RQ17 | F07 | Cambio de estado / prioridad / descripción | Estado sólo admin; descripción sólo dueño | El otro dispositivo lo ve | Rol sin permiso | Visible en ≤ 5 s en el otro dispositivo |
+| RQ18 | F07 | Dos dispositivos editan el mismo reporte | — | El segundo en guardar recibe aviso y conserva sus cambios | Escritura concurrente | Ningún cambio confirmado se pierde sin aviso |
+| RQ19 | F08 | Lector consulta reportes | — | Sólo los suyos | Intento de leer, cambiar o borrar ajenos | Rechazo en la base (SEG-04…SEG-10) |
+| RQ20 | F08 | Admin consulta reportes | Rol admin en `users` | Todos | Cambiar dueño / borrar ajeno | Rechazado |
+| RQ21 | F06 | Abrir la mesa como admin | Sesión de una cuenta admin | Panel de la mesa | Cuenta de lector | El lector ve "necesitas invitación"; el backend responde 403 |
+| RQ22 | F06 | URL de invitación | Firmada, ≤ 30 min, un solo uso | Participante con ese rol | Alterada, expirada, reutilizada | 403 / 410 / 409 |
+| RQ23 | F06 | Reportes, mensajes, archivos y roles de la mesa | Ver práctica 7 | TC01–TC08 | — | Ver práctica 7 |
 
 ## 8. Requisitos que todavía no se pueden verificar
 
 | Req. | Por qué | Qué falta |
 |---|---|---|
-| RQ20 | Circuito no armado y teléfono físico no disponible; el emulador no tiene Bluetooth | Armar el circuito y probar en el teléfono |
-| RQ08 (entre dos teléfonos) | Requiere el dispositivo de otro estudiante | Sesión con el compañero |
-| RQ16–RQ19 en la app | Requieren 4 dispositivos y Supabase con `005_soporte.sql` aplicado | Ejecutar el SQL y la sesión de 4 dispositivos |
-| Tiempo de respuesta en producción | Railway y Supabase en plan gratuito: el 08/10/2026 el proyecto de Supabase estaba **pausado** y el backend respondía 502 | Medir con el servicio activo; definir un SLA, que el curso no da |
-| MFA del admin en la app | La web pide segundo factor; la app entra sólo con contraseña | Decidir si el curso lo exige |
+| Todos en la app | El código de esta versión aún no se ha compilado ni probado en el equipo del alumno | `flutter analyze`, `flutter test` y recorrido en el emulador |
+| RQ14, RQ17, RQ18 entre dos dispositivos | Requieren dos dispositivos con cuentas distintas | Emulador + teléfono, o dos emuladores |
+| RQ16–RQ20 en Supabase real | `007_app_lectores.sql` aún no se ejecuta en el proyecto | Ejecutarlo en el SQL Editor |
+| RQ12 | Hay que esperar más de 1 hora con la app abierta | Prueba manual |
+| Tiempo de respuesta en producción | Railway y Supabase en plan gratuito se pausan (502 observado el 08/10/2026) | Medir con el servicio activo |
 
 ---
 
-## Casos de prueba ejecutados
+## Casos de prueba
 
 **Fuente de cada resultado:**
 - **[GO]:** `go test` del backend.
-- **[E2E]:** escenario contra el backend real + Postgres local (`backend/pruebas/escenario_soporte.py`), 37/37 y TC08 1/1.
-- **[FT]:** prueba en `phone_app/test`. Ejecutada el 02/11/2026 en la Mac del alumno: `flutter analyze` sin observaciones y `flutter test` **40/40**.
-- **[DISP]:** requiere ejecución manual en dispositivo; queda **Pendiente**.
+- **[E2E]:** escenario de la mesa de ayuda contra el backend real + Postgres local (`backend/pruebas/escenario_soporte.py`), 37/37 y TC08 1/1 (22/10/2026).
+- **[BD]:** `backend/pruebas/rls_incidencias.sh` (9/9) y `app_lectores.sh` (20/20) con los roles de Supabase, 06/11/2026.
+- **[FT]:** `phone_app/test`. **Pendiente** de ejecutar para esta versión (la anterior pasó `flutter analyze` sin observaciones y 40/40 el 02/11/2026).
+- **[DISP]:** manual en el emulador o el teléfono.
 
 | Caso | Req. | Técnica | Entrada | Esperado | Resultado |
 |---|---|---|---|---|---|
-| CP01 | RQ01 | Defecto | "Reintentar" tras un error de red | Recarga la lista | **Defecto encontrado y corregido**: `setState` devolvía un Future y la pantalla no se refrescaba (commit `e53abb3`). Verificación en dispositivo: pendiente [DISP] |
-| CP02 | RQ02 | Partición | URL íntegra | 200 + resumen | Pasa [E2E manual con curl] [FT] |
-| CP03 | RQ02 | Partición | URL con un parámetro cambiado, agregado, exp alargado, firma alterada o sin firma | 403 | Pasa [GO] (5 variantes) |
-| CP04 | RQ02 | Límite | URL usada a los 6 min | 410 | Pasa [GO] |
-| CP05 | RQ02 | Partición | Sin red | RF06 | Pasa [FT] |
-| CP06 | RQ03 | Límite | edad 14 / 15 / 99 / 100 | rechaza / acepta / acepta / rechaza | 10 → rechaza, 21 → acepta [FT]; límites exactos pendientes [DISP] |
-| CP07 | RQ03 | Partición | 3 estudiantes válidos | 3 registros | Pasa [FT] |
-| CP08 | RQ04 | Estado | Cambiar la carrera | Persiste | Pasa [FT] |
-| CP09 | RQ05 | Estado | Base v1 con 1 registro → app v2 | Registro intacto, correo vacío | Pasa [FT] |
-| CP10 | RQ06 | Partición | Usuario `"     "` | "El usuario no puede contener solo espacios" | Pasa [FT] |
-| CP11 | RQ06 | Límite | Usuario de 30 / 31 caracteres | acepta / rechaza | Pasa [FT] |
-| CP12 | RQ06 | Límite | Contraseña de 7 / 8 / 64 / 65 | rechaza / acepta / acepta / rechaza | 7, 8 y 65 [FT]; 64 pendiente |
-| CP13 | RQ06 | Partición | `admin' OR '1'='1` | Rechazo | Pasa [FT] |
-| CP14 | RQ06 | Seguridad | Un intento cualquiera | El log no contiene la contraseña | Pasa [FT] |
-| CP15 | RQ07 | Estado | 5 fallos, luego a los 31 s | Bloqueo y luego desbloqueo | Pasa [FT] |
-| CP16 | RQ08 | Partición | Texto vacío, espacios, 281 caracteres | 422 | Pasa [GO] [FT] |
-| CP17 | RQ08 | Partición | Sala `x`, sala `LAB 1` | 422 | Pasa [GO] |
-| CP18 | RQ09 | Estado | Limpiar | Sala vacía, contadores en 0 | Pasa [GO] |
-| CP19 | RQ10 | Decisión | Cuenta `user` / `admin` | 403 / 200 | Pasa [E2E] |
-| CP20 | RQ11 | Partición | URL reutilizada / rol cambiado a admin | 409 / 403 | Pasa [E2E] |
-| CP21 | RQ12 | TC01–TC06 | Ver la práctica 7 | — | Pasa [E2E] |
-| CP22 | RQ13 | Decisión | Usuario sube prioridad / agente asignado sube prioridad | 403 / 200 | Pasa [E2E] |
-| CP23 | RQ14 | Decisión | Eliminar como agente / admin temporal / admin | 403 / 403 / 204 | Pasa [E2E] |
-| CP24 | RQ15 | Partición | `.exe`, archivo de otro participante, mensaje vacío | 422 | Pasa [E2E] |
-| CP25 | RQ15 | Decisión | Mensaje privado al agente, visto por otro usuario | No lo ve | Pasa [E2E] |
-| CP26 | RQ16 | Estado | Admin sale → agente → admin vuelve | admin_temporal → agente | Pasa [E2E] |
-| CP27 | RQ16 | Estado | Agente sale → admin asume | Reporte pasa al admin | Pasa [E2E] |
-| CP28 | RQ17 | Decisión | Monitor como usuario / agente / admin | 403 / 200 / 200 | Pasa [E2E] |
-| CP29 | RQ18 | Estado | Modo avión al guardar un reporte | Pendiente → se envía al volver la red | Pendiente [DISP] |
-| CP30 | RQ19 | Estado | Reiniciar el backend y consultar | Persiste | Pasa [E2E] (TC08) · reabrir la app: pendiente [DISP] |
-| CP31 | RQ19 | Seguridad | Token alterado / participante expulsado | 401 | Pasa [E2E] |
-| CP32 | RQ20 | Partición | `OBJETO DETECTADO` / `SIN OBJETO` / texto desconocido | sensor on / off / sistema | Pasa [FT] · con hardware: pendiente |
+| CP01 | RQ01 | Defecto | "Reintentar" tras un error de red | Recarga la lista | Defecto encontrado y corregido en la versión anterior (`setState` devolvía un Future, commit `e53abb3`) |
+| CP02 | RQ02 | Partición | URL íntegra | 200 + resumen | [GO] pasa · [FT] escrito · [DISP] la versión anterior mostró 8 noticias (05/11/2026) |
+| CP03 | RQ02 | Partición | URL con un parámetro cambiado, agregado, exp alargado, firma alterada o sin firma | 403 | Pasa [GO] (5 variantes) · [FT] escrito |
+| CP04 | RQ02 | Límite | URL usada después de 5 min | 410 y la app pide otra | 410 pasa [GO] · nueva URL: [FT] escrito |
+| CP05 | RQ02 | Partición | Sin red | Mensaje + Reintentar | [FT] escrito |
+| CP06 | RQ03 | Partición | Tema "retro" / "Todas" | Sólo retro / todas | [DISP] pendiente |
+| CP07 | RQ04 | Partición | Guardar la misma noticia dos veces | 1 fila | [FT] escrito |
+| CP08 | RQ05 | Límite | Nota de 500 / 501 | acepta / rechaza | [FT] escrito |
+| CP09 | RQ06 | Estado | Quitar una guardada | 0 filas | [FT] escrito |
+| CP10 | RQ07 | Estado | Cerrar y abrir la base / la app | Siguen | Base: [FT] escrito · App: la versión anterior conservó el registro al cerrar y abrir (05/11/2026); repetir con Guardadas |
+| CP11 | RQ08 | Partición | Correo `abraham@`, `x' OR 1=1 --` | Rechazo sin petición | [FT] escrito |
+| CP12 | RQ08 | Límite | Contraseña de 72 / 73 | acepta / rechaza | [FT] escrito (73) |
+| CP13 | RQ08 | Partición | Contraseña incorrecta | "Correo o contraseña incorrectos." | [FT] escrito · [DISP] la versión simulada lo mostró (05/11/2026) |
+| CP14 | RQ09 | Estado | 5 fallos, luego a los 31 s | Bloqueo y desbloqueo | [FT] escrito · [DISP] la versión simulada mostró "Espera 25 s" (05/11/2026) |
+| CP15 | RQ10 | Partición | Contraseña nueva `abc123` / `12345678` / `BabyWolf2026` | rechaza / rechaza / acepta | [FT] escrito |
+| CP16 | RQ10 | Partición | Nombre de usuario ya usado | Mensaje que no dice cuál dato chocó | [FT] escrito (500 simulado) |
+| CP17 | RQ11 | Estado | Reabrir con sesión / sin red / con token revocado | Entra / conserva el token / queda fuera | [FT] escrito |
+| CP18 | RQ12 | Límite | Token a 30 s de vencer | Se renueva | [FT] escrito |
+| CP19 | RQ13 | Seguridad | Intento fallido | El registro no tiene la contraseña; correo enmascarado | [FT] escrito |
+| CP20 | RQ14 | Partición | Comentario vacío / 281 | Rechazo en la app y en la base | Base: Pasa [BD] COM-05, COM-06 · App: [FT] escrito |
+| CP21 | RQ14 | Seguridad | Comentar sin sesión / a nombre de otro | Rechazo | Pasa [BD] COM-03, COM-04 |
+| CP22 | RQ15 | Decisión | Borrar comentario ajeno como lector / como admin | 0 filas / 1 fila | Pasa [BD] COM-07, COM-08 |
+| CP23 | RQ16 | Estado | Reportar en modo avión | No se confirma; el texto sigue | [FT] escrito (`SinConexion`) · [DISP] pendiente |
+| CP24 | RQ17 | Decisión | Admin cambia estado; lector ve el cambio | Visible | Pasa [BD] DB-06 · [DISP] pendiente |
+| CP25 | RQ18 | Estado | Guardar con una versión vieja | No se pisa; aviso; al recargar se guardan los dos cambios | Pasa [BD] DB-07, DB-07b · [FT] escrito |
+| CP26 | RQ19 | Decisión | SEG-04…SEG-10 | Rechazos | Pasa [BD] 9/9 · [DISP] pendiente (pantalla de verificación) |
+| CP27 | RQ20 | Decisión | Admin cambia dueño / borra ajeno | Rechazado / 0 filas | Pasa [BD] ADM-02, ADM-03 |
+| CP28 | RQ20 | Partición | Prioridad `urgente` | Rechazo de la base | Pasa [BD] DB-RN |
+| CP29 | RQ21 | Decisión | Cuenta `user` / `admin` abre la mesa | 403 / 200 | Pasa [E2E] |
+| CP30 | RQ22 | Partición | URL reutilizada / rol cambiado a admin | 409 / 403 | Pasa [E2E] |
+| CP31 | RQ23 | TC01–TC08 | Ver la práctica 7 | — | Pasa [E2E] |
 
 ## Evaluación
 
 | Pregunta de la práctica | Respuesta con la evidencia actual |
 |---|---|
-| ¿Las funciones corresponden a los requisitos? | Sí. Cada requisito de las prácticas 1–7 tiene implementación (ver el README de esta carpeta). Las desviaciones están justificadas: Room → SQLite, Kotlin → Dart, Firestore → Supabase |
-| ¿Las operaciones principales dan resultados correctos? | En el backend sí: 37/37 [E2E] y todos los [GO]. En la app: `flutter test` 40/40 y `flutter analyze` sin observaciones (02/11/2026); faltan las capturas en dispositivo |
-| ¿Se rechazan entradas inválidas? | Sí, en dos capas (app y backend): CP03–CP06, CP10–CP17, CP24 |
-| ¿Hay defectos en navegación, formularios o mensajes? | Se encontró y corrigió uno (CP01). No se conocen otros abiertos; falta la revisión visual en dispositivo |
-| ¿Los datos conservan su consistencia? | Sí: no se sobrescriben IDs (TC03), baja lógica (TC05), persistencia tras reiniciar (TC08), migración sin pérdida (CP09) e invitación de un solo uso con UPDATE atómico |
-| ¿Los permisos se aplican bien? | Sí, y se verifican en el servidor, no sólo en la interfaz: CP19, CP20, CP22, CP23, CP25, CP28, CP31 |
-| ¿Responde bien a errores e interrupciones? | Backend: mensajes genéricos sin detalles técnicos y 404/409/422 coherentes. App: pantallas de error y cola de pendientes; CP29 está pendiente |
-| ¿Hay defectos que impidan la liberación? | **Riesgo operativo:** si Supabase se pausa, el backend no arranca (502 observado el 08/10/2026). En código no se conocen bloqueantes |
-| ¿Las evidencias bastan para aceptar o rechazar? | **Todavía no para la app.** Para el backend sí: la evidencia es reproducible. Para aceptar la entrega faltan los casos [DISP] (CP01, CP29, RQ08 entre teléfonos, RQ16–RQ20 en 4 dispositivos) y las capturas. `flutter analyze` y `flutter test` (40/40) ya pasan |
+| ¿Las funciones corresponden a los requisitos? | Sí: cada práctica integrada tiene su función en la app (ver el [índice](README.md)), y las desviaciones están justificadas |
+| ¿Las operaciones principales dan resultados correctos? | En la base sí: 20/20 y 9/9 [BD]. En el backend: [GO] y 37/37 [E2E]. **En la app aún no hay evidencia de esta versión**: las pruebas están escritas pero sin ejecutar |
+| ¿Se rechazan entradas inválidas? | Sí, en dos capas (app y base): CP03, CP08, CP11, CP12, CP15, CP20, CP28 |
+| ¿Hay defectos en navegación, formularios o mensajes? | No se conocen; falta el recorrido en el emulador |
+| ¿Los datos conservan su consistencia? | Sí en la base: sin duplicados, control de versión (CP25), dueño inmutable (CP27) |
+| ¿Los permisos se aplican bien? | Sí, en la base y no sólo en la interfaz: CP21, CP22, CP26, CP27, CP29 |
+| ¿Responde bien a errores e interrupciones? | Diseñado para no confirmar sin respuesta del servidor (CP23); falta verificarlo en el dispositivo |
+| ¿Hay defectos que impidan la liberación? | **Riesgo operativo:** si Supabase se pausa, nada que dependa de la base funciona (502 observado el 08/10/2026). **Riesgo de datos:** la tabla `users` podría ser legible por cualquiera (ver práctica 10) |
+| ¿Las evidencias bastan para aceptar o rechazar? | **No todavía para la app.** Faltan `flutter analyze` y `flutter test` de esta versión, ejecutar 007 en Supabase y los casos [DISP] |
 
-**Veredicto provisional:** backend **aceptado**. App **aceptación
-condicionada** a ejecutar los casos [DISP] y registrar sus capturas en esta
-tabla.
+**Veredicto provisional:** base y backend **aceptados**. App **pendiente**
+de compilar, probar y registrar los casos [DISP].

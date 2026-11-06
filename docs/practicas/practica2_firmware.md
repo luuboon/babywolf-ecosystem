@@ -1,15 +1,14 @@
 # Práctica 2 — Introducción al firmware: Controlador LED
 
-**Objetivo:** firmware que lee un botón (GPIO 4, `INPUT_PULLUP`) y enciende el
-LED (GPIO 2) mientras está presionado, con el estado en el monitor serial.
+**Decisión: no se integra en la app BabyWolf.** Es una práctica de firmware:
+el enunciado no pide interfaz móvil, y un botón y un LED no tienen uso en una
+app de noticias (ver la [práctica 1](practica1_iot_esp32.md)).
 
-## Implementación
+## Qué se conserva
 
 - `firmware/practica2_controlador_led/`: script del docente sin cambios.
-- **Relación con la app:** esta práctica es sólo de firmware; el enunciado no
-  pide interfaz móvil. Como extensión, `firmware/iot_combinado/` une las
-  prácticas 1 y 2 y envía también el botón por Bluetooth. La pantalla
-  *Sensor IR · ESP32* lo muestra en la tarjeta "Práctica 2 · Botón y LED".
+- `firmware/iot_combinado/`: une las prácticas 1 y 2 y manda también el
+  estado del botón por Bluetooth.
 
 ## Interacción software ↔ hardware
 
@@ -26,4 +25,3 @@ LED (GPIO 2) mientras está presionado, con el estado en el monitor serial.
 |---|---|---|
 | Presionar el botón | LED encendido, serial: "BOTON PRESIONADO - LED ENCENDIDO" | Realizada en clase; captura pendiente |
 | Soltar el botón | LED apagado, serial: "BOTON LIBERADO - LED APAGADO" | Realizada en clase; captura pendiente |
-| Firmware combinado + app | La tarjeta del botón cambia en la app | Pendiente (hardware) |
