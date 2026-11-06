@@ -36,36 +36,40 @@ class Seccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Material (no DecoratedBox con color): los ListTile que se ponen dentro
+    // pintan su fondo y su efecto al tocar en el Material más cercano.
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
-      decoration: BoxDecoration(
+      child: Material(
         color: kSuperficie,
         borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  titulo.toUpperCase(),
-                  style: const TextStyle(
-                    color: kNeonTexto,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2,
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      titulo.toUpperCase(),
+                      style: const TextStyle(
+                        color: kNeonTexto,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
                   ),
-                ),
+                  ?accion,
+                ],
               ),
-              ?accion,
+              const SizedBox(height: 10),
+              child,
             ],
           ),
-          const SizedBox(height: 10),
-          child,
-        ],
+        ),
       ),
     );
   }

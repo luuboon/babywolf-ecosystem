@@ -147,10 +147,16 @@ class _Opciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = cuenta;
+    // Material (no Container con color): ListTile pinta su fondo y el efecto
+    // al tocar en el Material más cercano; con un DecoratedBox en medio se
+    // verían tapados y Flutter lo marca como error en depuración.
     return Container(
       margin: c == null ? const EdgeInsets.fromLTRB(16, 0, 16, 24) : EdgeInsets.zero,
-      decoration: BoxDecoration(color: kSuperficie, borderRadius: BorderRadius.circular(12)),
-      child: Column(
+      child: Material(
+        color: kSuperficie,
+        borderRadius: BorderRadius.circular(12),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
         children: [
           if (c != null)
             _opcion(
@@ -173,6 +179,7 @@ class _Opciones extends StatelessWidget {
               () => _ir(context, const VerificacionRlsScreen()),
             ),
         ],
+        ),
       ),
     );
   }
