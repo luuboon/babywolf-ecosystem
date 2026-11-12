@@ -9,7 +9,9 @@ kb() { adb exec-out screencap -p | wc -c | awk '{printf "%d", $1/1024}'; }
 dif() { python3 -c "print(round($2-$1,2))"; }
 echo "=== P12 RES emulador $(date '+%F %T %Z') | $(adb shell getprop ro.product.model | tr -d '\r') Android $(adb shell getprop ro.build.version.release | tr -d '\r')"
 adb shell cmd connectivity airplane-mode disable; sleep 3
-adb shell am force-stop $PKG; adb shell am start -n $PKG/.MainActivity >/dev/null; sleep 9
+APK="$ECO/phone_app/build/app/outputs/flutter-apk/app-profile.apk"
+adb shell pm path $PKG >/dev/null 2>&1 || { echo "instalando $APK"; adb install -r "$APK" | tail -1; }
+adb shell am force-stop $PKG; adb shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1; sleep 10
 echo "estado base: captura ${KB:=$(kb)} KB (feed con contenido > 500 KB)"; adb exec-out screencap -p > "$D/p12_res_00_base.png"
 
 for ENS in 1 2 3; do
