@@ -1,0 +1,24 @@
+Pager usage is off.
+== 1. Primer envío (el servidor guarda, la respuesta "se pierde")
+INSERT 0 1
+== 2. Reintento con el MISMO id (lo que hace ComentariosApi.publicar): debe fallar con 23505 y NO insertar
+psql:idempotencia.sql:11: ERROR:  23505: duplicate key value violates unique constraint "comments_pkey"
+DETAIL:  Key (id)=(aaaaaaaa-0000-4000-8000-000000000001) already exists.
+SCHEMA NAME:  public
+TABLE NAME:  comments
+CONSTRAINT NAME:  comments_pkey
+LOCATION:  _bt_check_unique, nbtinsert.c:666
+== 3. Filas con ese id (esperado 1)
+ filas 
+-------
+     1
+(1 row)
+
+== 4. Contraste: SIN id del cliente, el reintento ingenuo crea un duplicado (comportamiento previo a la Práctica 12)
+INSERT 0 1
+INSERT 0 1
+ filas_duplicadas 
+------------------
+                2
+(1 row)
+
