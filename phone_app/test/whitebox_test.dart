@@ -179,11 +179,17 @@ void main() {
       expect(e.tipo, FalloConsulta.formato);
     });
 
-    test('P2b · 200 con JSON roto: FormatException se propaga (hallazgo)', () async {
-      // jsonDecode lanza FormatException y consultar no la captura: queda como
-      // excepción no controlada que sube a la pantalla. Ver informe, D-06.
-      final a = api((_) async => http.Response('{roto', 200));
-      expect(() => a.consultar('$_base/x'), throwsFormatException);
+    test('P2b · 200 con JSON roto: fallo de formato controlado (corrige D-06)', () async {
+      // Antes de la corrección jsonDecode lanzaba una FormatException que
+      // consultar no capturaba y subía a la pantalla. Ver informe, D-06.
+      final e = await falla(api((_) async => http.Response('{roto', 200)));
+      expect(e.tipo, FalloConsulta.formato);
+      expect(e.detalle, 'Respuesta inesperada del servidor.');
+    });
+
+    test('P2c · 200 con bytes que no son UTF-8: también fallo de formato', () async {
+      final e = await falla(api((_) async => http.Response.bytes([0xff, 0xfe, 0xfd], 200)));
+      expect(e.tipo, FalloConsulta.formato);
     });
 
     test('P3 · 403: URL rechazada, con el mensaje del servidor', () async {
@@ -236,6 +242,10 @@ void main() {
       expect(
         () => api((_) async => _err(503, 'sin clave')).obtenerUrl(),
         throwsA(isA<ConsultaException>().having((e) => e.tipo, 'tipo', FalloConsulta.servidor)),
+      );
+      expect(
+        () => api((_) async => http.Response('<html>502</html>', 200)).obtenerUrl(),
+        throwsA(isA<ConsultaException>().having((e) => e.tipo, 'tipo', FalloConsulta.formato)),
       );
       expect(
         () => api((_) async => _ok({'otra': 1})).obtenerUrl(),
@@ -343,6 +353,25 @@ void main() {
         throwsA(isA<ConsultaException>().having((e) => e.tipo, 'tipo', FalloConsulta.servidor)),
       );
       expect(urlsPedidas(m.pedidos), 1);
+    });
+
+    test('P8 · la URL no trae fecha de vencimiento: se considera vigente y se reutiliza (condición E1)', () async {
+      var urls = 0;
+      final api = ConsultaApi(
+        cliente: MockClient((r) async {
+          if (r.url.path.endsWith('/consulta/url')) {
+            urls++;
+            return _ok({'url': '$_base/consulta/recurso?sig=s'});
+          }
+          return _ok({'sitio': 'BW', 'total_noticias': 1});
+        }),
+        base: _base,
+      );
+      final s = ResumenServicio(api: api, reloj: () => ahora);
+      await s.obtener();
+      await s.obtener();
+      expect(urls, 1, reason: 'sin fecha no hay motivo para pedir otra URL');
+      expect(s.vence, isNull);
     });
 
     test('vence expone la fecha de la URL en uso', () async {

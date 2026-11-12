@@ -111,6 +111,17 @@ class ConsultaApi {
     }
   }
 
+  /// Decodifica el cuerpo como JSON. Un 200 con bytes inválidos o JSON roto
+  /// (proxy que responde HTML, corte a mitad de la respuesta) se convierte en
+  /// un fallo de formato controlado en vez de una FormatException suelta.
+  Object? _json(http.Response r) {
+    try {
+      return jsonDecode(utf8.decode(r.bodyBytes));
+    } on FormatException {
+      throw const ConsultaException(FalloConsulta.formato, 'Respuesta inesperada del servidor.');
+    }
+  }
+
   String _mensaje(http.Response r) {
     try {
       final j = jsonDecode(utf8.decode(r.bodyBytes));
@@ -125,7 +136,7 @@ class ConsultaApi {
     if (r.statusCode != 200) {
       throw ConsultaException(FalloConsulta.servidor, _mensaje(r));
     }
-    final j = jsonDecode(utf8.decode(r.bodyBytes));
+    final j = _json(r);
     if (j is! Map || j['url'] is! String) {
       throw const ConsultaException(FalloConsulta.formato, 'Respuesta inesperada del servidor.');
     }
@@ -145,8 +156,7 @@ class ConsultaApi {
       default:
         throw ConsultaException(FalloConsulta.servidor, '${r.statusCode} · ${_mensaje(r)}');
     }
-    final crudo = utf8.decode(r.bodyBytes);
-    final j = jsonDecode(crudo);
+    final j = _json(r);
     if (j is! Map<String, dynamic>) {
       throw const ConsultaException(FalloConsulta.formato, 'Respuesta inesperada del servidor.');
     }
