@@ -7,7 +7,7 @@
 # caminos y decisiones, y aquí sólo se reportan líneas.
 #
 # Uso (desde la raíz del repositorio): ./docs/practicas/practica11_whitebox/medicion/cobertura.sh
-set -euo pipefail
+set -uo pipefail  # sin -e: "flutter --version | head -1" termina con SIGPIPE y abortaba el script
 raiz=$(cd "$(dirname "$0")/../../../.." && pwd)
 salida="$raiz/docs/practicas/practica11_whitebox/resultados"
 mkdir -p "$salida"
@@ -17,7 +17,7 @@ cd "$raiz/phone_app"
   echo "# Cobertura de la app — $(date '+%Y-%m-%d %H:%M:%S %Z')"
   echo "Commit: $(git -C "$raiz" rev-parse --short HEAD) $(git -C "$raiz" diff --quiet || echo '(con cambios sin commit)')"
   echo "Equipo: $(uname -sm) · $(sw_vers -productName 2>/dev/null || true) $(sw_vers -productVersion 2>/dev/null || true)"
-  flutter --version 2>&1 | head -1
+  flutter --version 2>&1 | head -1 || true
   echo
   flutter analyze --no-pub 2>&1 | tail -3
   echo

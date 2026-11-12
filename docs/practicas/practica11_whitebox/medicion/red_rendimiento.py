@@ -47,13 +47,23 @@ def http(metodo, ruta, cuerpo=None, ctype="application/json", conexion_nueva=Tru
     if cuerpo is not None:
         cab += f"Content-Type: {ctype}\r\nContent-Length: {len(cuerpo_b)}\r\n"
     t3 = time.perf_counter()
-    s.sendall(cab.encode() + b"\r\n" + cuerpo_b)
+    cortado = None
+    try:
+        s.sendall(cab.encode() + b"\r\n" + cuerpo_b)
+    except (BrokenPipeError, ConnectionResetError, ssl.SSLError, OSError) as e:
+        cortado = type(e).__name__  # el servidor/borde cerró antes de recibir todo el cuerpo
     t["envio"] = (time.perf_counter() - t3) * 1000
-    primero = s.recv(65536)
+    try:
+        primero = s.recv(65536)
+    except (ConnectionResetError, ssl.SSLError, OSError):
+        primero = b""
     t["ttfb"] = (time.perf_counter() - t3) * 1000
     datos = [primero]
-    while True:
-        b = s.recv(65536)
+    while primero:
+        try:
+            b = s.recv(65536)
+        except (ConnectionResetError, ssl.SSLError, OSError):
+            break
         if not b:
             break
         datos.append(b)
@@ -65,7 +75,7 @@ def http(metodo, ruta, cuerpo=None, ctype="application/json", conexion_nueva=Tru
     codigo = int(m.group(1)) if m else 0
     chunked = b"transfer-encoding: chunked" in cabecera.lower()
     tam = len(cuerpo_resp)
-    return {"codigo": codigo, "t": t, "bytes_cuerpo": tam, "bytes_total": len(crudo), "bytes_enviados": len(cab) + len(cuerpo_b), "chunked": chunked}
+    return {"codigo": codigo, "t": t, "bytes_cuerpo": tam, "bytes_total": len(crudo), "bytes_enviados": len(cab) + len(cuerpo_b), "chunked": chunked, "cortado": cortado}
 
 
 # ── NET-01 · ping ────────────────────────────────────────────
@@ -121,15 +131,19 @@ for i in range(3):
 # El API no tiene un endpoint público de subida de archivos (la subida real exige
 # sesión de la mesa de ayuda). Se envía 1 MB de basura al endpoint JSON de MobileConnect:
 # el servidor lee todo el cuerpo, lo rechaza con 400 y no guarda nada. Se mide hasta la respuesta.
-print("\nNET-04 · tasa de subida (3 × 1 MB de cuerpo inválido; el servidor responde 400 y no guarda nada)")
+print("\nNET-04 · tasa de subida (3 envíos por tamaño de cuerpo inválido; el servidor responde 400 y no guarda nada)")
 R["subida"] = []
-carga = b"x" * (1024 * 1024)
-for i in range(3):
-    r = http("POST", f"/connect/salas/{SALA}/mensajes", cuerpo=carga)
-    seg = r["t"]["total"] / 1000
-    mbps = r["bytes_enviados"] * 8 / seg / 1e6
-    R["subida"].append({"codigo": r["codigo"], "bytes": r["bytes_enviados"], "seg": round(seg, 4), "mbps_efectiva": round(mbps, 3)})
-    print(f"   #{i+1}: HTTP {r['codigo']} · {r['bytes_enviados']} B en {seg:.3f} s → {mbps:.3f} Mbps efectivos")
+for kb in (1024, 256, 64):
+    carga = b"x" * (kb * 1024)
+    for i in range(3):
+        r = http("POST", f"/connect/salas/{SALA}/mensajes", cuerpo=carga)
+        seg = r["t"]["total"] / 1000
+        mbps = r["bytes_enviados"] * 8 / seg / 1e6
+        e = {"kb": kb, "codigo": r["codigo"], "bytes": r["bytes_enviados"], "seg": round(seg, 4),
+             "mbps_efectiva": round(mbps, 3), "envio_ms": round(r["t"]["envio"], 1), "conexion_cortada": r["cortado"]}
+        R["subida"].append(e)
+        nota = f" · CONEXIÓN CORTADA ANTES DE TERMINAR EL ENVÍO ({r['cortado']}); el Mbps no es válido" if r["cortado"] else ""
+        print(f"   {kb:5d} KB #{i+1}: HTTP {r['codigo']} · {r['bytes_enviados']} B en {seg:.3f} s → {mbps:.3f} Mbps efectivos{nota}")
 
 # ── NET-07 · carga controlada ───────────────────────────────
 def escenario(nombre, hacer, concurrentes, total):
