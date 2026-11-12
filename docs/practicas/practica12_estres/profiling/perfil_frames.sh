@@ -7,7 +7,7 @@ echo "=== P12 FRAMES $(date '+%F %T %Z') · $(flutter --version 2>&1 | head -1)"
 adb devices | grep -q "emulator-.*[[:space:]]device$" || { flutter emulators --launch Pixel_9 >/dev/null 2>&1 & sleep 8; adb wait-for-device; until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; do sleep 2; done; sleep 5; }
 cd "$ECO/phone_app" && flutter pub get >/dev/null 2>&1
 export P12_SALIDA="$R"
-flutter drive --profile -d emulator-5554 --driver=test_driver/integration_test.dart --target=integration_test/rendimiento_test.dart 2>&1 | tail -25
+flutter drive --profile -d emulator-5554 --driver=test_driver/integration_test.dart --target=integration_test/rendimiento_test.dart > "$R/profiling_frames_drive.log" 2>&1; grep -E "Exception|Error|error|EXCEPTION|expected|Test failed|All tests passed|Some tests|Built|Install" "$R/profiling_frames_drive.log" | head -20
 echo "--- reporte"
 python3 - "$R/rendimiento_frames.json" <<'P'
 import json,sys
