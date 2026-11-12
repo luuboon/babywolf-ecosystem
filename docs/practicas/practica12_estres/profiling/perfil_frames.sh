@@ -8,17 +8,7 @@ adb devices | grep -q "emulator-.*[[:space:]]device$" || { flutter emulators --l
 cd "$ECO/phone_app" && flutter pub get >/dev/null 2>&1
 export P12_SALIDA="$R"
 flutter drive --profile -d emulator-5554 --driver=test_driver/integration_test.dart --target=integration_test/rendimiento_test.dart > "$R/profiling_frames_drive.log" 2>&1; grep -E "Exception|Error|error|EXCEPTION|expected|Test failed|All tests passed|Some tests|Built|Install" "$R/profiling_frames_drive.log" | head -20
-echo "--- reporte"
-python3 - "$R/rendimiento_frames.json" <<'P'
-import json,sys
-try: d=json.load(open(sys.argv[1]))
-except Exception as e: print("sin reporte:",e); sys.exit()
-for k,v in d.items():
-    if not isinstance(v,dict): continue
-    print(f"[{k}]")
-    for m in ("average_frame_build_time_millis","90th_percentile_frame_build_time_millis","99th_percentile_frame_build_time_millis","worst_frame_build_time_millis",
-              "average_frame_rasterizer_time_millis","90th_percentile_frame_rasterizer_time_millis","99th_percentile_frame_rasterizer_time_millis","worst_frame_rasterizer_time_millis",
-              "frame_count","missed_frame_build_budget_count","missed_frame_rasterizer_budget_count"):
-        if m in v: print(f"   {m}: {v[m]}")
-P
+echo "--- tiempos de frame (FrameTiming del motor, modo profile, emulador)"
+grep "FRAMES \[" "$R/profiling_frames_drive.log" | sed 's/^.*FRAMES/FRAMES/'
+grep -E "All tests passed|Some tests failed" "$R/profiling_frames_drive.log" | tail -1
 echo "=== FIN $(date '+%F %T %Z')"; sleep 2
