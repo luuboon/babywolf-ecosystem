@@ -175,7 +175,9 @@ void main() {
         );
         Object? error;
         var terminado = false;
-        api.posts().then((_) => terminado = true, onError: (Object e) {
+        api.posts().then<void>((_) {
+          terminado = true;
+        }, onError: (Object e) {
           error = e;
           terminado = true;
         });
