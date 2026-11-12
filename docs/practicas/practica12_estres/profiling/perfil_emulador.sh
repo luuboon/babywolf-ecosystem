@@ -95,7 +95,9 @@ consulta() { for i in $(seq 1 15); do adb shell input swipe 540 900 540 2000 300
 lista() { for i in 1 2 3 4 5 6 7 8 9 10; do adb shell input swipe 540 1900 540 600 250; sleep 0.3; adb shell input swipe 540 600 540 1900 250; sleep 0.3; done; }
 nav() { G=$(centro "Guardadas"); C=$(centro "Cuenta"); N=$(centro "Noticias"); echo "   pestañas en: Noticias[$N] Guardadas[$G] Cuenta[$C]"
   for i in $(seq 1 10); do adb shell input tap $G; sleep 0.7; adb shell input tap $C; sleep 0.7; adb shell input tap $N; sleep 0.7; done; }
-busqueda() { B=$(centro "Buscar noticias"); [ -z "$B" ] && { echo "   no se encontró el botón de búsqueda"; return; }; for i in 1 2 3; do adb shell input tap $B; sleep 1; adb shell input text retro; sleep 1.5; adb shell input keyevent KEYCODE_BACK; sleep 0.5; adb shell input keyevent KEYCODE_BACK; sleep 1; done; }
+busqueda() { B=$(centro "Buscar noticias"); [ -z "$B" ] && { echo "   no se encontró el botón de búsqueda"; return; }
+  for i in 1 2 3; do adb shell input tap $B; sleep 1; adb shell input text retro; sleep 1.5
+    X=$(centro "Cerrar búsqueda"); [ -n "$X" ] && adb shell input tap $X; sleep 1; done; }  # NO se usa BACK: el segundo BACK saca la app
 escritura() { for i in 1 2 3 4 5; do adb shell input tap 540 1500; sleep 1.5; G=$(centro "Guardar para leer"); [ -n "$G" ] && { adb shell input tap $G; sleep 1; }
   Q=$(centro "Quitar de guardadas"); [ -n "$Q" ] && { adb shell input tap $Q; sleep 1; }; adb shell input keyevent KEYCODE_BACK; sleep 1; done; }
 
