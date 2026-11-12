@@ -3,30 +3,65 @@
 // GET /api/posts es público: no lleva API key, así que no hay ningún secreto
 // que ocultar en el repositorio.
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
 import '../gatt_constants.dart';
 import '../models/post.dart';
 
+/// Error de la API con un mensaje que se puede mostrar tal cual al usuario:
+/// no incluye el nombre del servidor ni detalles del sistema operativo.
+class BlogApiException implements Exception {
+  const BlogApiException(this.mensaje);
+  final String mensaje;
+
+  @override
+  String toString() => mensaje;
+}
+
 class BlogApi {
+  /// [cliente] y [base] se pueden sustituir en las pruebas (Práctica 11).
+  BlogApi({http.Client? cliente, String? base})
+      : _c = cliente ?? http.Client(),
+        _base = base ?? BlogApi.base;
+
   static const String base =
       'https://babywolf-blog-production.up.railway.app/api';
 
   static const _timeout = Duration(seconds: 15);
 
+  final http.Client _c;
+  final String _base;
+
   /// Noticias publicadas, más recientes primero (el backend ya las ordena).
   Future<List<Post>> posts() async {
-    final res =
-        await http.get(Uri.parse('$base/posts')).timeout(_timeout);
-
-    if (res.statusCode != 200) {
-      throw Exception('El servidor respondió ${res.statusCode}');
+    final http.Response res;
+    try {
+      res = await _c.get(Uri.parse('$_base/posts')).timeout(_timeout);
+    } on SocketException {
+      throw const BlogApiException('Sin conexión a internet.');
+    } on TimeoutException {
+      throw const BlogApiException('El servidor no respondió a tiempo.');
+    } on http.ClientException {
+      throw const BlogApiException('No se pudo establecer la conexión.');
     }
 
-    final decoded = jsonDecode(utf8.decode(res.bodyBytes));
-    if (decoded is! List) throw Exception('Respuesta inesperada de la API');
+    if (res.statusCode != 200) {
+      throw BlogApiException('El servidor respondió ${res.statusCode}.');
+    }
+
+    final Object? decoded;
+    try {
+      decoded = jsonDecode(utf8.decode(res.bodyBytes));
+    } on FormatException {
+      throw const BlogApiException('Respuesta inesperada de la API.');
+    }
+    if (decoded is! List) {
+      throw const BlogApiException('Respuesta inesperada de la API.');
+    }
 
     return decoded
         .whereType<Map<String, dynamic>>()
