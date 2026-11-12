@@ -32,6 +32,7 @@ class BlogApi {
     Future<void> Function(Duration)? esperar,
   })  : _c = cliente ?? http.Client(),
         _base = base ?? BlogApi.base,
+        // ignore: prefer_initializing_formals
         _esperar = esperar;
 
   static const String base =
