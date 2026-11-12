@@ -64,7 +64,10 @@ void main() {
 
     final c = await api.publicar('tok', 'post-1', '  Buen artículo  ');
     expect(c.texto, 'Buen artículo');
-    expect(cuerpos.single, {'post_id': 'post-1', 'content': 'Buen artículo'});
+    expect(cuerpos.single.keys.toSet(), {'id', 'post_id', 'content'}); // sin author_id
+    expect(cuerpos.single['id'], matches(RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')));
+    expect(cuerpos.single['post_id'], 'post-1');
+    expect(cuerpos.single['content'], 'Buen artículo');
   });
 
   test('borrar un comentario ajeno: la base devuelve 0 filas = no permitido', () async {
@@ -74,6 +77,6 @@ void main() {
 
   test('sin conexión no se finge el envío', () async {
     final api = ComentariosApi(cliente: MockClient((_) => throw const SocketException('sin red')));
-    await expectLater(api.publicar('tok', 'post-1', 'Hola'), throwsA(isA<SinConexion>()));
+    await expectLater(api.publicar('tok', 'post-1', 'Hola', esperar: (_) async {}), throwsA(isA<SinConexion>()));
   });
 }

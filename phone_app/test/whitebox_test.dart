@@ -386,7 +386,8 @@ void main() {
   // M5 · BlogApi.posts  (lo que alimenta el feed)
   // ───────────────────────────────────────────────────────────────
   group('M5 BlogApi.posts', () {
-    BlogApi api(Future<http.Response> Function(http.Request) h) => BlogApi(cliente: MockClient(h), base: _base);
+    BlogApi api(Future<http.Response> Function(http.Request) h) =>
+        BlogApi(cliente: MockClient(h), base: _base, esperar: (_) async {});
     Future<String> mensaje(BlogApi a) async {
       try {
         await a.posts();

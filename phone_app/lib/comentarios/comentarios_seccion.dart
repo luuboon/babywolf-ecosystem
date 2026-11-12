@@ -10,6 +10,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../core/reintento.dart';
 import '../core/sesion.dart';
 import '../core/supabase.dart';
 import '../core/widgets.dart';
@@ -37,6 +38,8 @@ class _ComentariosSeccionState extends State<ComentariosSeccion> {
   String? _error;
   String? _errorEnvio;
   bool _enviando = false;
+  String? _idEnvio; // clave de idempotencia del envío en curso
+  String? _textoEnvio;
 
   @override
   void initState() {
@@ -83,7 +86,14 @@ class _ComentariosSeccionState extends State<ComentariosSeccion> {
       _errorEnvio = null;
     });
     try {
-      final c = await _api.publicar(await sesion.token(), widget.post.id, _texto.text);
+      // Misma clave en los reintentos manuales del MISMO texto (idempotencia).
+      if (_idEnvio == null || _textoEnvio != _texto.text) {
+        _idEnvio = uuidV4();
+        _textoEnvio = _texto.text;
+      }
+      final c = await _api.publicar(await sesion.token(), widget.post.id, _texto.text, idSolicitud: _idEnvio);
+      _idEnvio = null;
+      _textoEnvio = null;
       _texto.clear();
       if (mounted) {
         setState(() => _lista = [...?_lista, c]);
