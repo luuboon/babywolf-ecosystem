@@ -1,0 +1,90 @@
+# Prácticas 13 y 14 — Integración continua de la app Flutter (phone_app).
+# Se ejecuta solo en cada push y en cada pull request: análisis estático y
+# todas las pruebas (unitarias, integración y persistencia con SQLite real).
+name: Flutter CI
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'phone_app/**'
+      - '.github/workflows/flutter-ci.yml'
+  pull_request:
+    paths:
+      - 'phone_app/**'
+      - '.github/workflows/flutter-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: flutter-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pruebas:
+    name: Analizar y probar (phone_app)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: phone_app
+    steps:
+      - name: Código
+        uses: actions/checkout@v4
+
+      - name: SQLite del sistema (lo usan las pruebas de persistencia)
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
+      - name: Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Versiones
+        run: flutter --version
+
+      - name: Dependencias
+        run: flutter pub get
+
+      - name: Análisis estático
+        run: flutter analyze
+
+      - name: Pruebas automatizadas
+        run: |
+          START=$(date +%s)
+          flutter test --reporter expanded --file-reporter json:resultados_pruebas.json
+          END=$(date +%s)
+          echo "Tiempo total de pruebas: $((END-START)) s" | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Resumen de resultados
+        if: always()
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, os
+          ok = fail = 0
+          if os.path.exists('resultados_pruebas.json'):
+              for linea in open('resultados_pruebas.json'):
+                  try:
+                      e = json.loads(linea)
+                  except ValueError:
+                      continue
+                  if e.get('type') == 'testDone' and not e.get('hidden'):
+                      if e.get('skipped'):
+                          continue
+                      if e.get('result') == 'success':
+                          ok += 1
+                      else:
+                          fail += 1
+          print(f"### Pruebas\n- Aprobadas: {ok}\n- Fallidas: {fail}")
+          PY
+
+      - name: Guardar resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-pruebas
+          path: phone_app/resultados_pruebas.json
+          if-no-files-found: warn
