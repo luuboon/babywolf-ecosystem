@@ -1,8 +1,6 @@
 // Práctica 12 · Fase 2 — tiempos de FRAME reales de la app (build y raster) en el emulador, modo profile.
 // Usa la app completa (consulta GET de lectura a producción). No usa watchPerformance (requiere el servicio de VM y
 // falla en este emulador); mide directamente los FrameTiming que entrega el motor y calcula los percentiles.
-import 'dart:ui' show FrameTiming;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_test/flutter_test.dart';
