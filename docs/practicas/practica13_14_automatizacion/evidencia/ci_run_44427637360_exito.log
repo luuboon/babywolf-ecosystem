@@ -1,0 +1,642 @@
+﻿2026-11-19T00:16:14.2775022Z Current runner version: '2.338.2'
+2026-11-19T00:16:14.2801165Z ##[group]Runner Image Provisioner
+2026-11-19T00:16:14.2802046Z Hosted Compute Agent
+2026-11-19T00:16:14.2803092Z Version: 20261103.629
+2026-11-19T00:16:14.2803779Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-19T00:16:14.2804650Z Build Date: 2026-11-03T17:26:59Z
+2026-11-19T00:16:14.2805409Z Worker ID: {1166c2e5-197d-45e6-a49e-d7656964ba79}
+2026-11-19T00:16:14.2806196Z Region: us-east-1
+2026-11-19T00:16:14.2806793Z Cloud: AWS
+2026-11-19T00:16:14.2807345Z ##[endgroup]
+2026-11-19T00:16:14.2809173Z ##[group]Operating System
+2026-11-19T00:16:14.2810119Z Ubuntu
+2026-11-19T00:16:14.2810745Z 26.04.1
+2026-11-19T00:16:14.2811294Z LTS
+2026-11-19T00:16:14.2811884Z ##[endgroup]
+2026-11-19T00:16:14.2812481Z ##[group]Runner Image
+2026-11-19T00:16:14.2813516Z Image: ubuntu-26.04
+2026-11-19T00:16:14.2814144Z Version: 20261111.82.6
+2026-11-19T00:16:14.2815578Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.82/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-19T00:16:14.2817348Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.82
+2026-11-19T00:16:14.2818439Z ##[endgroup]
+2026-11-19T00:16:14.2819668Z ##[group]GITHUB_TOKEN Permissions
+2026-11-19T00:16:14.2822127Z Contents: read
+2026-11-19T00:16:14.2823010Z Metadata: read
+2026-11-19T00:16:14.2823675Z ##[endgroup]
+2026-11-19T00:16:14.2826042Z Secret source: Actions
+2026-11-19T00:16:14.2827100Z Cache mode: write
+2026-11-19T00:16:14.2828028Z Prepare workflow directory
+2026-11-19T00:16:14.3298445Z Prepare all required actions
+2026-11-19T00:16:14.3354168Z Getting action download info
+2026-11-19T00:16:14.5039723Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-19T00:16:16.6508789Z Download action repository 'subosito/flutter-action@v2' (SHA:1a449444c387b1966244ae4d4f8c696479add0b2)
+2026-11-19T00:16:16.7528906Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-19T00:16:17.0762200Z Getting action download info
+2026-11-19T00:16:17.1400903Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-11-19T00:16:17.4021918Z Complete job name: Analizar y probar (phone_app)
+2026-11-19T00:16:17.4760428Z ##[group]Run actions/checkout@v4
+2026-11-19T00:16:17.4761717Z with:
+2026-11-19T00:16:17.4762711Z   repository: luuboon/babywolf-ecosystem
+2026-11-19T00:16:17.4769379Z   token: ***
+2026-11-19T00:16:17.4770124Z   ssh-strict: true
+2026-11-19T00:16:17.4770851Z   ssh-user: git
+2026-11-19T00:16:17.4771600Z   persist-credentials: true
+2026-11-19T00:16:17.4772633Z   clean: true
+2026-11-19T00:16:17.4773440Z   sparse-checkout-cone-mode: true
+2026-11-19T00:16:17.4774294Z   fetch-depth: 1
+2026-11-19T00:16:17.4775011Z   fetch-tags: false
+2026-11-19T00:16:17.4775751Z   show-progress: true
+2026-11-19T00:16:17.4776479Z   lfs: false
+2026-11-19T00:16:17.4777146Z   submodules: false
+2026-11-19T00:16:17.4777923Z   set-safe-directory: true
+2026-11-19T00:16:17.4778763Z   allow-unsafe-pr-checkout: false
+2026-11-19T00:16:17.4779810Z ##[endgroup]
+2026-11-19T00:16:19.5179916Z Syncing repository: luuboon/babywolf-ecosystem
+2026-11-19T00:16:19.5181813Z ##[group]Getting Git version info
+2026-11-19T00:16:19.5182878Z Working directory is '/home/runner/work/babywolf-ecosystem/babywolf-ecosystem'
+2026-11-19T00:16:19.5183784Z [command]/usr/bin/git version
+2026-11-19T00:16:19.5186657Z git version 2.56.1
+2026-11-19T00:16:19.5199635Z ##[endgroup]
+2026-11-19T00:16:19.5210743Z Temporarily overriding HOME='/home/runner/work/_temp/a7040d58-7684-4933-9203-c32e841dd002' before making global git config changes
+2026-11-19T00:16:19.5211949Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-19T00:16:19.5214844Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/babywolf-ecosystem/babywolf-ecosystem
+2026-11-19T00:16:19.5628900Z Deleting the contents of '/home/runner/work/babywolf-ecosystem/babywolf-ecosystem'
+2026-11-19T00:16:19.5634457Z ##[group]Initializing the repository
+2026-11-19T00:16:19.5639186Z [command]/usr/bin/git init /home/runner/work/babywolf-ecosystem/babywolf-ecosystem
+2026-11-19T00:16:19.6498347Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-19T00:16:19.6498880Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-19T00:16:19.6499332Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-19T00:16:19.6499731Z hint: call:
+2026-11-19T00:16:19.6499939Z hint:
+2026-11-19T00:16:19.6500284Z hint: 	git config --global init.defaultBranch <name>
+2026-11-19T00:16:19.6500578Z hint:
+2026-11-19T00:16:19.6500880Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-19T00:16:19.6501457Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-19T00:16:19.6501776Z hint:
+2026-11-19T00:16:19.6502157Z hint: 	git branch -m <name>
+2026-11-19T00:16:19.6502499Z hint:
+2026-11-19T00:16:19.6502806Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-19T00:16:19.6514289Z Initialized empty Git repository in /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/.git/
+2026-11-19T00:16:19.6521830Z [command]/usr/bin/git remote add origin https://github.com/luuboon/babywolf-ecosystem
+2026-11-19T00:16:19.6569896Z ##[endgroup]
+2026-11-19T00:16:19.6570334Z ##[group]Disabling automatic garbage collection
+2026-11-19T00:16:19.6572476Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-19T00:16:19.6591808Z ##[endgroup]
+2026-11-19T00:16:19.6592408Z ##[group]Setting up auth
+2026-11-19T00:16:19.6597225Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-19T00:16:19.6618194Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-19T00:16:19.9232489Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-19T00:16:19.9250246Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-19T00:16:19.9422985Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-19T00:16:19.9444487Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-19T00:16:19.9615199Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-19T00:16:19.9638651Z ##[endgroup]
+2026-11-19T00:16:19.9639202Z ##[group]Fetching the repository
+2026-11-19T00:16:19.9645008Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cab0196abbcf865a6f4664007a3028155c1ad217:refs/remotes/origin/main
+2026-11-19T00:16:20.4342294Z From https://github.com/luuboon/babywolf-ecosystem
+2026-11-19T00:16:20.4342815Z  * [new ref]         cab0196abbcf865a6f4664007a3028155c1ad217 -> origin/main
+2026-11-19T00:16:20.4345656Z ##[endgroup]
+2026-11-19T00:16:20.4346239Z ##[group]Determining the checkout info
+2026-11-19T00:16:20.4347600Z ##[endgroup]
+2026-11-19T00:16:20.4352259Z [command]/usr/bin/git sparse-checkout disable
+2026-11-19T00:16:20.4413437Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-19T00:16:20.4423587Z ##[group]Checking out the ref
+2026-11-19T00:16:20.4424302Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-19T00:16:20.4777794Z Switched to a new branch 'main'
+2026-11-19T00:16:20.4783249Z branch 'main' set up to track 'origin/main'.
+2026-11-19T00:16:20.4787438Z ##[endgroup]
+2026-11-19T00:16:20.4823088Z [command]/usr/bin/git log -1 --format=%H
+2026-11-19T00:16:20.4838891Z cab0196abbcf865a6f4664007a3028155c1ad217
+2026-11-19T00:16:20.4997325Z ##[group]Run sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+2026-11-19T00:16:20.4997823Z [36;1msudo apt-get update && sudo apt-get install -y libsqlite3-dev[0m
+2026-11-19T00:16:20.5019085Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:16:20.5019357Z ##[endgroup]
+2026-11-19T00:16:20.5660388Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [152 B]
+2026-11-19T00:16:20.5913657Z Get:5 https://packages.microsoft.com/ubuntu/26.04/prod resolute InRelease [3964 B]
+2026-11-19T00:16:20.6217383Z Get:6 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+2026-11-19T00:16:20.6462512Z Hit:2 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute InRelease
+2026-11-19T00:16:20.6733648Z Get:7 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main amd64 Packages [165 kB]
+2026-11-19T00:16:20.6872401Z Get:8 http://security.ubuntu.com/ubuntu resolute-security/main amd64v3 Packages [721 kB]
+2026-11-19T00:16:20.6883508Z Get:9 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main arm64 Packages [151 kB]
+2026-11-19T00:16:20.7374785Z Get:3 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+2026-11-19T00:16:20.7477258Z Get:10 http://security.ubuntu.com/ubuntu resolute-security/main Translation-en [158 kB]
+2026-11-19T00:16:20.7636077Z Get:11 http://security.ubuntu.com/ubuntu resolute-security/universe amd64v3 Packages [222 kB]
+2026-11-19T00:16:20.7822750Z Get:12 http://security.ubuntu.com/ubuntu resolute-security/universe Translation-en [72.7 kB]
+2026-11-19T00:16:21.2094574Z Get:4 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+2026-11-19T00:16:23.1217825Z Get:13 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages [874 kB]
+2026-11-19T00:16:24.0415921Z Get:14 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute-updates/main Translation-en [196 kB]
+2026-11-19T00:16:24.3008978Z Get:15 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute-updates/universe amd64v3 Packages [393 kB]
+2026-11-19T00:16:28.6568754Z Get:16 http://us-east-2.ec2.archive.ubuntu.com/ubuntu resolute-updates/universe Translation-en [124 kB]
+2026-11-19T00:16:36.6491865Z Fetched 3493 kB in 8s (429 kB/s)
+2026-11-19T00:16:37.1800122Z Reading package lists...
+2026-11-19T00:16:37.2034196Z Reading package lists...
+2026-11-19T00:16:37.3075323Z Building dependency tree...
+2026-11-19T00:16:37.3080576Z Reading state information...
+2026-11-19T00:16:37.3350470Z libsqlite3-dev is already the newest version (3.46.1-9ubuntu0.3).
+2026-11-19T00:16:37.3748427Z Solving dependencies...
+2026-11-19T00:16:37.4781682Z 0 upgraded, 0 newly installed, 0 to remove and 24 not upgraded.
+2026-11-19T00:16:37.4936639Z ##[group]Run subosito/flutter-action@v2
+2026-11-19T00:16:37.4936989Z with:
+2026-11-19T00:16:37.4937208Z   flutter-version: 3.47.9
+2026-11-19T00:16:37.4937451Z   channel: stable
+2026-11-19T00:16:37.4937659Z   cache: true
+2026-11-19T00:16:37.4937861Z   architecture: X64
+2026-11-19T00:16:37.4938129Z   pub-cache-path: default
+2026-11-19T00:16:37.4938367Z   dry-run: false
+2026-11-19T00:16:37.4938629Z   git-source: https://github.com/flutter/flutter.git
+2026-11-19T00:16:37.4938919Z ##[endgroup]
+2026-11-19T00:16:37.4993175Z ##[start-action display=Make yq tool available on Windows runners;id=__subosito_flutter-action.__run]
+2026-11-19T00:16:37.5009552Z ##[end-action id=__subosito_flutter-action.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-19T00:16:37.5011618Z ##[start-action display=Make setup script executable;id=__subosito_flutter-action.__run_2]
+2026-11-19T00:16:37.5031714Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+2026-11-19T00:16:37.5032345Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
+2026-11-19T00:16:37.5051081Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-19T00:16:37.5051434Z ##[endgroup]
+2026-11-19T00:16:37.5116968Z ##[end-action id=__subosito_flutter-action.__run_2;outcome=success;conclusion=success;duration_ms=10]
+2026-11-19T00:16:37.5118994Z ##[start-action display=Set action inputs;id=__subosito_flutter-action.flutter-action]
+2026-11-19T00:16:37.5147379Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
+2026-11-19T00:16:37.5147770Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
+2026-11-19T00:16:37.5148034Z [36;1m  -n '3.47.9' \[0m
+2026-11-19T00:16:37.5148282Z [36;1m  -f '' \[0m
+2026-11-19T00:16:37.5148500Z [36;1m  -a 'X64' \[0m
+2026-11-19T00:16:37.5148726Z [36;1m  -k '' \[0m
+2026-11-19T00:16:37.5148942Z [36;1m  -c '' \[0m
+2026-11-19T00:16:37.5149143Z [36;1m  -l '' \[0m
+2026-11-19T00:16:37.5149360Z [36;1m  -d 'default' \[0m
+2026-11-19T00:16:37.5149641Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
+2026-11-19T00:16:37.5149976Z [36;1m  stable[0m
+2026-11-19T00:16:37.5164205Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-19T00:16:37.5164610Z ##[endgroup]
+2026-11-19T00:16:37.6252301Z ##[end-action id=__subosito_flutter-action.flutter-action;outcome=success;conclusion=success;duration_ms=113]
+2026-11-19T00:16:37.6257016Z ##[start-action display=Cache Flutter;id=__subosito_flutter-action.cache-flutter]
+2026-11-19T00:16:37.6304558Z ##[group]Run actions/cache@v5
+2026-11-19T00:16:37.6304805Z with:
+2026-11-19T00:16:37.6305144Z   path: /opt/hostedtoolcache/flutter/stable-3.47.9-x64
+2026-11-19T00:16:37.6305535Z   key: flutter-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c
+2026-11-19T00:16:37.6305893Z   enableCrossOsArchive: false
+2026-11-19T00:16:37.6306150Z   fail-on-cache-miss: false
+2026-11-19T00:16:37.6306398Z   lookup-only: false
+2026-11-19T00:16:37.6306651Z   save-always: false
+2026-11-19T00:16:37.6306862Z ##[endgroup]
+2026-11-19T00:16:37.8545590Z Cache not found for input keys: flutter-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c
+2026-11-19T00:16:37.8583661Z ##[end-action id=__subosito_flutter-action.cache-flutter;outcome=success;conclusion=success;duration_ms=232]
+2026-11-19T00:16:37.8586120Z ##[start-action display=Cache pub dependencies;id=__subosito_flutter-action.cache-pub]
+2026-11-19T00:16:38.1787915Z ##[group]Run actions/cache@v5
+2026-11-19T00:16:38.1788256Z with:
+2026-11-19T00:16:38.1788576Z   path: /home/runner/.pub-cache
+2026-11-19T00:16:38.1789148Z   key: flutter-pub-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c-
+2026-11-19T00:16:38.1789739Z   enableCrossOsArchive: false
+2026-11-19T00:16:38.1790121Z   fail-on-cache-miss: false
+2026-11-19T00:16:38.1790453Z   lookup-only: false
+2026-11-19T00:16:38.1790756Z   save-always: false
+2026-11-19T00:16:38.1791079Z ##[endgroup]
+2026-11-19T00:16:38.3281838Z Cache not found for input keys: flutter-pub-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c-
+2026-11-19T00:16:38.3354748Z ##[end-action id=__subosito_flutter-action.cache-pub;outcome=success;conclusion=success;duration_ms=476]
+2026-11-19T00:16:38.3359301Z ##[start-action display=Run setup script;id=__subosito_flutter-action.__run_3]
+2026-11-19T00:16:38.3404079Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
+2026-11-19T00:16:38.3404406Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
+2026-11-19T00:16:38.3404689Z [36;1m  -n '3.47.9' \[0m
+2026-11-19T00:16:38.3404929Z [36;1m  -a 'x64' \[0m
+2026-11-19T00:16:38.3405210Z [36;1m  -c '/opt/hostedtoolcache/flutter/stable-3.47.9-x64' \[0m
+2026-11-19T00:16:38.3405552Z [36;1m  -d '/home/runner/.pub-cache' \[0m
+2026-11-19T00:16:38.3405826Z [36;1m  stable[0m
+2026-11-19T00:16:38.3424722Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-19T00:16:38.3425016Z ##[endgroup]
+2026-11-19T00:16:38.4435426Z   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+2026-11-19T00:16:38.4436089Z                                  Dload  Upload  Total   Spent   Left   Speed
+2026-11-19T00:16:38.4436349Z 
+2026-11-19T00:16:39.4428150Z   0      0   0      0   0      0      0      0                              0
+2026-11-19T00:16:40.4416795Z  19  1.47G  19 294.1M   0      0 294.4M      0   00:05           00:05 294.1M
+2026-11-19T00:16:41.4638434Z  42  1.47G  42 635.2M   0      0 317.9M      0   00:04   00:01   00:03 317.8M
+2026-11-19T00:16:42.4628241Z  63  1.47G  63 952.0M   0      0 315.2M      0   00:04   00:03   00:01 315.3M
+2026-11-19T00:16:43.1202796Z  85  1.47G  85  1.26G   0      0 321.4M      0   00:04   00:04         321.4M
+2026-11-19T00:16:43.1203628Z 100  1.47G 100  1.47G   0      0 322.7M      0   00:04   00:04         321.4M
+2026-11-19T00:16:43.1203978Z 100  1.47G 100  1.47G   0      0 322.7M      0   00:04   00:04         321.4M
+2026-11-19T00:16:43.1204309Z 100  1.47G 100  1.47G   0      0 322.7M      0   00:04   00:04         321.4M
+2026-11-19T00:17:08.3310927Z ##[end-action id=__subosito_flutter-action.__run_3;outcome=success;conclusion=success;duration_ms=29995]
+2026-11-19T00:17:08.3355398Z ##[group]Run flutter --version
+2026-11-19T00:17:08.3355693Z [36;1mflutter --version[0m
+2026-11-19T00:17:08.3376879Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:17:08.3377232Z env:
+2026-11-19T00:17:08.3377566Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:17:08.3377904Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:17:08.3378220Z ##[endgroup]
+2026-11-19T00:17:09.7624036Z Flutter 3.47.9 • channel stable • https://github.com/flutter/flutter.git
+2026-11-19T00:17:09.7624824Z Framework • revision c197ca5199 (3 weeks ago) • 2026-10-29 10:10:20 -0400
+2026-11-19T00:17:09.7625641Z Engine • hash 9e025265bef30b838c0c1b68cad19decf97048f2 (revision 89c39edfdf) (22 days ago) • 2026-10-27 19:51:20.000Z
+2026-11-19T00:17:09.7626125Z Tools • Dart 3.13.7 • DevTools 2.60.0
+2026-11-19T00:17:09.7667506Z ##[group]Run flutter pub get
+2026-11-19T00:17:09.7667815Z [36;1mflutter pub get[0m
+2026-11-19T00:17:09.7687024Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:17:09.7687295Z env:
+2026-11-19T00:17:09.7687599Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:17:09.7687954Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:17:09.7688237Z ##[endgroup]
+2026-11-19T00:17:12.0310394Z Resolving dependencies...
+2026-11-19T00:17:12.2689514Z Downloading packages...
+2026-11-19T00:17:13.8682597Z + archive 4.7.1
+2026-11-19T00:17:13.8683017Z + args 2.7.0
+2026-11-19T00:17:13.8683217Z + async 2.13.1
+2026-11-19T00:17:13.8685087Z + boolean_selector 2.1.2
+2026-11-19T00:17:13.8685390Z + characters 1.4.1
+2026-11-19T00:17:13.8685746Z + checked_yaml 2.0.4
+2026-11-19T00:17:13.8686024Z + cli_util 0.4.2 (0.6.0 available)
+2026-11-19T00:17:13.8686307Z + clock 1.1.3
+2026-11-19T00:17:13.8686550Z + code_assets 2.2.0
+2026-11-19T00:17:13.8686798Z + collection 1.19.1
+2026-11-19T00:17:13.8687270Z + cross_file 0.3.5+5 (0.4.0 available)
+2026-11-19T00:17:13.8687548Z + crypto 3.0.8
+2026-11-19T00:17:13.8687824Z + fake_async 1.3.3
+2026-11-19T00:17:13.8688062Z + ffi 2.2.0
+2026-11-19T00:17:13.8688297Z + file 7.0.1
+2026-11-19T00:17:13.8688537Z + file_selector_linux 0.9.4+1
+2026-11-19T00:17:13.8688865Z + file_selector_macos 0.9.5+2
+2026-11-19T00:17:13.8689179Z + file_selector_platform_interface 2.7.0
+2026-11-19T00:17:13.8689509Z + file_selector_windows 0.9.3+6
+2026-11-19T00:17:13.8689829Z + flutter 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8690171Z + flutter_driver 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8690482Z + flutter_launcher_icons 0.14.4
+2026-11-19T00:17:13.8690796Z + flutter_lints 6.0.0
+2026-11-19T00:17:13.8691089Z + flutter_plugin_android_lifecycle 2.0.35
+2026-11-19T00:17:13.8691372Z + flutter_secure_storage 9.2.4 (11.2.0 available)
+2026-11-19T00:17:13.8691676Z + flutter_secure_storage_linux 1.2.3 (3.0.3 available)
+2026-11-19T00:17:13.8692224Z + flutter_secure_storage_macos 3.1.3 (4.0.0 available)
+2026-11-19T00:17:13.8692633Z + flutter_secure_storage_platform_interface 1.1.2 (2.1.1 available)
+2026-11-19T00:17:13.8692965Z + flutter_secure_storage_web 1.2.1 (2.1.1 available)
+2026-11-19T00:17:13.8693279Z + flutter_secure_storage_windows 3.1.2 (4.2.2 available)
+2026-11-19T00:17:13.8693587Z + flutter_test 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8693844Z + flutter_web_plugins 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8694143Z + fuchsia_remote_debug_protocol 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8694630Z + glob 2.2.0
+2026-11-19T00:17:13.8694852Z + hooks 2.2.0
+2026-11-19T00:17:13.8695071Z + http 1.6.0
+2026-11-19T00:17:13.8695268Z + http_parser 4.1.2
+2026-11-19T00:17:13.8695478Z + image 4.13.1
+2026-11-19T00:17:13.8695675Z + image_picker 1.2.4
+2026-11-19T00:17:13.8695888Z + image_picker_android 0.8.13+25
+2026-11-19T00:17:13.8696166Z + image_picker_for_web 3.1.1
+2026-11-19T00:17:13.8696394Z + image_picker_ios 0.8.13+15
+2026-11-19T00:17:13.8696665Z + image_picker_linux 0.2.2
+2026-11-19T00:17:13.8696921Z + image_picker_macos 0.2.2+1
+2026-11-19T00:17:13.8697147Z + image_picker_platform_interface 2.11.2
+2026-11-19T00:17:13.8697431Z + image_picker_windows 0.2.2
+2026-11-19T00:17:13.8697672Z + integration_test 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8697918Z + jni 1.2.0
+2026-11-19T00:17:13.8698127Z + jni_flutter 1.1.0
+2026-11-19T00:17:13.8698334Z + jni_util 1.0.0
+2026-11-19T00:17:13.8698556Z + js 0.6.7 (0.7.2 available)
+2026-11-19T00:17:13.8698774Z + json_annotation 4.12.0
+2026-11-19T00:17:13.8698982Z + leak_tracker 11.0.2
+2026-11-19T00:17:13.8699257Z + leak_tracker_flutter_testing 3.0.10
+2026-11-19T00:17:13.8699503Z + leak_tracker_testing 3.0.2
+2026-11-19T00:17:13.8699743Z + lints 6.1.0
+2026-11-19T00:17:13.8699939Z + logging 1.3.0
+2026-11-19T00:17:13.8700127Z + matcher 0.12.20
+2026-11-19T00:17:13.8700372Z + material_color_utilities 0.13.0 (0.13.1 available)
+2026-11-19T00:17:13.8700633Z + meta 1.19.0
+2026-11-19T00:17:13.8700846Z + mime 2.1.0
+2026-11-19T00:17:13.8701062Z + native_toolchain_c 0.19.6
+2026-11-19T00:17:13.8701466Z + nested 1.0.0
+2026-11-19T00:17:13.8701761Z + objective_c 9.6.4
+2026-11-19T00:17:13.8702169Z + package_config 3.0.0
+2026-11-19T00:17:13.8702577Z + path 1.9.1
+2026-11-19T00:17:13.8702875Z + path_provider 2.1.6
+2026-11-19T00:17:13.8703158Z + path_provider_android 2.3.1
+2026-11-19T00:17:13.8703471Z + path_provider_foundation 2.6.0
+2026-11-19T00:17:13.8703762Z + path_provider_linux 2.2.2
+2026-11-19T00:17:13.8704015Z + path_provider_platform_interface 2.1.3
+2026-11-19T00:17:13.8704330Z + path_provider_windows 2.3.0
+2026-11-19T00:17:13.8704570Z + platform 3.2.0
+2026-11-19T00:17:13.8704804Z + plugin_platform_interface 2.1.8
+2026-11-19T00:17:13.8705042Z + posix 6.5.4
+2026-11-19T00:17:13.8705249Z + process 5.0.6
+2026-11-19T00:17:13.8705476Z + provider 6.1.5+1
+2026-11-19T00:17:13.8705684Z + pub_semver 2.2.1
+2026-11-19T00:17:13.8705890Z + record_use 1.1.1
+2026-11-19T00:17:13.8706113Z + sky_engine 0.0.0 from sdk flutter
+2026-11-19T00:17:13.8706472Z + source_span 1.10.2
+2026-11-19T00:17:13.8706772Z + sqflite 2.4.6
+2026-11-19T00:17:13.8707032Z + sqflite_android 2.4.6
+2026-11-19T00:17:13.8707323Z + sqflite_common 2.5.17
+2026-11-19T00:17:13.8707610Z + sqflite_common_ffi 2.4.7
+2026-11-19T00:17:13.8707918Z + sqflite_darwin 2.4.6
+2026-11-19T00:17:13.8708224Z + sqflite_platform_interface 2.4.4
+2026-11-19T00:17:13.8708523Z + sqlite3 3.9.1
+2026-11-19T00:17:13.8708727Z + stack_trace 1.12.2
+2026-11-19T00:17:13.8708968Z + stream_channel 2.1.4
+2026-11-19T00:17:13.8709206Z + string_scanner 1.4.1
+2026-11-19T00:17:13.8709462Z + sync_http 0.3.1
+2026-11-19T00:17:13.8709677Z + synchronized 3.6.1+1
+2026-11-19T00:17:13.8709879Z + term_glyph 1.2.2
+2026-11-19T00:17:13.8710129Z + test_api 0.7.12 (0.7.15 available)
+2026-11-19T00:17:13.8710383Z + typed_data 1.4.0
+2026-11-19T00:17:13.8710593Z + vector_math 2.4.4
+2026-11-19T00:17:13.8710808Z + vm_service 15.4.0
+2026-11-19T00:17:13.8711015Z + web 1.1.2
+2026-11-19T00:17:13.8711228Z + webdriver 3.2.0
+2026-11-19T00:17:13.8711461Z + win32 5.15.0 (6.4.0 available)
+2026-11-19T00:17:13.8711732Z + xdg_directories 1.1.0
+2026-11-19T00:17:13.8711956Z + yaml 3.1.4
+2026-11-19T00:17:13.8712378Z Changed 103 dependencies!
+2026-11-19T00:17:13.8712711Z 12 packages have newer versions incompatible with dependency constraints.
+2026-11-19T00:17:13.8713098Z Try `flutter pub outdated` for more information.
+2026-11-19T00:17:13.9756624Z Upgrading analysis_options.yaml to exclude build and platform directories.
+2026-11-19T00:17:14.0322995Z ##[group]Run flutter analyze
+2026-11-19T00:17:14.0323320Z [36;1mflutter analyze[0m
+2026-11-19T00:17:14.0342089Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:17:14.0342375Z env:
+2026-11-19T00:17:14.0342655Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:17:14.0343026Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:17:14.0343327Z ##[endgroup]
+2026-11-19T00:17:20.9724683Z Analyzing phone_app...                                          
+2026-11-19T00:17:20.9735689Z No issues found! (ran in 6.5s)
+2026-11-19T00:17:20.9817627Z ##[group]Run START=$(date +%s)
+2026-11-19T00:17:20.9817934Z [36;1mSTART=$(date +%s)[0m
+2026-11-19T00:17:20.9818304Z [36;1mflutter test --reporter expanded --file-reporter json:resultados_pruebas.json[0m
+2026-11-19T00:17:20.9818694Z [36;1mEND=$(date +%s)[0m
+2026-11-19T00:17:20.9819060Z [36;1mecho "Tiempo total de pruebas: $((END-START)) s" | tee -a "$GITHUB_STEP_SUMMARY"[0m
+2026-11-19T00:17:20.9837946Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:17:20.9838237Z env:
+2026-11-19T00:17:20.9838559Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:17:20.9838934Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:17:20.9839187Z ##[endgroup]
+2026-11-19T00:17:23.5197442Z 00:00 +0: loading /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/soporte_modelos_test.dart
+2026-11-19T00:17:30.5759517Z 00:00 +0: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: sin texto devuelve el feed tal cual
+2026-11-19T00:17:30.5904622Z 00:00 +1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/soporte_modelos_test.dart: TC02 — equipo y descripción obligatorios
+2026-11-19T00:17:30.5911476Z 00:00 +2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: no distingue mayúsculas ni acentos
+2026-11-19T00:17:30.5940973Z 00:00 +3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: no distingue mayúsculas ni acentos
+2026-11-19T00:17:30.5949651Z 00:00 +4: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/soporte_modelos_test.dart: tiempo real sólo para admin y agente
+2026-11-19T00:17:30.5967867Z 00:00 +5: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: primero las que lo tienen en el título, luego en el texto
+2026-11-19T00:17:30.5976057Z 00:00 +6: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/soporte_modelos_test.dart: sólo se aceptan URLs de invitación firmadas
+2026-11-19T00:17:30.5994544Z 00:00 +7: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: cada palabra debe aparecer, en cualquier orden y campo
+2026-11-19T00:17:30.6004567Z 00:00 +8: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/soporte_modelos_test.dart: el reporte del servidor se interpreta
+2026-11-19T00:17:30.6031048Z 00:00 +9: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/soporte_modelos_test.dart: el reporte del servidor se interpreta
+2026-11-19T00:17:30.6039227Z 00:00 +10: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: sin coincidencias = lista vacía
+2026-11-19T00:17:30.6084253Z 00:00 +11: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: normalizar
+2026-11-19T00:17:31.1422452Z 00:00 +12: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P1 · vacía y null
+2026-11-19T00:17:31.1567076Z 00:00 +13: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P2 · demasiado corta (límite: 7 falla, 8 pasa)
+2026-11-19T00:17:31.1592729Z 00:00 +14: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P3 · demasiado larga (límite: 72 pasa, 73 falla)
+2026-11-19T00:17:31.1618561Z 00:00 +15: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P4 · C1 verdadera: sin letras (sólo dígitos)
+2026-11-19T00:17:31.1637154Z 00:00 +16: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P5 · C1 falsa y C2 verdadera: sin dígitos (sólo letras)
+2026-11-19T00:17:31.1657357Z 00:00 +17: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P6 · C1 falsa y C2 falsa: válida
+2026-11-19T00:17:31.1674972Z 00:00 +18: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva Excepciones/bordes: espacios cuentan, Unicode y símbolos no rompen
+2026-11-19T00:17:31.1693817Z 00:00 +19: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1b Validar.correo / apodo (decisiones adicionales) correo: vacío, largo, formato y válido
+2026-11-19T00:17:31.1719010Z 00:00 +20: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1b Validar.correo / apodo (decisiones adicionales) apodo: vacío, 2/3 y 20/21 caracteres, símbolos
+2026-11-19T00:17:31.1736246Z 00:00 +21: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts P1 · consulta vacía devuelve la misma lista
+2026-11-19T00:17:31.1762511Z 00:00 +22: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts P2 · lista vacía: el ciclo no itera
+2026-11-19T00:17:31.1782803Z 00:00 +23: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts P3 · ninguna palabra coincide: se descarta (continue)
+2026-11-19T00:17:31.1804391Z 00:00 +24: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts P4 · todas las palabras en el título: grupo enTitulo
+2026-11-19T00:17:31.1829842Z 00:00 +25: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts P5 · coincide sólo en el texto: grupo enTexto, después del título
+2026-11-19T00:17:31.1847409Z 00:00 +26: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts Condición compuesta: cada palabra por separado (A y B)
+2026-11-19T00:17:31.1866584Z 00:00 +27: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2 buscarPosts Busca también en la categoría
+2026-11-19T00:17:31.1886498Z 00:00 +28: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M2b normalizar rama con acento / sin acento / espacios
+2026-11-19T00:17:31.1907082Z 00:00 +29: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P1 · 200 con objeto JSON: se procesa
+2026-11-19T00:17:31.2039949Z 00:00 +30: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P2 · 200 pero el JSON es una lista: formato
+2026-11-19T00:17:31.2074049Z 00:00 +31: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P2b · 200 con JSON roto: fallo de formato controlado (corrige D-06)
+2026-11-19T00:17:31.2103227Z 00:00 +32: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P2c · 200 con bytes que no son UTF-8: también fallo de formato
+2026-11-19T00:17:31.2132697Z 00:00 +33: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P3 · 403: URL rechazada, con el mensaje del servidor
+2026-11-19T00:17:31.2158367Z 00:00 +34: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P4 · 410: URL expirada
+2026-11-19T00:17:31.2185930Z 00:00 +35: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar P5 · cualquier otro código: servidor; con cuerpo no JSON usa un texto genérico
+2026-11-19T00:17:31.2212860Z 00:00 +36: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar Excepciones de _get: URL inválida
+2026-11-19T00:17:31.2234951Z 00:00 +37: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar Excepciones de _get: sin red, tiempo agotado, cliente y argumento
+2026-11-19T00:17:31.2275161Z 00:00 +38: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar El mensaje de red no revela el servidor ni detalles del sistema
+2026-11-19T00:17:31.2298425Z 00:00 +39: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3 ConsultaApi.consultar obtenerUrl: 200 válido, código de error y formato inesperado
+2026-11-19T00:17:31.2433458Z 00:00 +40: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M3b ResumenSitio.desdeJson (procesamiento tolerante) campos ausentes, tipos distintos y entradas que no son mapas
+2026-11-19T00:17:31.2468377Z 00:00 +41: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P1 · primera vez: pide la URL y consulta
+2026-11-19T00:17:31.2518283Z 00:00 +42: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P2 · URL vigente: se reutiliza (no pide otra)
+2026-11-19T00:17:31.2581094Z 00:00 +43: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P3 · a punto de vencer (margen de 15 s; límite: 15 s NO es vigente, 16 s sí)
+2026-11-19T00:17:31.2632431Z 00:00 +44: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P4 · 410 una vez: pide otra URL y reintenta con éxito
+2026-11-19T00:17:31.2684520Z 00:00 +45: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P5 · 403 una vez: también reintenta una vez
+2026-11-19T00:17:31.2743339Z 00:00 +46: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P6 · el reintento también falla: no hay bucle, se propaga
+2026-11-19T00:17:31.2792474Z 00:00 +47: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P7 · error del servidor (500): no reintenta
+2026-11-19T00:17:31.2834814Z 00:00 +48: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener P8 · la URL no trae fecha de vencimiento: se considera vigente y se reutiliza (condición E1)
+2026-11-19T00:17:31.2879018Z 00:00 +49: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M4 ResumenServicio.obtener vence expone la fecha de la URL en uso
+2026-11-19T00:17:31.2914093Z 00:00 +50: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts P1 · 200 con lista: se convierten a Post y se ignoran los que no son objetos
+2026-11-19T00:17:31.2966971Z 00:00 +51: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts P2 · lista vacía es válida
+2026-11-19T00:17:31.2989070Z 00:00 +52: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts P3 · código distinto de 200
+2026-11-19T00:17:31.3083365Z 00:00 +53: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts P4 · el cuerpo no es una lista
+2026-11-19T00:17:31.3107225Z 00:00 +54: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts P5 · JSON roto y bytes que no son UTF-8
+2026-11-19T00:17:31.3134527Z 00:00 +55: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts P6 · fallas de red con mensajes que no revelan el servidor
+2026-11-19T00:17:31.3174585Z 00:00 +56: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M5 BlogApi.posts toString de la excepción es el mensaje (lo que ve el usuario en el feed)
+2026-11-19T00:17:31.3193399Z 00:00 +57: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M6 LimiteIntentos 4 fallos no bloquean, el 5.º sí (límite)
+2026-11-19T00:17:31.3221329Z 00:00 +58: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M6 LimiteIntentos al terminar la espera se desbloquea y se reinicia el contador
+2026-11-19T00:17:31.3244663Z 00:00 +59: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M6 LimiteIntentos un acierto reinicia todo
+2026-11-19T00:17:31.6200679Z 00:01 +60: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7205576Z 00:01 +61: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7330814Z 00:01 +62: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7380954Z 00:01 +63: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7418198Z 00:01 +64: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7446854Z 00:01 +65: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7506579Z 00:01 +66: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7548918Z 00:01 +67: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7580524Z 00:01 +68: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:31.7623514Z 00:01 +69: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:32.2779497Z 00:01 +70: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:32.2850479Z 00:01 +71: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:32.2972316Z 00:01 +72: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:32.3123694Z 00:01 +73: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_pantalla_test.dart: Cuenta sin sesión muestra el formulario y la mesa de ayuda
+2026-11-19T00:17:32.3224836Z 00:01 +74: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-04 · BlogApi ↔ servidor HTTP real AUT-04e un 500 pasajero se recupera solo: el segundo intento devuelve la lista
+2026-11-19T00:17:32.3270061Z 00:01 +75: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-04 · BlogApi ↔ servidor HTTP real AUT-04f un 404 no se reintenta (un solo intento) y se informa
+2026-11-19T00:17:32.3376208Z 00:01 +76: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-04 · BlogApi ↔ servidor HTTP real AUT-04g servidor apagado: mensaje amable sin la dirección interna
+2026-11-19T00:17:32.3449988Z 00:01 +77: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-04 · BlogApi ↔ servidor HTTP real (tearDownAll)
+2026-11-19T00:17:32.3499038Z 00:01 +77: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-05 · ComentariosApi ↔ servidor PostgREST simulado AUT-05a publicar manda el token y el id generado por la app, y devuelve el comentario creado
+2026-11-19T00:17:32.3634132Z 00:01 +78: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-05 · ComentariosApi ↔ servidor PostgREST simulado AUT-05b la respuesta se pierde pero el servidor sí guardó: el reintento no duplica (1 fila, 2 POST)
+2026-11-19T00:17:32.3758605Z 00:01 +79: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-05 · ComentariosApi ↔ servidor PostgREST simulado AUT-05c un 401 no se reintenta y el mensaje del servidor llega al usuario
+2026-11-19T00:17:32.3787628Z 00:01 +80: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-05 · ComentariosApi ↔ servidor PostgREST simulado AUT-05d un comentario vacío se rechaza en la app y no llega a enviarse al servidor
+2026-11-19T00:17:32.3814644Z 00:01 +81: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_integracion_test.dart: AUT-05 · ComentariosApi ↔ servidor PostgREST simulado AUT-05e sin conexión: no se confirma falsamente que el comentario se guardó
+2026-11-19T00:17:32.8702466Z 00:02 +82: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: (setUpAll)
+2026-11-19T00:17:32.8781614Z 00:02 +82: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06a el registro guardado se lee igual que se escribió
+2026-11-19T00:17:33.3123973Z 00:02 +83: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06b la misma noticia no se duplica: el segundo insert devuelve 0 y queda una sola fila
+2026-11-19T00:17:33.5456311Z 00:02 +84: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06c los datos sobreviven al cerrar y reabrir la base (archivo en disco)
+2026-11-19T00:17:33.5620586Z 00:02 +85: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-01 · Validar (inicio de sesión y registro) AUT-01a entrada válida: correo, contraseña nueva y apodo se aceptan (null = válido)
+2026-11-19T00:17:33.5735446Z 00:02 +86: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06d actualizar la nota y eliminar devuelven cuántas filas cambiaron (0 si ya no existe)
+2026-11-19T00:17:33.5754410Z 00:02 +87: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-01 · Validar (inicio de sesión y registro) AUT-01b entrada vacía o nula: cada campo responde con su mensaje
+2026-11-19T00:17:33.5762358Z 00:03 +88: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06e el estado compartido Guardadas guarda, ve lo mismo que la base y quita
+2026-11-19T00:17:33.5785775Z 00:03 +89: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06e el estado compartido Guardadas guarda, ve lo mismo que la base y quita
+2026-11-19T00:17:33.5810716Z 00:03 +90: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06e el estado compartido Guardadas guarda, ve lo mismo que la base y quita
+2026-11-19T00:17:33.5826069Z 00:03 +91: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06e el estado compartido Guardadas guarda, ve lo mismo que la base y quita
+2026-11-19T00:17:33.5848728Z 00:03 +92: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06e el estado compartido Guardadas guarda, ve lo mismo que la base y quita
+2026-11-19T00:17:33.5903761Z 00:03 +93: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: AUT-06 · persistencia de noticias guardadas AUT-06e el estado compartido Guardadas guarda, ve lo mismo que la base y quita
+2026-11-19T00:17:33.5923936Z 00:03 +94: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-02 · reglas de comentarios y notas AUT-02c nota guardada: 500 caracteres pasa y 501 no; la nota vacía es válida
+2026-11-19T00:17:33.5953165Z 00:03 +95: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_persistencia_test.dart: (tearDownAll)
+2026-11-19T00:17:33.5962392Z 00:03 +95: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-03 · LimiteIntentos y modelo Post AUT-03a se bloquea tras 5 fallos y se libera al pasar la espera (reloj falso)
+2026-11-19T00:17:33.5971579Z 00:03 +96: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-03 · LimiteIntentos y modelo Post AUT-03b un inicio de sesión correcto reinicia la cuenta de fallos
+2026-11-19T00:17:33.5989741Z 00:03 +97: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-03 · LimiteIntentos y modelo Post AUT-03c Post.fromJson con campos nulos o ausentes usa valores por omisión y no lanza excepción
+2026-11-19T00:17:33.6045837Z 00:03 +98: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-03 · LimiteIntentos y modelo Post AUT-03d Post.fromJson con tipos incorrectos lanza TypeError (excepción esperada y documentada)
+2026-11-19T00:17:34.0605032Z 00:03 +99: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Validar correo
+2026-11-19T00:17:34.0719546Z 00:03 +100: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Validar contraseña al entrar: sólo obligatoria y con tope; los espacios cuentan
+2026-11-19T00:17:34.0742930Z 00:03 +101: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Validar contraseña nueva: 8+ con letras y números
+2026-11-19T00:17:34.0773728Z 00:03 +102: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Validar nombre de usuario
+2026-11-19T00:17:34.0788741Z 00:03 +103: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: el registro enmascara el correo y no tiene dónde recibir la contraseña
+2026-11-19T00:17:34.0828892Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.0835124Z 00:03 +104: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion SEG-01: entrar con la cuenta, rol leído de la tabla del blog
+2026-11-19T00:17:34.0976824Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:17:34.0985793Z 00:03 +105: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion SEG-02: contraseña incorrecta = mensaje genérico
+2026-11-19T00:17:34.1028509Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.1071712Z 00:03 +106: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion 5 fallos bloquean 30 s sin llamar al servidor; luego se puede entrar
+2026-11-19T00:17:34.1095030Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.1104086Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.1112208Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.1121805Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.1133863Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:17:34.1158920Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:17:34.1165195Z 00:03 +107: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion datos inválidos no llegan al servidor
+2026-11-19T00:17:34.1180209Z [Cuenta] validacion_rechazada
+2026-11-19T00:17:34.1188759Z 00:03 +108: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion sin conexión no cuenta como intento fallido
+2026-11-19T00:17:34.1215539Z 00:03 +109: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion el token se renueva solo antes de vencer
+2026-11-19T00:17:34.1246026Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:17:34.1272780Z 00:03 +110: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion al reabrir la app se recupera la sesión guardada
+2026-11-19T00:17:34.1304223Z 00:03 +111: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion refresh token inválido: se borra y queda sin sesión
+2026-11-19T00:17:34.1329307Z 00:03 +112: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion al reabrir sin red se conserva el refresh token para después
+2026-11-19T00:17:34.1351515Z 00:03 +113: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion cerrar sesión borra el token guardado
+2026-11-19T00:17:34.1382874Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:17:34.1393335Z [Cuenta] cierre_sesion · a***m@bw.test
+2026-11-19T00:17:34.1407756Z 00:03 +114: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion crear cuenta con sesión inmediata
+2026-11-19T00:17:34.1429958Z [Cuenta] cuenta_creada · n***o@bw.test
+2026-11-19T00:17:34.1441039Z 00:03 +115: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion crear cuenta si Supabase pide confirmar el correo, no entra
+2026-11-19T00:17:34.1460371Z [Cuenta] cuenta_creada · c***r@bw.test
+2026-11-19T00:17:34.1465807Z 00:03 +116: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion crear cuenta nombre o correo repetido: mensaje que no revela cuál
+2026-11-19T00:17:34.1490046Z 00:03 +117: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion crear cuenta contraseña débil no llega al servidor
+2026-11-19T00:17:34.3110538Z 00:03 +118: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ConsultaApi (pasos de la práctica) Prueba 1 — con conexión: URL preasignada, petición y procesamiento
+2026-11-19T00:17:34.3403172Z 00:03 +119: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ConsultaApi (pasos de la práctica) Prueba 2 — sin conexión: error de tipo sinConexion
+2026-11-19T00:17:34.3475115Z 00:03 +120: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ConsultaApi (pasos de la práctica) Prueba 3 — URL modificada: el servidor la rechaza (403)
+2026-11-19T00:17:34.3510643Z 00:03 +121: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenServicio (lo que usa el feed) reutiliza la URL firmada mientras sigue vigente
+2026-11-19T00:17:34.3562487Z 00:03 +122: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenServicio (lo que usa el feed) si la URL venció (410) pide otra una sola vez y responde
+2026-11-19T00:17:34.3609157Z 00:03 +123: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.7684532Z 00:04 +124: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.7771192Z 00:04 +125: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.7818545Z 00:04 +126: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.7873497Z 00:04 +127: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.7908016Z 00:04 +128: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.7936499Z 00:04 +129: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.8083389Z 00:04 +130: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.8244422Z 00:04 +131: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed muestra "consultando", luego el total y los temas como filtros
+2026-11-19T00:17:34.8499638Z 00:04 +132: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resumen_test.dart: ResumenTarjeta en el feed sin conexión: mensaje y botón Reintentar
+2026-11-19T00:17:35.1752192Z 00:04 +133: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: reglas: vacío y más de 280 caracteres se rechazan
+2026-11-19T00:17:35.1855306Z 00:04 +134: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: cada comentario trae autor y hora; el contador cuenta por autor
+2026-11-19T00:17:35.1900854Z 00:04 +135: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: sin el usuario embebido se muestra "Lector"
+2026-11-19T00:17:35.1922268Z 00:04 +136: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: listar pide sólo los de esa noticia, en orden, y se puede leer sin sesión
+2026-11-19T00:17:35.2033307Z 00:04 +137: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: publicar no manda el autor (lo pone la base) y valida antes de enviar
+2026-11-19T00:17:35.2115965Z 00:04 +138: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: borrar un comentario ajeno: la base devuelve 0 filas = no permitido
+2026-11-19T00:17:35.2138161Z 00:04 +139: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/comentarios_test.dart: sin conexión no se finge el envío
+2026-11-19T00:17:35.2618163Z 00:04 +140: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: fila nueva que viola una regla (SEG-04, SEG-09) = rechazada
+2026-11-19T00:17:35.2725907Z 00:04 +141: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: sin sesión (SEG-10) = rechazada
+2026-11-19T00:17:35.2744925Z 00:04 +142: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: leer, modificar o borrar algo ajeno (SEG-05/06/07) = 0 filas = rechazada
+2026-11-19T00:17:35.2768720Z 00:04 +143: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: operación propia (SEG-03, SEG-08) = permitida
+2026-11-19T00:17:35.2798259Z 00:04 +144: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: el UID se lee del JWT
+2026-11-19T00:17:35.2825007Z 00:04 +145: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: sólo se aceptan UUID en los campos del otro usuario
+2026-11-19T00:17:35.2844024Z 00:04 +146: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: una fila de la matriz pasa cuando lo obtenido coincide con lo esperado
+2026-11-19T00:17:35.6744406Z 00:05 +147: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: PoliticaReintento (espera progresiva) la espera se duplica: 500, 1000, 2000, 4000 ms y se detiene en el tope de 8 s
+2026-11-19T00:17:35.6891691Z 00:05 +148: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: PoliticaReintento (espera progresiva) el jitter varía la espera dentro de ±25 %
+2026-11-19T00:17:35.6939801Z 00:05 +149: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: conReintento éxito a la primera: un solo intento y ninguna espera
+2026-11-19T00:17:35.6967513Z 00:05 +150: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: conReintento un error que no es transitorio no se reintenta
+2026-11-19T00:17:35.7008762Z 00:05 +151: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: conReintento agota los intentos y relanza el último error
+2026-11-19T00:17:35.7048871Z 00:05 +152: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: conReintento el presupuesto de tiempo corta los reintentos
+2026-11-19T00:17:35.7079693Z 00:05 +153: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: conReintento intentos = 1 equivale a no reintentar
+2026-11-19T00:17:35.7099959Z 00:05 +154: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: conReintento alReintentar informa intento, error y espera
+2026-11-19T00:17:35.7121178Z 00:05 +155: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: uuidV4 (clave de idempotencia) formato RFC 4122 versión 4 y sin repetidos en 2000 generados
+2026-11-19T00:17:35.7384528Z 00:05 +156: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-01 · pérdida de internet durante una consulta: error controlado tras 3 intentos
+2026-11-19T00:17:35.7456885Z 00:05 +157: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-02 · pérdida de internet durante una escritura: no se confirma falsamente
+2026-11-19T00:17:35.7534231Z 00:05 +158: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-03 · servidor sin respuesta: tiempo agotado controlado en 19.5 s (3 × 6 s + esperas)
+2026-11-19T00:17:35.7582790Z 00:05 +159: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-04 · HTTP 500 persistente: se muestra el error y la app sigue estable (3 intentos)
+2026-11-19T00:17:35.7622672Z 00:05 +160: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-04b · un 500 pasajero se recupera solo en el reintento
+2026-11-19T00:17:35.7668563Z 00:05 +161: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-05 · 401 y 403 no se reintentan y se informan como error de permisos
+2026-11-19T00:17:35.7706673Z 00:05 +162: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-06 · recuperación de la conexión: falla dos veces y el tercer intento funciona
+2026-11-19T00:17:35.7753128Z 00:05 +163: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-07 · reintento de una escritura NO duplica: la respuesta se pierde, el servidor sí guardó
+2026-11-19T00:17:35.7812565Z 00:05 +164: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-07 (contraste) · sin clave de idempotencia el mismo reintento SÍ duplica
+2026-11-19T00:17:35.7846600Z 00:05 +165: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-08 · respuesta tardía: la del primer intento se descarta y la UI no recibe dos resultados
+2026-11-19T00:17:35.7876583Z 00:05 +166: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/resiliencia_p12_test.dart: Matriz RES (BlogApi y ComentariosApi con servidor simulado) RES-08b · dos envíos simultáneos del mismo comentario (doble toque) no crean dos filas
+2026-11-19T00:17:35.8017717Z 00:05 +167: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:17:35.8322429Z BENCH buscarPosts n=8 consulta="retro" mediana=0.489 ms
+2026-11-19T00:17:35.9040270Z BENCH buscarPosts n=50 consulta="retro" mediana=2.354 ms
+2026-11-19T00:17:36.5137191Z BENCH buscarPosts n=500 consulta="retro" mediana=21.274 ms
+2026-11-19T00:17:38.6816414Z BENCH buscarPosts n=5000 consulta="retro" mediana=213.198 ms
+2026-11-19T00:18:00.6607596Z BENCH buscarPosts n=50000 consulta="retro" mediana=2167.612 ms
+2026-11-19T00:18:00.6625102Z 00:30 +168: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH decodificar la respuesta de GET /api/posts: lista completa vs primera página
+2026-11-19T00:18:00.6765339Z BENCH decodificar n=50 bytes=38051 mediana=0.177 ms
+2026-11-19T00:18:00.8744070Z BENCH decodificar n=4500 bytes=3450871 mediana=11.151 ms
+2026-11-19T00:18:00.8859546Z 00:30 +169: All tests passed!
+2026-11-19T00:18:00.9258286Z Tiempo total de pruebas: 40 s
+2026-11-19T00:18:00.9294345Z ##[group]Run python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+2026-11-19T00:18:00.9294772Z [36;1mpython3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"[0m
+2026-11-19T00:18:00.9295076Z [36;1mimport json, os[0m
+2026-11-19T00:18:00.9295311Z [36;1mok = fail = 0[0m
+2026-11-19T00:18:00.9295586Z [36;1mif os.path.exists('resultados_pruebas.json'):[0m
+2026-11-19T00:18:00.9295913Z [36;1m    for linea in open('resultados_pruebas.json'):[0m
+2026-11-19T00:18:00.9296180Z [36;1m        try:[0m
+2026-11-19T00:18:00.9296437Z [36;1m            e = json.loads(linea)[0m
+2026-11-19T00:18:00.9296723Z [36;1m        except ValueError:[0m
+2026-11-19T00:18:00.9297017Z [36;1m            continue[0m
+2026-11-19T00:18:00.9297305Z [36;1m        if e.get('type') == 'testDone' and not e.get('hidden'):[0m
+2026-11-19T00:18:00.9297609Z [36;1m            if e.get('skipped'):[0m
+2026-11-19T00:18:00.9298014Z [36;1m                continue[0m
+2026-11-19T00:18:00.9298356Z [36;1m            if e.get('result') == 'success':[0m
+2026-11-19T00:18:00.9298648Z [36;1m                ok += 1[0m
+2026-11-19T00:18:00.9298887Z [36;1m            else:[0m
+2026-11-19T00:18:00.9299123Z [36;1m                fail += 1[0m
+2026-11-19T00:18:00.9299445Z [36;1mprint(f"### Pruebas\n- Aprobadas: {ok}\n- Fallidas: {fail}")[0m
+2026-11-19T00:18:00.9299748Z [36;1mPY[0m
+2026-11-19T00:18:00.9316841Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:18:00.9317217Z env:
+2026-11-19T00:18:00.9317519Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:18:00.9317862Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:18:00.9318143Z ##[endgroup]
+2026-11-19T00:18:00.9557737Z ##[group]Run actions/upload-artifact@v4
+2026-11-19T00:18:00.9558053Z with:
+2026-11-19T00:18:00.9558292Z   name: resultados-pruebas
+2026-11-19T00:18:00.9558565Z   path: phone_app/resultados_pruebas.json
+2026-11-19T00:18:00.9558905Z   if-no-files-found: warn
+2026-11-19T00:18:00.9559180Z   compression-level: 6
+2026-11-19T00:18:00.9559418Z   overwrite: false
+2026-11-19T00:18:00.9559656Z   include-hidden-files: false
+2026-11-19T00:18:00.9559898Z env:
+2026-11-19T00:18:00.9560226Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:18:00.9560580Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:18:00.9560837Z ##[endgroup]
+2026-11-19T00:18:01.0759072Z (node:3300) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-19T00:18:01.0759881Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-19T00:18:01.0791862Z With the provided path, there will be 1 file uploaded
+2026-11-19T00:18:01.0816130Z Artifact name is valid!
+2026-11-19T00:18:01.0824434Z Root directory input is valid!
+2026-11-19T00:18:01.2743637Z Beginning upload of artifact content to blob storage
+2026-11-19T00:18:01.3305071Z (node:3300) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-19T00:18:01.3648197Z Uploaded bytes 11411
+2026-11-19T00:18:01.3812984Z Finished uploading artifact content to blob storage!
+2026-11-19T00:18:01.3813586Z SHA256 digest of uploaded artifact zip is 536d36fe7d5e514e1ee5e02222f5825bb81d684f03bc787ae57bd28780e8e0df
+2026-11-19T00:18:01.3814318Z Finalizing artifact upload
+2026-11-19T00:18:01.7246067Z Artifact resultados-pruebas.zip successfully finalized. Artifact ID 14485471183
+2026-11-19T00:18:01.7246723Z Artifact resultados-pruebas has been successfully uploaded! Final size is 11411 bytes. Artifact ID is 14485471183
+2026-11-19T00:18:01.7253036Z Artifact download URL: https://github.com/luuboon/babywolf-ecosystem/actions/runs/44427637360/artifacts/14485471183
+2026-11-19T00:18:01.7444469Z Post job cleanup.
+2026-11-19T00:18:01.7448636Z ##[start-action display=Cache pub dependencies;id=__0d6fa7f1-effa-4d62-8a61-4584d471a238.cache-pub]
+2026-11-19T00:18:01.8221301Z Post job cleanup.
+2026-11-19T00:18:01.9254271Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/babywolf-ecosystem/babywolf-ecosystem --files-from manifest.txt --use-compress-program zstdmt
+2026-11-19T00:18:03.5170938Z Sent 43335281 of 43335281 (100.0%), 41.3 MBs/sec
+2026-11-19T00:18:04.0019177Z Cache saved with key: flutter-pub-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c-
+2026-11-19T00:18:04.0081695Z ##[end-action id=__0d6fa7f1-effa-4d62-8a61-4584d471a238.cache-pub;outcome=success;conclusion=success;duration_ms=2263]
+2026-11-19T00:18:04.0084758Z ##[start-action display=Cache Flutter;id=__0d6fa7f1-effa-4d62-8a61-4584d471a238.cache-flutter]
+2026-11-19T00:18:04.0122314Z Post job cleanup.
+2026-11-19T00:18:04.1146197Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/babywolf-ecosystem/babywolf-ecosystem --files-from manifest.txt --use-compress-program zstdmt
+2026-11-19T00:18:09.8520021Z Sent 335544320 of 1725338271 (19.4%), 320.0 MBs/sec
+2026-11-19T00:18:10.8573908Z Sent 738197504 of 1725338271 (42.8%), 351.8 MBs/sec
+2026-11-19T00:18:11.8532536Z Sent 1207959552 of 1725338271 (70.0%), 383.7 MBs/sec
+2026-11-19T00:18:12.8527805Z Sent 1658229407 of 1725338271 (96.1%), 395.3 MBs/sec
+2026-11-19T00:18:13.1561933Z Sent 1725338271 of 1725338271 (100.0%), 382.3 MBs/sec
+2026-11-19T00:18:13.3062903Z Cache saved with key: flutter-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c
+2026-11-19T00:18:13.3147678Z ##[end-action id=__0d6fa7f1-effa-4d62-8a61-4584d471a238.cache-flutter;outcome=success;conclusion=success;duration_ms=9306]
+2026-11-19T00:18:13.3199820Z Post job cleanup.
+2026-11-19T00:18:13.3856295Z [command]/usr/bin/git version
+2026-11-19T00:18:13.3887060Z git version 2.56.1
+2026-11-19T00:18:13.3913717Z Temporarily overriding HOME='/home/runner/work/_temp/2496a699-9b2f-42c5-a850-dd3a128a5c2d' before making global git config changes
+2026-11-19T00:18:13.3914809Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-19T00:18:13.3917777Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/babywolf-ecosystem/babywolf-ecosystem
+2026-11-19T00:18:13.3947631Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-19T00:18:13.3974648Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-19T00:18:13.4165548Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-19T00:18:13.4181467Z http.https://github.com/.extraheader
+2026-11-19T00:18:13.4189049Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-19T00:18:13.4214190Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-19T00:18:13.4408612Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-19T00:18:13.4432653Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-19T00:18:13.4731574Z Cleaning up orphan processes
+2026-11-19T00:18:13.4956864Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

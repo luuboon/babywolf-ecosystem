@@ -1,0 +1,674 @@
+﻿2026-11-19T00:18:59.9425420Z Current runner version: '2.338.2'
+2026-11-19T00:18:59.9453846Z ##[group]Runner Image Provisioner
+2026-11-19T00:18:59.9454806Z Hosted Compute Agent
+2026-11-19T00:18:59.9455572Z Version: 20261103.629
+2026-11-19T00:18:59.9456343Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-19T00:18:59.9457400Z Build Date: 2026-11-03T17:26:59Z
+2026-11-19T00:18:59.9458372Z Worker ID: {aacebac4-9061-4186-8c40-69d8323eda69}
+2026-11-19T00:18:59.9459229Z Region: eastus2
+2026-11-19T00:18:59.9459975Z Cloud: Azure
+2026-11-19T00:18:59.9460618Z ##[endgroup]
+2026-11-19T00:18:59.9462282Z ##[group]Operating System
+2026-11-19T00:18:59.9463197Z Ubuntu
+2026-11-19T00:18:59.9463793Z 26.04.1
+2026-11-19T00:18:59.9464470Z LTS
+2026-11-19T00:18:59.9465080Z ##[endgroup]
+2026-11-19T00:18:59.9466179Z ##[group]Runner Image
+2026-11-19T00:18:59.9467130Z Image: ubuntu-26.04
+2026-11-19T00:18:59.9467876Z Version: 20261111.196.1
+2026-11-19T00:18:59.9469402Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-19T00:18:59.9471479Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+2026-11-19T00:18:59.9472676Z ##[endgroup]
+2026-11-19T00:18:59.9474080Z ##[group]GITHUB_TOKEN Permissions
+2026-11-19T00:18:59.9476402Z Contents: read
+2026-11-19T00:18:59.9477263Z Metadata: read
+2026-11-19T00:18:59.9477949Z ##[endgroup]
+2026-11-19T00:18:59.9480399Z Secret source: Actions
+2026-11-19T00:18:59.9481513Z Cache mode: write
+2026-11-19T00:18:59.9482592Z Prepare workflow directory
+2026-11-19T00:18:59.9930014Z Prepare all required actions
+2026-11-19T00:18:59.9985130Z Getting action download info
+2026-11-19T00:19:00.1670196Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-19T00:19:00.2585919Z Download action repository 'subosito/flutter-action@v2' (SHA:1a449444c387b1966244ae4d4f8c696479add0b2)
+2026-11-19T00:19:00.3703038Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-19T00:19:00.5771306Z Getting action download info
+2026-11-19T00:19:00.6374133Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-11-19T00:19:00.8421555Z Complete job name: Analizar y probar (phone_app)
+2026-11-19T00:19:00.9256591Z ##[group]Run actions/checkout@v4
+2026-11-19T00:19:00.9257835Z with:
+2026-11-19T00:19:00.9258535Z   repository: luuboon/babywolf-ecosystem
+2026-11-19T00:19:00.9265251Z   token: ***
+2026-11-19T00:19:00.9265939Z   ssh-strict: true
+2026-11-19T00:19:00.9266630Z   ssh-user: git
+2026-11-19T00:19:00.9267454Z   persist-credentials: true
+2026-11-19T00:19:00.9268220Z   clean: true
+2026-11-19T00:19:00.9268920Z   sparse-checkout-cone-mode: true
+2026-11-19T00:19:00.9269743Z   fetch-depth: 1
+2026-11-19T00:19:00.9270428Z   fetch-tags: false
+2026-11-19T00:19:00.9271124Z   show-progress: true
+2026-11-19T00:19:00.9271831Z   lfs: false
+2026-11-19T00:19:00.9272487Z   submodules: false
+2026-11-19T00:19:00.9273213Z   set-safe-directory: true
+2026-11-19T00:19:00.9274052Z   allow-unsafe-pr-checkout: false
+2026-11-19T00:19:00.9275068Z ##[endgroup]
+2026-11-19T00:19:02.0947355Z Syncing repository: luuboon/babywolf-ecosystem
+2026-11-19T00:19:02.0949349Z ##[group]Getting Git version info
+2026-11-19T00:19:02.0949924Z Working directory is '/home/runner/work/babywolf-ecosystem/babywolf-ecosystem'
+2026-11-19T00:19:02.0967957Z [command]/usr/bin/git version
+2026-11-19T00:19:02.1011012Z git version 2.56.1
+2026-11-19T00:19:02.1028418Z ##[endgroup]
+2026-11-19T00:19:02.1041101Z Temporarily overriding HOME='/home/runner/work/_temp/6347bdea-453b-46bd-b187-3ab0723f99d3' before making global git config changes
+2026-11-19T00:19:02.1042132Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-19T00:19:02.1045037Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/babywolf-ecosystem/babywolf-ecosystem
+2026-11-19T00:19:02.1094113Z Deleting the contents of '/home/runner/work/babywolf-ecosystem/babywolf-ecosystem'
+2026-11-19T00:19:02.1096978Z ##[group]Initializing the repository
+2026-11-19T00:19:02.1100854Z [command]/usr/bin/git init /home/runner/work/babywolf-ecosystem/babywolf-ecosystem
+2026-11-19T00:19:02.1185149Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-19T00:19:02.1186269Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-19T00:19:02.1187313Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-19T00:19:02.1187953Z hint: call:
+2026-11-19T00:19:02.1188388Z hint:
+2026-11-19T00:19:02.1188900Z hint: 	git config --global init.defaultBranch <name>
+2026-11-19T00:19:02.1189458Z hint:
+2026-11-19T00:19:02.1189986Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-19T00:19:02.1190668Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-19T00:19:02.1191236Z hint:
+2026-11-19T00:19:02.1191675Z hint: 	git branch -m <name>
+2026-11-19T00:19:02.1192167Z hint:
+2026-11-19T00:19:02.1192842Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-19T00:19:02.1194169Z Initialized empty Git repository in /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/.git/
+2026-11-19T00:19:02.1204543Z [command]/usr/bin/git remote add origin https://github.com/luuboon/babywolf-ecosystem
+2026-11-19T00:19:02.1252510Z ##[endgroup]
+2026-11-19T00:19:02.1253379Z ##[group]Disabling automatic garbage collection
+2026-11-19T00:19:02.1254185Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-19T00:19:02.1283075Z ##[endgroup]
+2026-11-19T00:19:02.1284232Z ##[group]Setting up auth
+2026-11-19T00:19:02.1287882Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-19T00:19:02.1317991Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-19T00:19:02.2144535Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-19T00:19:02.2172906Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-19T00:19:02.2401195Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-19T00:19:02.2429517Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-19T00:19:02.2656929Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-19T00:19:02.2690619Z ##[endgroup]
+2026-11-19T00:19:02.2691514Z ##[group]Fetching the repository
+2026-11-19T00:19:02.2698424Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +1a62c29f1e6f29d6fde932dfefc15f779c784523:refs/remotes/origin/demo-regresion-ci
+2026-11-19T00:19:02.8651574Z From https://github.com/luuboon/babywolf-ecosystem
+2026-11-19T00:19:02.8652346Z  * [new ref]         1a62c29f1e6f29d6fde932dfefc15f779c784523 -> origin/demo-regresion-ci
+2026-11-19T00:19:02.8654946Z ##[endgroup]
+2026-11-19T00:19:02.8655517Z ##[group]Determining the checkout info
+2026-11-19T00:19:02.8657740Z ##[endgroup]
+2026-11-19T00:19:02.8663741Z [command]/usr/bin/git sparse-checkout disable
+2026-11-19T00:19:02.8712619Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-19T00:19:02.8739643Z ##[group]Checking out the ref
+2026-11-19T00:19:02.8743928Z [command]/usr/bin/git checkout --progress --force -B demo-regresion-ci refs/remotes/origin/demo-regresion-ci
+2026-11-19T00:19:02.9111008Z Switched to a new branch 'demo-regresion-ci'
+2026-11-19T00:19:02.9114806Z branch 'demo-regresion-ci' set up to track 'origin/demo-regresion-ci'.
+2026-11-19T00:19:02.9121761Z ##[endgroup]
+2026-11-19T00:19:02.9588854Z [command]/usr/bin/git log -1 --format=%H
+2026-11-19T00:19:02.9612908Z 1a62c29f1e6f29d6fde932dfefc15f779c784523
+2026-11-19T00:19:02.9800294Z ##[group]Run sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+2026-11-19T00:19:02.9800777Z [36;1msudo apt-get update && sudo apt-get install -y libsqlite3-dev[0m
+2026-11-19T00:19:02.9848223Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:19:02.9848455Z ##[endgroup]
+2026-11-19T00:19:03.0517598Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-19T00:19:03.0737434Z Hit:2 http://azure.archive.ubuntu.com/ubuntu resolute InRelease
+2026-11-19T00:19:03.0779196Z Get:3 http://azure.archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+2026-11-19T00:19:03.0797837Z Get:4 http://azure.archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+2026-11-19T00:19:03.0805782Z Get:5 http://azure.archive.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+2026-11-19T00:19:03.1262601Z Get:6 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages [874 kB]
+2026-11-19T00:19:03.1414103Z Get:7 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main Translation-en [196 kB]
+2026-11-19T00:19:03.1420606Z Get:8 http://azure.archive.ubuntu.com/ubuntu resolute-updates/universe amd64v3 Packages [393 kB]
+2026-11-19T00:19:03.1442794Z Get:9 http://azure.archive.ubuntu.com/ubuntu resolute-updates/universe Translation-en [124 kB]
+2026-11-19T00:19:03.1593962Z Get:10 http://azure.archive.ubuntu.com/ubuntu resolute-security/main amd64v3 Packages [721 kB]
+2026-11-19T00:19:03.1635633Z Get:11 http://azure.archive.ubuntu.com/ubuntu resolute-security/main Translation-en [158 kB]
+2026-11-19T00:19:03.1648485Z Get:12 http://azure.archive.ubuntu.com/ubuntu resolute-security/universe amd64v3 Packages [221 kB]
+2026-11-19T00:19:03.1675189Z Get:13 http://azure.archive.ubuntu.com/ubuntu resolute-security/universe Translation-en [72.7 kB]
+2026-11-19T00:19:03.1684572Z Get:14 http://azure.archive.ubuntu.com/ubuntu resolute-security/restricted amd64v3 Packages [590 kB]
+2026-11-19T00:19:03.1717784Z Get:15 http://azure.archive.ubuntu.com/ubuntu resolute-security/restricted Translation-en [122 kB]
+2026-11-19T00:19:03.1727427Z Get:16 https://packages.microsoft.com/ubuntu/26.04/prod resolute InRelease [3964 B]
+2026-11-19T00:19:03.2122928Z Get:17 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main arm64 Packages [151 kB]
+2026-11-19T00:19:03.2284320Z Get:18 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main amd64 Packages [165 kB]
+2026-11-19T00:19:06.5314911Z Fetched 4203 kB in 0s (13.6 MB/s)
+2026-11-19T00:19:07.0564187Z Reading package lists...
+2026-11-19T00:19:07.0843560Z Reading package lists...
+2026-11-19T00:19:07.2113441Z Building dependency tree...
+2026-11-19T00:19:07.2119630Z Reading state information...
+2026-11-19T00:19:07.2380505Z libsqlite3-dev is already the newest version (3.46.1-9ubuntu0.3).
+2026-11-19T00:19:07.2856134Z Solving dependencies...
+2026-11-19T00:19:07.3808472Z 0 upgraded, 0 newly installed, 0 to remove and 32 not upgraded.
+2026-11-19T00:19:07.3978322Z ##[group]Run subosito/flutter-action@v2
+2026-11-19T00:19:07.3978557Z with:
+2026-11-19T00:19:07.3978721Z   flutter-version: 3.47.9
+2026-11-19T00:19:07.3978917Z   channel: stable
+2026-11-19T00:19:07.3979079Z   cache: true
+2026-11-19T00:19:07.3979240Z   architecture: X64
+2026-11-19T00:19:07.3979420Z   pub-cache-path: default
+2026-11-19T00:19:07.3979600Z   dry-run: false
+2026-11-19T00:19:07.3979811Z   git-source: https://github.com/flutter/flutter.git
+2026-11-19T00:19:07.3980066Z ##[endgroup]
+2026-11-19T00:19:07.4027535Z ##[start-action display=Make yq tool available on Windows runners;id=__subosito_flutter-action.__run]
+2026-11-19T00:19:07.4043700Z ##[end-action id=__subosito_flutter-action.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-19T00:19:07.4045409Z ##[start-action display=Make setup script executable;id=__subosito_flutter-action.__run_2]
+2026-11-19T00:19:07.4066593Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+2026-11-19T00:19:07.4067122Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
+2026-11-19T00:19:07.4111925Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-19T00:19:07.4112197Z ##[endgroup]
+2026-11-19T00:19:07.4204971Z ##[end-action id=__subosito_flutter-action.__run_2;outcome=success;conclusion=success;duration_ms=15]
+2026-11-19T00:19:07.4207066Z ##[start-action display=Set action inputs;id=__subosito_flutter-action.flutter-action]
+2026-11-19T00:19:07.4237275Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
+2026-11-19T00:19:07.4237579Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
+2026-11-19T00:19:07.4237818Z [36;1m  -n '3.47.9' \[0m
+2026-11-19T00:19:07.4238007Z [36;1m  -f '' \[0m
+2026-11-19T00:19:07.4238174Z [36;1m  -a 'X64' \[0m
+2026-11-19T00:19:07.4238342Z [36;1m  -k '' \[0m
+2026-11-19T00:19:07.4238497Z [36;1m  -c '' \[0m
+2026-11-19T00:19:07.4238653Z [36;1m  -l '' \[0m
+2026-11-19T00:19:07.4238812Z [36;1m  -d 'default' \[0m
+2026-11-19T00:19:07.4239074Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
+2026-11-19T00:19:07.4239342Z [36;1m  stable[0m
+2026-11-19T00:19:07.4277843Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-19T00:19:07.4278124Z ##[endgroup]
+2026-11-19T00:19:07.5866576Z ##[end-action id=__subosito_flutter-action.flutter-action;outcome=success;conclusion=success;duration_ms=165]
+2026-11-19T00:19:07.5870902Z ##[start-action display=Cache Flutter;id=__subosito_flutter-action.cache-flutter]
+2026-11-19T00:19:07.5908053Z ##[group]Run actions/cache@v5
+2026-11-19T00:19:07.5908266Z with:
+2026-11-19T00:19:07.5908484Z   path: /opt/hostedtoolcache/flutter/stable-3.47.9-x64
+2026-11-19T00:19:07.5908861Z   key: flutter-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c
+2026-11-19T00:19:07.5909200Z   enableCrossOsArchive: false
+2026-11-19T00:19:07.5909412Z   fail-on-cache-miss: false
+2026-11-19T00:19:07.5909604Z   lookup-only: false
+2026-11-19T00:19:07.5909780Z   save-always: false
+2026-11-19T00:19:07.5909951Z ##[endgroup]
+2026-11-19T00:19:08.0922919Z Cache hit for: flutter-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c
+2026-11-19T00:19:09.1340455Z Received 268435456 of 1725338271 (15.6%), 255.7 MBs/sec
+2026-11-19T00:19:10.1350362Z Received 562036736 of 1725338271 (32.6%), 267.7 MBs/sec
+2026-11-19T00:19:11.1367736Z Received 851443712 of 1725338271 (49.3%), 270.3 MBs/sec
+2026-11-19T00:19:12.1431969Z Received 1124073472 of 1725338271 (65.2%), 267.6 MBs/sec
+2026-11-19T00:19:13.1388475Z Received 1442840576 of 1725338271 (83.6%), 274.9 MBs/sec
+2026-11-19T00:19:14.0840264Z Received 1725338271 of 1725338271 (100.0%), 276.5 MBs/sec
+2026-11-19T00:19:14.0842722Z Cache Size: ~1645 MB (1725338271 B)
+2026-11-19T00:19:14.1618762Z [command]/usr/bin/tar -xf /home/runner/work/_temp/846590d2-9de9-49ef-be4d-558469e646f3/cache.tzst -P -C /home/runner/work/babywolf-ecosystem/babywolf-ecosystem --use-compress-program unzstd
+2026-11-19T00:19:24.3771963Z Cache restored successfully
+2026-11-19T00:19:24.5328060Z Cache restored from key: flutter-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c
+2026-11-19T00:19:24.5476374Z ##[end-action id=__subosito_flutter-action.cache-flutter;outcome=success;conclusion=success;duration_ms=16960]
+2026-11-19T00:19:24.5479323Z ##[start-action display=Cache pub dependencies;id=__subosito_flutter-action.cache-pub]
+2026-11-19T00:19:24.6996254Z ##[group]Run actions/cache@v5
+2026-11-19T00:19:24.6996474Z with:
+2026-11-19T00:19:24.6996655Z   path: /home/runner/.pub-cache
+2026-11-19T00:19:24.6997208Z   key: flutter-pub-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c-
+2026-11-19T00:19:24.6997567Z   enableCrossOsArchive: false
+2026-11-19T00:19:24.6997780Z   fail-on-cache-miss: false
+2026-11-19T00:19:24.6997974Z   lookup-only: false
+2026-11-19T00:19:24.6998150Z   save-always: false
+2026-11-19T00:19:24.6998326Z ##[endgroup]
+2026-11-19T00:19:24.8717873Z Cache hit for: flutter-pub-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c-
+2026-11-19T00:19:25.3664301Z Received 43335281 of 43335281 (100.0%), 94.1 MBs/sec
+2026-11-19T00:19:25.3665200Z Cache Size: ~41 MB (43335281 B)
+2026-11-19T00:19:25.3686639Z [command]/usr/bin/tar -xf /home/runner/work/_temp/dac7e70b-20ab-469a-8cb0-fe2336ed1506/cache.tzst -P -C /home/runner/work/babywolf-ecosystem/babywolf-ecosystem --use-compress-program unzstd
+2026-11-19T00:19:25.9930750Z Cache restored successfully
+2026-11-19T00:19:26.0008775Z Cache restored from key: flutter-pub-linux-stable-3.47.9-x64-c197ca5199e9ee5661e865596c9c07294dfab51c-
+2026-11-19T00:19:26.0126453Z ##[end-action id=__subosito_flutter-action.cache-pub;outcome=success;conclusion=success;duration_ms=1464]
+2026-11-19T00:19:26.0129009Z ##[start-action display=Run setup script;id=__subosito_flutter-action.__run_3]
+2026-11-19T00:19:26.1095534Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
+2026-11-19T00:19:26.1095853Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
+2026-11-19T00:19:26.1096092Z [36;1m  -n '3.47.9' \[0m
+2026-11-19T00:19:26.1096303Z [36;1m  -a 'x64' \[0m
+2026-11-19T00:19:26.1096574Z [36;1m  -c '/opt/hostedtoolcache/flutter/stable-3.47.9-x64' \[0m
+2026-11-19T00:19:26.1097050Z [36;1m  -d '/home/runner/.pub-cache' \[0m
+2026-11-19T00:19:26.1097280Z [36;1m  stable[0m
+2026-11-19T00:19:26.1140315Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-19T00:19:26.1140613Z ##[endgroup]
+2026-11-19T00:19:26.3518547Z ##[end-action id=__subosito_flutter-action.__run_3;outcome=success;conclusion=success;duration_ms=338]
+2026-11-19T00:19:26.4569904Z ##[group]Run flutter --version
+2026-11-19T00:19:26.4570192Z [36;1mflutter --version[0m
+2026-11-19T00:19:26.4616421Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:19:26.4616652Z env:
+2026-11-19T00:19:26.4617105Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:19:26.4617441Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:19:26.4617664Z ##[endgroup]
+2026-11-19T00:19:27.0523574Z Flutter 3.47.9 • channel stable • https://github.com/flutter/flutter.git
+2026-11-19T00:19:27.0524129Z Framework • revision c197ca5199 (3 weeks ago) • 2026-10-29 10:10:20 -0400
+2026-11-19T00:19:27.0524842Z Engine • hash 9e025265bef30b838c0c1b68cad19decf97048f2 (revision 89c39edfdf) (22 days ago) • 2026-10-27 19:51:20.000Z
+2026-11-19T00:19:27.0525497Z Tools • Dart 3.13.7 • DevTools 2.60.0
+2026-11-19T00:19:27.0742919Z ##[group]Run flutter pub get
+2026-11-19T00:19:27.0743227Z [36;1mflutter pub get[0m
+2026-11-19T00:19:27.0787015Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:19:27.0787243Z env:
+2026-11-19T00:19:27.0787507Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:19:27.0787845Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:19:27.0788066Z ##[endgroup]
+2026-11-19T00:19:27.5490477Z Resolving dependencies...
+2026-11-19T00:19:28.1438629Z Downloading packages...
+2026-11-19T00:19:28.1474843Z + archive 4.7.1
+2026-11-19T00:19:28.1475161Z + args 2.7.0
+2026-11-19T00:19:28.1475416Z + async 2.13.1
+2026-11-19T00:19:28.1475689Z + boolean_selector 2.1.2
+2026-11-19T00:19:28.1475990Z + characters 1.4.1
+2026-11-19T00:19:28.1476252Z + checked_yaml 2.0.4
+2026-11-19T00:19:28.1476588Z + cli_util 0.4.2 (0.6.0 available)
+2026-11-19T00:19:28.1477052Z + clock 1.1.3
+2026-11-19T00:19:28.1477308Z + code_assets 2.2.0
+2026-11-19T00:19:28.1477573Z + collection 1.19.1
+2026-11-19T00:19:28.1477921Z + cross_file 0.3.5+5 (0.4.0 available)
+2026-11-19T00:19:28.1478269Z + crypto 3.0.8
+2026-11-19T00:19:28.1478528Z + fake_async 1.3.3
+2026-11-19T00:19:28.1478798Z + ffi 2.2.0
+2026-11-19T00:19:28.1479038Z + file 7.0.1
+2026-11-19T00:19:28.1479317Z + file_selector_linux 0.9.4+1
+2026-11-19T00:19:28.1479645Z + file_selector_macos 0.9.5+2
+2026-11-19T00:19:28.1479981Z + file_selector_platform_interface 2.7.0
+2026-11-19T00:19:28.1480368Z + file_selector_windows 0.9.3+6
+2026-11-19T00:19:28.1480700Z + flutter 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1481016Z + flutter_driver 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1481372Z + flutter_launcher_icons 0.14.4
+2026-11-19T00:19:28.1481685Z + flutter_lints 6.0.0
+2026-11-19T00:19:28.1481999Z + flutter_plugin_android_lifecycle 2.0.35
+2026-11-19T00:19:28.1482740Z + flutter_secure_storage 9.2.4 (11.2.0 available)
+2026-11-19T00:19:28.1483176Z + flutter_secure_storage_linux 1.2.3 (3.0.3 available)
+2026-11-19T00:19:28.1483663Z + flutter_secure_storage_macos 3.1.3 (4.0.0 available)
+2026-11-19T00:19:28.1484190Z + flutter_secure_storage_platform_interface 1.1.2 (2.1.1 available)
+2026-11-19T00:19:28.1484726Z + flutter_secure_storage_web 1.2.1 (2.1.1 available)
+2026-11-19T00:19:28.1485193Z + flutter_secure_storage_windows 3.1.2 (4.2.2 available)
+2026-11-19T00:19:28.1485626Z + flutter_test 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1486010Z + flutter_web_plugins 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1486442Z + fuchsia_remote_debug_protocol 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1487013Z + glob 2.2.0
+2026-11-19T00:19:28.1487276Z + hooks 2.2.0
+2026-11-19T00:19:28.1487527Z + http 1.6.0
+2026-11-19T00:19:28.1487822Z + http_parser 4.1.2
+2026-11-19T00:19:28.1488089Z + image 4.13.1
+2026-11-19T00:19:28.1488361Z + image_picker 1.2.4
+2026-11-19T00:19:28.1488654Z + image_picker_android 0.8.13+25
+2026-11-19T00:19:28.1489004Z + image_picker_for_web 3.1.1
+2026-11-19T00:19:28.1489335Z + image_picker_ios 0.8.13+15
+2026-11-19T00:19:28.1489648Z + image_picker_linux 0.2.2
+2026-11-19T00:19:28.1489969Z + image_picker_macos 0.2.2+1
+2026-11-19T00:19:28.1490311Z + image_picker_platform_interface 2.11.2
+2026-11-19T00:19:28.1490688Z + image_picker_windows 0.2.2
+2026-11-19T00:19:28.1490997Z + integration_test 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1491297Z + jni 1.2.0
+2026-11-19T00:19:28.1491544Z + jni_flutter 1.1.0
+2026-11-19T00:19:28.1491837Z + jni_util 1.0.0
+2026-11-19T00:19:28.1492106Z + js 0.6.7 (0.7.2 available)
+2026-11-19T00:19:28.1492399Z + json_annotation 4.12.0
+2026-11-19T00:19:28.1492693Z + leak_tracker 11.0.2
+2026-11-19T00:19:28.1492998Z + leak_tracker_flutter_testing 3.0.10
+2026-11-19T00:19:28.1493346Z + leak_tracker_testing 3.0.2
+2026-11-19T00:19:28.1493621Z + lints 6.1.0
+2026-11-19T00:19:28.1493860Z + logging 1.3.0
+2026-11-19T00:19:28.1494096Z + matcher 0.12.20
+2026-11-19T00:19:28.1494418Z + material_color_utilities 0.13.0 (0.13.1 available)
+2026-11-19T00:19:28.1494775Z + meta 1.19.0
+2026-11-19T00:19:28.1495014Z + mime 2.1.0
+2026-11-19T00:19:28.1495273Z + native_toolchain_c 0.19.6
+2026-11-19T00:19:28.1495782Z + nested 1.0.0
+2026-11-19T00:19:28.1496043Z + objective_c 9.6.4
+2026-11-19T00:19:28.1496405Z + package_config 3.0.0
+2026-11-19T00:19:28.1496717Z + path 1.9.1
+2026-11-19T00:19:28.1497163Z + path_provider 2.1.6
+2026-11-19T00:19:28.1497469Z + path_provider_android 2.3.1
+2026-11-19T00:19:28.1497802Z + path_provider_foundation 2.6.0
+2026-11-19T00:19:28.1498128Z + path_provider_linux 2.2.2
+2026-11-19T00:19:28.1498438Z + path_provider_platform_interface 2.1.3
+2026-11-19T00:19:28.1498780Z + path_provider_windows 2.3.0
+2026-11-19T00:19:28.1499095Z + platform 3.2.0
+2026-11-19T00:19:28.1499374Z + plugin_platform_interface 2.1.8
+2026-11-19T00:19:28.1499705Z + posix 6.5.4
+2026-11-19T00:19:28.1499957Z + process 5.0.6
+2026-11-19T00:19:28.1500218Z + provider 6.1.5+1
+2026-11-19T00:19:28.1500493Z + pub_semver 2.2.1
+2026-11-19T00:19:28.1500762Z + record_use 1.1.1
+2026-11-19T00:19:28.1501176Z + sky_engine 0.0.0 from sdk flutter
+2026-11-19T00:19:28.1501511Z + source_span 1.10.2
+2026-11-19T00:19:28.1501789Z + sqflite 2.4.6
+2026-11-19T00:19:28.1502052Z + sqflite_android 2.4.6
+2026-11-19T00:19:28.1502342Z + sqflite_common 2.5.17
+2026-11-19T00:19:28.1502622Z + sqflite_common_ffi 2.4.7
+2026-11-19T00:19:28.1502933Z + sqflite_darwin 2.4.6
+2026-11-19T00:19:28.1503230Z + sqflite_platform_interface 2.4.4
+2026-11-19T00:19:28.1503557Z + sqlite3 3.9.1
+2026-11-19T00:19:28.1503817Z + stack_trace 1.12.2
+2026-11-19T00:19:28.1504091Z + stream_channel 2.1.4
+2026-11-19T00:19:28.1504381Z + string_scanner 1.4.1
+2026-11-19T00:19:28.1504650Z + sync_http 0.3.1
+2026-11-19T00:19:28.1504910Z + synchronized 3.6.1+1
+2026-11-19T00:19:28.1505194Z + term_glyph 1.2.2
+2026-11-19T00:19:28.1505464Z + test_api 0.7.12 (0.7.15 available)
+2026-11-19T00:19:28.1505791Z + typed_data 1.4.0
+2026-11-19T00:19:28.1506060Z + vector_math 2.4.4
+2026-11-19T00:19:28.1506572Z + vm_service 15.4.0
+2026-11-19T00:19:28.1506985Z + web 1.1.2
+2026-11-19T00:19:28.1507242Z + webdriver 3.2.0
+2026-11-19T00:19:28.1507503Z + win32 5.15.0 (6.4.0 available)
+2026-11-19T00:19:28.1507831Z + xdg_directories 1.1.0
+2026-11-19T00:19:28.1508106Z + yaml 3.1.4
+2026-11-19T00:19:28.1508401Z Changed 103 dependencies!
+2026-11-19T00:19:28.1508864Z 12 packages have newer versions incompatible with dependency constraints.
+2026-11-19T00:19:28.1509412Z Try `flutter pub outdated` for more information.
+2026-11-19T00:19:28.2613045Z Upgrading analysis_options.yaml to exclude build and platform directories.
+2026-11-19T00:19:28.3178938Z ##[group]Run flutter analyze
+2026-11-19T00:19:28.3179359Z [36;1mflutter analyze[0m
+2026-11-19T00:19:28.3228405Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:19:28.3228648Z env:
+2026-11-19T00:19:28.3228918Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:19:28.3229255Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:19:28.3229487Z ##[endgroup]
+2026-11-19T00:19:35.7498803Z Analyzing phone_app...                                          
+2026-11-19T00:19:35.7510464Z No issues found! (ran in 6.9s)
+2026-11-19T00:19:35.7633301Z ##[group]Run START=$(date +%s)
+2026-11-19T00:19:35.7633568Z [36;1mSTART=$(date +%s)[0m
+2026-11-19T00:19:35.7633914Z [36;1mflutter test --reporter expanded --file-reporter json:resultados_pruebas.json[0m
+2026-11-19T00:19:35.7634285Z [36;1mEND=$(date +%s)[0m
+2026-11-19T00:19:35.7634605Z [36;1mecho "Tiempo total de pruebas: $((END-START)) s" | tee -a "$GITHUB_STEP_SUMMARY"[0m
+2026-11-19T00:19:35.7678071Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:19:35.7678287Z env:
+2026-11-19T00:19:35.7678551Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:19:35.7678872Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:19:35.7679094Z ##[endgroup]
+2026-11-19T00:19:38.5568855Z 00:00 +0: loading /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart
+2026-11-19T00:19:45.0504394Z 00:00 +0: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: fila nueva que viola una regla (SEG-04, SEG-09) = rechazada
+2026-11-19T00:19:45.0659184Z 00:00 +1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: sin texto devuelve el feed tal cual
+2026-11-19T00:19:45.0666045Z 00:00 +2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: sin sesión (SEG-10) = rechazada
+2026-11-19T00:19:45.0682275Z 00:00 +3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: no distingue mayúsculas ni acentos
+2026-11-19T00:19:45.0713624Z 00:00 +4: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: no distingue mayúsculas ni acentos
+2026-11-19T00:19:45.0720673Z 00:00 +5: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: operación propia (SEG-03, SEG-08) = permitida
+2026-11-19T00:19:45.0738775Z 00:00 +6: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: operación propia (SEG-03, SEG-08) = permitida
+2026-11-19T00:19:45.0749330Z 00:00 +7: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: cada palabra debe aparecer, en cualquier orden y campo
+2026-11-19T00:19:45.0765334Z 00:00 +8: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: el UID se lee del JWT
+2026-11-19T00:19:45.0786132Z 00:00 +9: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: también busca en el tema
+2026-11-19T00:19:45.0790568Z 00:00 +10: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: sólo se aceptan UUID en los campos del otro usuario
+2026-11-19T00:19:45.0806396Z 00:00 +11: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/busqueda_test.dart: sin coincidencias = lista vacía
+2026-11-19T00:19:45.0813667Z 00:00 +12: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: una fila de la matriz pasa cuando lo obtenido coincide con lo esperado
+2026-11-19T00:19:45.0833920Z 00:00 +13: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/verificacion_rls_test.dart: una fila de la matriz pasa cuando lo obtenido coincide con lo esperado
+2026-11-19T00:19:45.0966299Z 00:00 +14: loading /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart
+2026-11-19T00:19:45.6484913Z 00:00 +14: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:45.6931603Z BENCH buscarPosts n=8 consulta="retro" mediana=0.555 ms
+2026-11-19T00:19:45.7690807Z BENCH buscarPosts n=50 consulta="retro" mediana=2.590 ms
+2026-11-19T00:19:46.0922328Z 00:01 +15: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.0963438Z 00:01 +16: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.0980668Z 00:01 +17: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.1101683Z 00:01 +18: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.1195603Z 00:01 +19: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.1218287Z 00:01 +20: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.1259525Z 00:01 +21: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:46.4693705Z BENCH buscarPosts n=500 consulta="retro" mediana=24.328 ms
+2026-11-19T00:19:47.1500622Z 00:02 +22: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.1615510Z 00:02 +23: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.1741113Z 00:02 +24: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.1878856Z 00:02 +25: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.2069182Z 00:02 +26: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8177803Z 00:02 +27: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8228213Z 00:02 +28: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8320410Z 00:02 +29: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8441329Z 00:02 +30: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8532951Z 00:02 +31: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8611793Z 00:02 +32: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8693709Z 00:02 +33: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8888427Z 00:02 +34: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.8992915Z 00:02 +35: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.9021394Z 00:02 +36: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.9039709Z 00:02 +37: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:47.9065036Z 00:02 +38: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5412223Z 00:03 +39: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5446100Z 00:03 +40: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5547443Z 00:03 +40 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5672636Z 00:03 +40 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-01 · Validar (inicio de sesión y registro) AUT-01c fuera de rango: contraseña nueva de 7 falla y de 8 pasa; de 72 pasa y de 73 falla [E]
+2026-11-19T00:19:48.5674445Z   Expected: 'Máximo 72 caracteres'
+2026-11-19T00:19:48.5675040Z     Actual: <null>
+2026-11-19T00:19:48.5675550Z      Which: not an <Instance of 'String'>
+2026-11-19T00:19:48.5676061Z   
+2026-11-19T00:19:48.5698544Z   package:matcher                                     expect
+2026-11-19T00:19:48.5699245Z   package:flutter_test/src/widget_tester.dart 473:18  expect
+2026-11-19T00:19:48.5699998Z   test/automatizacion/aut_unitarias_test.dart 38:7    main.<fn>.<fn>
+2026-11-19T00:19:48.5700638Z   
+2026-11-19T00:19:48.5729099Z 00:03 +41 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5753542Z 00:03 +42 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5785301Z 00:03 +43 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5847237Z 00:03 +44 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5873034Z 00:03 +45 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5908646Z 00:03 +46 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5931321Z 00:03 +47 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5961170Z 00:03 +48 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:48.5998244Z 00:03 +49 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3141134Z 00:04 +50 -1: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3194396Z 00:04 +50 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3258762Z 00:04 +50 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Validar contraseña al entrar: sólo obligatoria y con tope; los espacios cuentan [E]
+2026-11-19T00:19:49.3259418Z   Expected: not null
+2026-11-19T00:19:49.3259697Z     Actual: <null>
+2026-11-19T00:19:49.3259960Z   
+2026-11-19T00:19:49.3260433Z   package:matcher                                     expect
+2026-11-19T00:19:49.3261106Z   package:flutter_test/src/widget_tester.dart 473:18  expect
+2026-11-19T00:19:49.3261648Z   test/cuenta_test.dart 70:7                          main.<fn>.<fn>
+2026-11-19T00:19:49.3262072Z   
+2026-11-19T00:19:49.3280463Z 00:04 +51 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3299175Z 00:04 +52 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3337960Z 00:04 +52 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: el registro enmascara el correo y no tiene dónde recibir la contraseña
+2026-11-19T00:19:49.3339322Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3347092Z 00:04 +53 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3516915Z 00:04 +53 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion SEG-01: entrar con la cuenta, rol leído de la tabla del blog
+2026-11-19T00:19:49.3518199Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:19:49.3528150Z 00:04 +54 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3570166Z 00:04 +54 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion SEG-02: contraseña incorrecta = mensaje genérico
+2026-11-19T00:19:49.3571921Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3592612Z 00:04 +55 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3615008Z 00:04 +55 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion 5 fallos bloquean 30 s sin llamar al servidor; luego se puede entrar
+2026-11-19T00:19:49.3616427Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3623308Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3631440Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3639640Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3648618Z [Cuenta] inicio_fallido · a***m@bw.test
+2026-11-19T00:19:49.3667576Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:19:49.3671925Z 00:04 +56 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3687115Z 00:04 +56 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion datos inválidos no llegan al servidor
+2026-11-19T00:19:49.3692064Z [Cuenta] validacion_rechazada
+2026-11-19T00:19:49.3694633Z 00:04 +57 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3715820Z 00:04 +58 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3741522Z 00:04 +58 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion el token se renueva solo antes de vencer
+2026-11-19T00:19:49.3742594Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:19:49.3760316Z 00:04 +59 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3801559Z 00:04 +60 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3825482Z 00:04 +61 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3847269Z 00:04 +62 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3880768Z 00:04 +62 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion cerrar sesión borra el token guardado
+2026-11-19T00:19:49.3881576Z [Cuenta] inicio_sesion · a***m@bw.test
+2026-11-19T00:19:49.3889813Z [Cuenta] cierre_sesion · a***m@bw.test
+2026-11-19T00:19:49.3897562Z 00:04 +63 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3924293Z 00:04 +63 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion crear cuenta con sesión inmediata
+2026-11-19T00:19:49.3926954Z [Cuenta] cuenta_creada · n***o@bw.test
+2026-11-19T00:19:49.3928265Z 00:04 +64 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3952094Z 00:04 +64 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Sesion crear cuenta si Supabase pide confirmar el correo, no entra
+2026-11-19T00:19:49.3953517Z [Cuenta] cuenta_creada · c***r@bw.test
+2026-11-19T00:19:49.3955224Z 00:04 +65 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3978986Z 00:04 +66 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.3998047Z 00:04 +67 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:49.4032292Z BENCH buscarPosts n=5000 consulta="retro" mediana=301.446 ms
+2026-11-19T00:19:50.2108999Z 00:05 +68 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2172819Z 00:05 +69 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2207875Z 00:05 +70 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2258186Z 00:05 +71 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2295354Z 00:05 +72 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2322395Z 00:05 +73 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2688494Z 00:05 +74 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.2818593Z 00:05 +75 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.8886652Z 00:05 +76 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.8931726Z 00:05 +77 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.8961885Z 00:05 +78 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9007661Z 00:05 +79 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9049548Z 00:05 +80 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9080484Z 00:05 +81 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9097885Z 00:05 +82 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9115053Z 00:05 +83 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9468037Z 00:05 +84 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9548906Z 00:05 +85 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9632311Z 00:05 +86 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9722728Z 00:05 +87 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9758357Z 00:05 +88 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9806508Z 00:05 +89 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9841883Z 00:05 +90 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9868564Z 00:05 +91 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9954215Z 00:05 +92 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:50.9984321Z 00:05 +93 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.0013328Z 00:05 +94 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.0054204Z 00:05 +95 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.6825128Z 00:06 +96 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.6846391Z 00:06 +97 -2: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.6919048Z 00:06 +97 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.6983970Z 00:06 +97 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P3 · demasiado larga (límite: 72 pasa, 73 falla) [E]
+2026-11-19T00:19:51.6985177Z   Expected: contains 'Máximo 72'
+2026-11-19T00:19:51.6985519Z     Actual: <null>
+2026-11-19T00:19:51.6985867Z      Which: is not a string, map or iterable
+2026-11-19T00:19:51.6986233Z   
+2026-11-19T00:19:51.6986568Z   package:matcher                                     expect
+2026-11-19T00:19:51.6987254Z   package:flutter_test/src/widget_tester.dart 473:18  expect
+2026-11-19T00:19:51.6987812Z   test/whitebox_test.dart 64:7                        main.<fn>.<fn>
+2026-11-19T00:19:51.6988268Z   
+2026-11-19T00:19:51.7008889Z 00:06 +98 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7023959Z 00:06 +99 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7039285Z 00:06 +100 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7055359Z 00:06 +101 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7073198Z 00:06 +102 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7088209Z 00:06 +103 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7108416Z 00:06 +104 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7125188Z 00:06 +105 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7147481Z 00:06 +106 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7165422Z 00:06 +107 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7181003Z 00:06 +108 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7196385Z 00:06 +109 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7212161Z 00:06 +110 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7228352Z 00:06 +111 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7366636Z 00:06 +112 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7393161Z 00:06 +113 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7419050Z 00:06 +114 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7443713Z 00:06 +115 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7469815Z 00:06 +116 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7500075Z 00:06 +117 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7530416Z 00:06 +118 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7555355Z 00:06 +119 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7606457Z 00:06 +120 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7627659Z 00:06 +121 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7733334Z 00:06 +122 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7765166Z 00:06 +123 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7807854Z 00:06 +124 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7864558Z 00:06 +125 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7902553Z 00:06 +126 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7937316Z 00:06 +127 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.7976469Z 00:06 +128 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8014933Z 00:06 +129 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8043378Z 00:06 +130 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8073802Z 00:06 +131 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8096435Z 00:06 +132 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8142193Z 00:06 +133 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8161102Z 00:06 +134 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8199044Z 00:06 +135 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8218094Z 00:06 +136 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8241655Z 00:06 +137 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8290739Z 00:06 +138 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8305353Z 00:06 +139 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8328387Z 00:06 +140 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8344487Z 00:06 +141 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:51.8380933Z 00:06 +142 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4113958Z 00:07 +143 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4243184Z 00:07 +144 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4290982Z 00:07 +145 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4330354Z 00:07 +146 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4350284Z 00:07 +147 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4418948Z 00:07 +148 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4456518Z 00:07 +149 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4485359Z 00:07 +150 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:52.4519795Z 00:07 +151 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:54.0057860Z 00:08 +152 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:54.9295382Z 00:09 +153 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:54.9386116Z 00:09 +154 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:54.9430867Z 00:09 +155 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:54.9465599Z 00:09 +156 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:54.9512655Z 00:09 +157 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:55.4529974Z 00:10 +158 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:55.4969105Z 00:10 +159 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:56.0994282Z 00:11 +160 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:56.1016660Z 00:11 +161 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:56.1033590Z 00:11 +162 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:56.1054386Z 00:11 +163 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:19:56.1090217Z 00:11 +164 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH búsqueda en el cliente (buscarPosts) según el número de noticias
+2026-11-19T00:20:13.8865917Z BENCH buscarPosts n=50000 consulta="retro" mediana=2376.286 ms
+2026-11-19T00:20:13.8880668Z 00:28 +165 -3: /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/benchmark_p12_test.dart: BENCH decodificar la respuesta de GET /api/posts: lista completa vs primera página
+2026-11-19T00:20:13.9022990Z BENCH decodificar n=50 bytes=38051 mediana=0.212 ms
+2026-11-19T00:20:14.1198088Z BENCH decodificar n=4500 bytes=3450871 mediana=12.604 ms
+2026-11-19T00:20:14.1361000Z 00:29 +166 -3: Some tests failed.
+2026-11-19T00:20:14.1368573Z 
+2026-11-19T00:20:14.1368790Z Failing tests:
+2026-11-19T00:20:14.1370591Z   /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/automatizacion/aut_unitarias_test.dart: AUT-01 · Validar (inicio de sesión y registro) AUT-01c fuera de rango: contraseña nueva de 7 falla y de 8 pasa; de 72 pasa y de 73 falla
+2026-11-19T00:20:14.1372862Z   /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/cuenta_test.dart: Validar contraseña al entrar: sólo obligatoria y con tope; los espacios cuentan
+2026-11-19T00:20:14.1374547Z   /home/runner/work/babywolf-ecosystem/babywolf-ecosystem/phone_app/test/whitebox_test.dart: M1 Validar.contrasenaNueva P3 · demasiado larga (límite: 72 pasa, 73 falla)
+2026-11-19T00:20:14.2020887Z ##[error]Process completed with exit code 1.
+2026-11-19T00:20:14.2062230Z ##[group]Run python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+2026-11-19T00:20:14.2062596Z [36;1mpython3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"[0m
+2026-11-19T00:20:14.2062853Z [36;1mimport json, os[0m
+2026-11-19T00:20:14.2063055Z [36;1mok = fail = 0[0m
+2026-11-19T00:20:14.2063295Z [36;1mif os.path.exists('resultados_pruebas.json'):[0m
+2026-11-19T00:20:14.2063627Z [36;1m    for linea in open('resultados_pruebas.json'):[0m
+2026-11-19T00:20:14.2063884Z [36;1m        try:[0m
+2026-11-19T00:20:14.2064081Z [36;1m            e = json.loads(linea)[0m
+2026-11-19T00:20:14.2064323Z [36;1m        except ValueError:[0m
+2026-11-19T00:20:14.2064544Z [36;1m            continue[0m
+2026-11-19T00:20:14.2064810Z [36;1m        if e.get('type') == 'testDone' and not e.get('hidden'):[0m
+2026-11-19T00:20:14.2065097Z [36;1m            if e.get('skipped'):[0m
+2026-11-19T00:20:14.2065321Z [36;1m                continue[0m
+2026-11-19T00:20:14.2065577Z [36;1m            if e.get('result') == 'success':[0m
+2026-11-19T00:20:14.2065825Z [36;1m                ok += 1[0m
+2026-11-19T00:20:14.2066027Z [36;1m            else:[0m
+2026-11-19T00:20:14.2066227Z [36;1m                fail += 1[0m
+2026-11-19T00:20:14.2066500Z [36;1mprint(f"### Pruebas\n- Aprobadas: {ok}\n- Fallidas: {fail}")[0m
+2026-11-19T00:20:14.2067004Z [36;1mPY[0m
+2026-11-19T00:20:14.2110412Z shell: /usr/bin/bash -e {0}
+2026-11-19T00:20:14.2110628Z env:
+2026-11-19T00:20:14.2110880Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:20:14.2111195Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:20:14.2111425Z ##[endgroup]
+2026-11-19T00:20:14.2391654Z ##[group]Run actions/upload-artifact@v4
+2026-11-19T00:20:14.2391889Z with:
+2026-11-19T00:20:14.2392071Z   name: resultados-pruebas
+2026-11-19T00:20:14.2392294Z   path: phone_app/resultados_pruebas.json
+2026-11-19T00:20:14.2392532Z   if-no-files-found: warn
+2026-11-19T00:20:14.2392745Z   compression-level: 6
+2026-11-19T00:20:14.2392936Z   overwrite: false
+2026-11-19T00:20:14.2393123Z   include-hidden-files: false
+2026-11-19T00:20:14.2393327Z env:
+2026-11-19T00:20:14.2393565Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.47.9-x64/flutter
+2026-11-19T00:20:14.2393877Z   PUB_CACHE: /home/runner/.pub-cache
+2026-11-19T00:20:14.2394093Z ##[endgroup]
+2026-11-19T00:20:14.3751297Z (node:2969) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-19T00:20:14.3752055Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-19T00:20:14.3788737Z With the provided path, there will be 1 file uploaded
+2026-11-19T00:20:14.3831988Z Artifact name is valid!
+2026-11-19T00:20:14.3832476Z Root directory input is valid!
+2026-11-19T00:20:14.5897030Z Beginning upload of artifact content to blob storage
+2026-11-19T00:20:14.6051017Z (node:2969) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-19T00:20:14.6264348Z Uploaded bytes 11767
+2026-11-19T00:20:14.6384571Z Finished uploading artifact content to blob storage!
+2026-11-19T00:20:14.6385335Z SHA256 digest of uploaded artifact zip is ca0977a48077a2289f125dfb60e9143b08300a1f5550fc0a50b36d193999124f
+2026-11-19T00:20:14.6387042Z Finalizing artifact upload
+2026-11-19T00:20:14.9599053Z Artifact resultados-pruebas.zip successfully finalized. Artifact ID 14485312131
+2026-11-19T00:20:14.9599760Z Artifact resultados-pruebas has been successfully uploaded! Final size is 11767 bytes. Artifact ID is 14485312131
+2026-11-19T00:20:14.9606343Z Artifact download URL: https://github.com/luuboon/babywolf-ecosystem/actions/runs/44428003533/artifacts/14485312131
+2026-11-19T00:20:14.9851561Z Post job cleanup.
+2026-11-19T00:20:14.9854785Z ##[start-action display=Cache pub dependencies;id=__67127f81-678e-4d06-a14b-f587441774a6.cache-pub]
+2026-11-19T00:20:14.9856525Z ##[end-action id=__67127f81-678e-4d06-a14b-f587441774a6.cache-pub;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-19T00:20:14.9858214Z ##[start-action display=Cache Flutter;id=__67127f81-678e-4d06-a14b-f587441774a6.cache-flutter]
+2026-11-19T00:20:14.9859693Z ##[end-action id=__67127f81-678e-4d06-a14b-f587441774a6.cache-flutter;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-19T00:20:14.9911993Z Post job cleanup.
+2026-11-19T00:20:15.0592483Z [command]/usr/bin/git version
+2026-11-19T00:20:15.0634495Z git version 2.56.1
+2026-11-19T00:20:15.0668161Z Temporarily overriding HOME='/home/runner/work/_temp/e72d42f1-e798-43f7-ba07-65c578ebb339' before making global git config changes
+2026-11-19T00:20:15.0668888Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-19T00:20:15.0672847Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/babywolf-ecosystem/babywolf-ecosystem
+2026-11-19T00:20:15.0708125Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-19T00:20:15.0741776Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-19T00:20:15.1008209Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-19T00:20:15.1030502Z http.https://github.com/.extraheader
+2026-11-19T00:20:15.1040170Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-19T00:20:15.1071616Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-19T00:20:15.1341464Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-19T00:20:15.1376737Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-19T00:20:15.1776722Z Cleaning up orphan processes
+2026-11-19T00:20:15.2063658Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
