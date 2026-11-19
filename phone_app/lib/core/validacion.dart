@@ -9,7 +9,7 @@ class Validar {
 
   static const maxCorreo = 120;
   static const minContrasenaNueva = 8;
-  static const maxContrasena = 72; // límite de bcrypt en Supabase Auth
+  static const maxContrasena = 100; // límite de bcrypt en Supabase Auth
   static const minApodo = 3;
   static const maxApodo = 20;
 
