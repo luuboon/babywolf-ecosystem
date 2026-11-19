@@ -40,6 +40,10 @@ jobs:
       - name: Flutter
         uses: subosito/flutter-action@v2
         with:
+          # Versión fijada: la misma con la que se desarrolló y se probó la app.
+          # Con 'stable' el primer run falló porque Flutter 3.50.0 marca como
+          # obsoleto material.dart (22 avisos de análisis que no existen en 3.47.9).
+          flutter-version: '3.47.9'
           channel: stable
           cache: true
 

@@ -9,7 +9,6 @@
 // Riesgos previos que previenen: D-06 (JSON roto con 200), P12-D01 (escritura
 // que siempre devuelve 500), RES-07 (reintento que duplica un comentario).
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
